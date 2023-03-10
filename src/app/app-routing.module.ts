@@ -26,8 +26,7 @@ const routes: Routes = [
       { path: 'Client', title: 'TruLyf | Client Login', component: ClientComponent },
       { path: 'Agent', title: 'TruLyf | Agent Login', component: AgentComponent },
       { path: 'Company', title: 'TruLyf | Company Login', component: CompanyComponent },
-      { path: '', title: 'TruLyf | Client Login', redirectTo: 'Client', pathMatch: 'full' },
-      { path: '**', component : ErrorComponent }
+      { path: '', title: 'TruLyf | Client Login', redirectTo: 'Client', pathMatch: 'full' }
     ]
   },
   { path: '', title: 'TruLyf | Home', redirectTo: 'Home', pathMatch: 'full' },
