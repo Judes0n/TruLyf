@@ -1,0 +1,27 @@
+<div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 4cm;">
+  <div class="container">
+      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+  </div>
+</div>
+<form [formGroup]='reactiveForm' class="form" (ngSubmit)="Signin()">
+  <h1 class="text-center">COMPANY SIGN IN</h1>
+  <!-- Progress bar -->
+  <!-- Steps -->
+  <div class="form-step form-step-active">
+    <div class="input-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" formControlName="userName" />
+      <div><span style="color: red;" *ngIf="!reactiveForm.get('userName').valid&&reactiveForm.get('userName').touched" >Invalid Username</span></div>
+    </div>
+    <div class="input-group">
+      <label for="position">Password</label>
+      <input type="password" name="password" id="password" formControlName="password" />
+    </div>
+    <div class="">
+      <button class="btn btn-next width-50 ml-auto">SIGN IN</button>
+    </div>
+  </div>
+  <h6 style="padding-top: 0.2cm; padding-left: 11.2cm;" class="text" ></h6>
+</form>
+
+
