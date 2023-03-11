@@ -1,4 +1,4 @@
-import { Component, OnInit ,Inject } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import {FormGroup,FormControl ,Validators} from '@angular/forms'
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ClientComponent implements OnInit {
   reactiveForm : FormGroup;
+  // radioButtonGroup : FormGroup;
   userName : string;
   password : string;
   /**
