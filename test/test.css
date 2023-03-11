@@ -1,0 +1,18 @@
+.card
+{
+  max-width: fit-content;
+  max-height: fit-content;
+  margin-top: 10cm;
+  padding-left: 20cm;
+  padding-right: 20cm;
+  margin-bottom: 10cm;
+  border-radius: 5cm;
+  border-color: black;
+  border-width: 2px;
+  background-color:darkviolet;
+}
+.form-control
+{
+  border-radius: 2px;
+  border-color: black;
+}
