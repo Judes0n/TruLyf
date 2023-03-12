@@ -27,6 +27,7 @@ export class ClientComponent implements OnInit {
       userName : new FormControl(null,Validators.required),
       password : new FormControl(null,Validators.required)
     });
+
   }
   Signin()
   {
@@ -42,5 +43,17 @@ export class ClientComponent implements OnInit {
   radioValueChange(value : string)
   {
     this.radioValue = value;
+    if(value == 'Agent')
+    {
+    document.getElementById("imgField").style.background="linear-gradient(160deg, #f12711, #f5af19)";
+    }
+    else if(value == 'Company')
+    {
+     document.getElementById("imgField").style.background="linear-gradient(130deg, #ed213a, #93291e)";
+    }
+    else
+    {
+     document.getElementById("imgField").style.background="linear-gradient(160deg, #0093e9 0%, #80d0c7 100%)";
+    }
   }
 }

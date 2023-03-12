@@ -19,7 +19,7 @@
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
 }
 .side-image {
-  background-color: #0093e9;
+  /* background-color: #0093e9; */
   background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
   background-position: center;
   background-size: cover;
@@ -57,6 +57,7 @@ i {
   font-weight: 700;
   text-align: center;
   margin-bottom: 45px;
+  font-size: 24px;
 }
 .input-field {
   display: flex;
@@ -87,12 +88,12 @@ i {
 }
 .input-field .input:valid ~ label {
   top: -10px;
-  font-size: 13px;
-  color: #151417;
+  font-size: 15px;
+  color: #050506;
 }
 .input-field .input:focus,
 .input-field .input:valid {
-  border-bottom: 1px solid #743ae1;
+  border-bottom: 1px solid #8f7bb4;
 }
 .submit {
   border: none;
@@ -114,22 +115,22 @@ i {
 span a {
   text-decoration: none;
   font-weight: 700;
-  color: #000;
+  color: #ffffff;
   transition: 0.5s;
 }
 span a:hover {
   text-decoration: underline;
-  color: #000;
+  color: #5b5959a7;
 }
 label input {
   position: absolute;
   left: -9999px;
 }
 label input:checked + span {
-  background-color: #d6d6e5bc;
+  background-color: #ccc7c790;
 }
 label input:checked + span:before {
-  box-shadow: inset 0 0 0 0.4375em #00005c;
+  box-shadow: inset 0 0 0 0.4375em #000000;
 }
 label span {
   display: flex;
@@ -137,21 +138,22 @@ label span {
   padding: 0.375em 0.75em 0.375em 0.375em;
   border-radius: 99em;
   transition: 0.25s ease;
+  color: #ffffffc6;
 }
 label span:hover {
-  background-color: #1c1616;
+  background-color: #c7baba;
 }
 label span:before {
   display: flex;
   flex-shrink: 0;
   content: "";
-  background-color: #fbf3f3;
+  background-color: #e4f5e6eb;
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
   margin-right: 0.375em;
   transition: 0.25s ease;
-  box-shadow: inset 0 0 0 0.125em #010112;
+  box-shadow: inset 0 0 0 0.125em #000000;
 }
 
 .container #r {
@@ -177,8 +179,8 @@ label span:before {
     left: 47%;
   }
   .text {
-    position: absolute;
-    top: 70%;
+    position: inherit;
+    top: 50%;
     text-align: center;
   }
   .text p,

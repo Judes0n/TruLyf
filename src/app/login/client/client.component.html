@@ -5,7 +5,7 @@
 </div>
   <div class="container main">
       <div class="row">
-          <div class="col-md-6 side-image">
+          <div class="col-md-6 side-image" id="imgField">
               <!-------Image-------->
 
               <div class="text">
@@ -13,15 +13,15 @@
                   <!-- [formGroup]="radioButtonGroup" -->
                   <form >
                     <label>
-                      <input type="radio" name="radio" value="Client" ngModel="radioValue" ngModelChange="radioValueChange($event)" checked/>
+                      <input type="radio" name="radio" value="Client" (click)="radioValueChange('Client')"  checked/>
                       <span>Client</span>
                     </label>
                     <label>
-                      <input type="radio" name="radio" value="Agent"/>
+                      <input type="radio" name="radio" value="Agent" (click)="radioValueChange('Agent')"/>
                       <span>Agent</span>
                     </label>
                     <label>
-                      <input type="radio" name="radio" value="Company"/>
+                      <input type="radio" name="radio" value="Company" (click)="radioValueChange('Company')"/>
                       <span>Company</span>
                     </label>
                   </form>
@@ -33,17 +33,16 @@
                   <header>Login</header>
                   <form [formGroup]="reactiveForm" (ngSubmit)="Signin()">
                   <div class="input-field">
-                      <input type="text" class="input" id="email" formControlName="userName"  autocomplete="off">
-                      <label for="username">Username:</label>
+                      <input type="text" class="input" id="email" value="{{radioValue}}" formControlName="userName" autocomplete="off">
+                      <label for="username">Username</label>
                   </div>
                   <div class="input-field">
                       <input type="password" class="input" id="password" formControlName="password"  autocomplete="off">
                       <label for="password">Password</label>
                   </div>
                   <div class="input-field">
-                      <input type="submit" class="submit" value="Sign Up">
+                      <input type="submit" class="submit" value="Sign In">
                   </div>
-
                 </form>
                   <div class="signin">
                       <span>Not Registered? <a href="#">Sign Up here</a></span>
@@ -52,5 +51,4 @@
           </div>
       </div>
   </div>
-  {{radioValue}}
 
