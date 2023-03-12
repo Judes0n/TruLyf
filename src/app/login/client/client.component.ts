@@ -1,6 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
 import {FormGroup,FormControl ,Validators} from '@angular/forms'
 import { Router } from '@angular/router';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-client',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ClientComponent implements OnInit {
   reactiveForm : FormGroup;
+  radioValue : string;
   // radioButtonGroup : FormGroup;
   userName : string;
   password : string;
@@ -36,5 +38,9 @@ export class ClientComponent implements OnInit {
     {
       console.log("Invalid");
     }
+  }
+  radioValueChange(value : string)
+  {
+    this.radioValue = value;
   }
 }

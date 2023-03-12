@@ -13,15 +13,15 @@
                   <!-- [formGroup]="radioButtonGroup" -->
                   <form >
                     <label>
-                      <input type="radio" name="radio" checked/>
+                      <input type="radio" name="radio" value="Client" ngModel="radioValue" ngModelChange="radioValueChange($event)" checked/>
                       <span>Client</span>
                     </label>
                     <label>
-                      <input type="radio" name="radio"/>
+                      <input type="radio" name="radio" value="Agent"/>
                       <span>Agent</span>
                     </label>
                     <label>
-                      <input type="radio" name="radio"/>
+                      <input type="radio" name="radio" value="Company"/>
                       <span>Company</span>
                     </label>
                   </form>
@@ -33,8 +33,8 @@
                   <header>Login</header>
                   <form [formGroup]="reactiveForm" (ngSubmit)="Signin()">
                   <div class="input-field">
-                      <input type="text" class="input" id="email" formControlName="userName" autocomplete="off">
-                      <label for="username">Username</label>
+                      <input type="text" class="input" id="email" formControlName="userName"  autocomplete="off">
+                      <label for="username">Username:</label>
                   </div>
                   <div class="input-field">
                       <input type="password" class="input" id="password" formControlName="password"  autocomplete="off">
@@ -43,6 +43,7 @@
                   <div class="input-field">
                       <input type="submit" class="submit" value="Sign Up">
                   </div>
+
                 </form>
                   <div class="signin">
                       <span>Not Registered? <a href="#">Sign Up here</a></span>
@@ -51,4 +52,5 @@
           </div>
       </div>
   </div>
+  {{radioValue}}
 
