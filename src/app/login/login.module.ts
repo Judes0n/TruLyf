@@ -6,6 +6,7 @@ import { CompanyComponent } from "./company/company.component";
 import {  RouterModule } from "@angular/router";
 import { LoginComponent } from "./login.component";
 import { ReactiveFormsModule,FormsModule } from "@angular/forms";
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ReactiveFormsModule,FormsModule } from "@angular/forms";
     AgentComponent,
     CompanyComponent,
     LoginComponent,
+    UserComponent,
   ],
   imports : [
     CommonModule,

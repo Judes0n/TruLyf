@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+//Actor Home Components
+import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
+import { ClienthomeComponent } from './client/clienthome/clienthome.component';
+import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
+//Login Components
 import { AgentComponent } from './login/agent/agent.component';
 import { ClientComponent } from './login/client/client.component';
 import { CompanyComponent } from './login/company/company.component';
 import { LoginComponent } from './login/login.component';
+import { UserComponent } from './login/user/user.component';
+//Pages Components
 import { AboutComponent } from './pages/about/about.component';
-
 import { ContactComponent } from './pages/contact/contact.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { FeaturesComponent } from './pages/features/features.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SigninComponent } from './pages/signin/signin.component';
-import { SignupComponent } from './pages/signup/signup.component';
+
 
 const routes: Routes = [
 
@@ -19,14 +24,16 @@ const routes: Routes = [
   { path: 'About', title: 'TruLyf | About', component: AboutComponent },
   { path: 'Contact', title: 'TruLyf | Contact', component: ContactComponent },
   { path: 'Features', title: 'TruLyf | Features', component: FeaturesComponent },
-  { path: 'SignUp', title: 'TruLyf | Sign Up', component: SignupComponent },
-  { path: 'SignIn', title: 'TruLyf | Sign In', component: SigninComponent },
+  { path: 'ClientHome', title: 'TruLyf | Client Home', component: ClienthomeComponent },
+  { path: 'AgentHome', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
+  { path: 'CompanyHome', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
   {
     path: 'Login', component: LoginComponent, children: [
-      { path: 'Client', title: 'TruLyf | Client Login', component: ClientComponent },
-      { path: 'Agent', title: 'TruLyf | Agent Login', component: AgentComponent },
-      { path: 'Company', title: 'TruLyf | Company Login', component: CompanyComponent },
-      { path: '', title: 'TruLyf | Client Login', redirectTo: 'Client', pathMatch: 'full' }
+      { path: 'User', title: 'TruLyf | User Login', component: UserComponent },
+      { path: 'Client', title: 'TruLyf | Client Registration', component: ClientComponent },
+      { path: 'Agent', title: 'TruLyf | Agent Registration', component: AgentComponent },
+      { path: 'Company', title: 'TruLyf | Company Registration', component: CompanyComponent },
+      { path: '', title: 'TruLyf | User Login', redirectTo: 'User', pathMatch: 'full' }
     ]
   },
   { path: '', title: 'TruLyf | Home', redirectTo: 'Home', pathMatch: 'full' },
