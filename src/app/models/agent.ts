@@ -1,13 +1,15 @@
 import { StatusEnum } from '../enum/user-status-enum';
 
-export interface Client {
-  clientID: number;
+export interface Agent {
+  agentID: number;
   userID: number;
-  clientName: string;
+  agentName: string;
   gender: string;
-  dob: string;
-  address: string;
-  profilePic: string;
   phoneNum: number;
+  dob: string;
+  email: string;
+  address: string;
+  grade: number;
+  profilePic: string;
   status: StatusEnum;
 }
