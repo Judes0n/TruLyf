@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'About', title: 'TruLyf | About', component: AboutComponent },
   { path: 'Contact', title: 'TruLyf | Contact', component: ContactComponent },
   { path: 'Features', title: 'TruLyf | Features', component: FeaturesComponent },
+  //Home Paths
   { path: 'Home/:clientName', title: 'TruLyf | Client Home', component: ClienthomeComponent },
   { path: 'Home/:agentName', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
   { path: 'Home/:companyName', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
