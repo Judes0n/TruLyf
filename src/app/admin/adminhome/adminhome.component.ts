@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpProviderService } from '../../services/http-provider.service';
+
 
 @Component({
   selector: 'app-adminhome',

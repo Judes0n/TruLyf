@@ -13,13 +13,13 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FeaturesComponent } from './pages/features/features.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { SignupComponent } from './pages/signup/signup.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { ClienthomeComponent } from './client/clienthome/clienthome.component';
 import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 import { LoginModule } from './login/login.module';
+import { UserService } from './services/User/user.service';
 
 
 @NgModule({
@@ -32,7 +32,6 @@ import { LoginModule } from './login/login.module';
     ContactComponent,
     FeaturesComponent,
     ErrorComponent,
-    SignupComponent,
     SigninComponent,
     AdminhomeComponent,
     ClienthomeComponent,
@@ -47,7 +46,7 @@ import { LoginModule } from './login/login.module';
     HttpClientModule,
     LoginModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
