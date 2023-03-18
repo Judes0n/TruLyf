@@ -26,11 +26,24 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a routerLink="/Home" routerLinkActive="active current" class="nav-item nav-link active">Home</a>
-                <a routerLink="/About"routerLinkActive="active current" class="nav-item nav-link">About</a>
-                <a routerLink="/Features" routerLinkActive="active current" class="nav-item nav-link">Features</a>
-                <a routerLink="/Contact" routerLinkActive="active current" class="nav-item nav-link">Contact</a>
-                <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link active">SignIn / SignUp</a>
+                <a routerLink="/Home" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role===null ; else elseHome">Home</a>
+                <ng-template #elseHome>
+                  <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='client'">Home</a>
+                  <a routerLink="/Home/Agent" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='agent'">Home</a>
+                  <a routerLink="/Home/Company" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='company'">Home</a>
+                  <a routerLink="/Home/Admin" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='admin'">Home</a>
+                </ng-template>
+                <a routerLink="/About"routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">About</a>
+                <a routerLink="/Features" routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">Features</a>
+                <a routerLink="/Contact" routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">Contact</a>
+                <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role===null ; else elseAccount" >SignIn / SignUp</a>
+                <ng-template #elseAccount>
+                  <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='client'" >My Account</a>
+                  <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='agent'" >My Account</a>
+                  <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='company'" >My Account</a>
+                  <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='admin'" >Logout</a>
+                </ng-template>
+                <a routerLink="/Home" (click)="logout()" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role!==null" >Logout</a>
             </div>
             <div class="d-none d-lg-flex ms-2">
                 <a class="btn btn-light btn-sm-square rounded-circle ms-3" href="">

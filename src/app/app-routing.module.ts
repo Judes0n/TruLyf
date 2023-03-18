@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 //Actor Home Components
 import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { ClienthomeComponent } from './client/clienthome/clienthome.component';
@@ -25,9 +26,10 @@ const routes: Routes = [
   { path: 'Contact', title: 'TruLyf | Contact', component: ContactComponent },
   { path: 'Features', title: 'TruLyf | Features', component: FeaturesComponent },
   //Home Paths
-  { path: 'Home/:clientName', title: 'TruLyf | Client Home', component: ClienthomeComponent },
-  { path: 'Home/:agentName', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
-  { path: 'Home/:companyName', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
+  { path: 'Home/Client', title: 'TruLyf | Client Home', component: ClienthomeComponent },
+  { path: 'Home/Agent', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
+  { path: 'Home/Company', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
+  { path: 'Home/Admin', title: 'TruLyf | Admin Home', component: AdminhomeComponent },
   {
     path: 'Login', component: LoginComponent, children: [
       { path: 'User', title: 'TruLyf | User Login', component: UserComponent },
