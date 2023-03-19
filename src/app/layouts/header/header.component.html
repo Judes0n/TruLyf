@@ -36,7 +36,7 @@
                 <a routerLink="/About"routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">About</a>
                 <a routerLink="/Features" routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">Features</a>
                 <a routerLink="/Contact" routerLinkActive="active current" class="nav-item nav-link" *ngIf="role===null">Contact</a>
-                <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role===null ; else elseAccount" >SignIn / SignUp</a>
+                <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role===null ; else elseAccount" >Login</a>
                 <ng-template #elseAccount>
                   <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='client'" >My Account</a>
                   <a routerLink="/Home/Client" routerLinkActive="active current" class="nav-item nav-link active" *ngIf="role==='agent'" >My Account</a>

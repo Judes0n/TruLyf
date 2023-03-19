@@ -6,11 +6,7 @@ import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { ClienthomeComponent } from './client/clienthome/clienthome.component';
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 //Login Components
-import { AgentComponent } from './login/agent/agent.component';
-import { ClientComponent } from './login/client/client.component';
-import { CompanyComponent } from './login/company/company.component';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './login/user/user.component';
 //Pages Components
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -30,15 +26,7 @@ const routes: Routes = [
   { path: 'Home/Agent', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
   { path: 'Home/Company', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
   { path: 'Home/Admin', title: 'TruLyf | Admin Home', component: AdminhomeComponent },
-  {
-    path: 'Login', component: LoginComponent, children: [
-      { path: 'User', title: 'TruLyf | User Login', component: UserComponent },
-      { path: 'Client', title: 'TruLyf | Client Registration', component: ClientComponent },
-      { path: 'Agent', title: 'TruLyf | Agent Registration', component: AgentComponent },
-      { path: 'Company', title: 'TruLyf | Company Registration', component: CompanyComponent },
-      { path: '', title: 'TruLyf | User Login', redirectTo: 'User', pathMatch: 'full' }
-    ]
-  },
+  { path: 'Login',title : 'TruLyf | Login', component: LoginComponent },
   { path: '', title: 'TruLyf | Home', redirectTo: 'Home', pathMatch: 'full' },
   { path: '**', title: 'TruLyf | 404', component: ErrorComponent }
 ];

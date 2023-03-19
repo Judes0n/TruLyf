@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit{
   {
     this.role = this.readSession('log_role');
   }
+
   readSession(key : string) : string
   {
     return sessionStorage.getItem(key);

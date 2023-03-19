@@ -18,8 +18,8 @@ import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { ClienthomeComponent } from './client/clienthome/clienthome.component';
 import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
-import { LoginModule } from './login/login.module';
 import { UserService } from './services/User/user.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -37,6 +37,7 @@ import { UserService } from './services/User/user.service';
     ClienthomeComponent,
     AgenthomeComponent,
     CompanyhomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,6 @@ import { UserService } from './services/User/user.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    LoginModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
