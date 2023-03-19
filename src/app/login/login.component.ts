@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -10,40 +11,45 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   reactiveForm: FormGroup;
   radioValue: string = 'Client';
+  dbuser : User;
+  user : User;
   constructor(private router: Router){}
-  ngOnInit() {
+  ngOnInit()
+  {
     this.reactiveForm = new FormGroup({
       userName: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     });
   }
-  Signin() {
+  Signin()
+  {
     if (this.radioValue == 'Client') {
-      if (
-        this.reactiveForm.get('userName').value == 'client' &&
-        this.reactiveForm.get('password').value == '12345'
-      ) {
+      if (this.reactiveForm.get('userName').value == 'client' &&this.reactiveForm.get('password').value == '12345')
+        {
         sessionStorage.setItem('log_role', 'client');
         this.router.navigate(['/Home/Client']);
-      } else console.log('Invalid Credentials');
-    } else if (this.radioValue == 'Agent') {
-      if (
-        this.reactiveForm.get('userName').value == 'agent' &&
-        this.reactiveForm.get('password').value == '12345'
-      ) {
+        }
+      else
+        console.log('Invalid Credentials');
+      }
+      else if (this.radioValue == 'Agent') {
+      if (this.reactiveForm.get('userName').value == 'agent' && this.reactiveForm.get('password').value == '12345')
+        {
         sessionStorage.setItem('log_role', 'agent');
         this.router.navigate(['/Home/Agent']);
-      } else console.log('Invalid Credentials');
-    } else if (this.radioValue == 'Company') {
-      if (
-        this.reactiveForm.get('userName').value == 'company' &&
-        this.reactiveForm.get('password').value == '12345'
-      ) {
-        sessionStorage.setItem('log_role', 'company');
-        this.router.navigate(['/Home/Company']);
-      } else console.log('Invalid Credentials');
-    } else console.log('Invalid Credentials');
-  }
+        }
+      else
+         console.log('Invalid Credentials');
+        }
+      else if (this.radioValue == 'Company') {
+        if (this.reactiveForm.get('userName').value == 'company' && this.reactiveForm.get('password').value == '12345') {
+          sessionStorage.setItem('log_role', 'company');
+          this.router.navigate(['/Home/Company']);
+          }
+        else console.log('Invalid Credentials');
+      } else
+      console.log('Invalid Credentials');
+    }
   radioValueChange(value: string) {
     this.radioValue = value;
     if (value == 'Agent') {
