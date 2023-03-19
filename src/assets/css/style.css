@@ -117,7 +117,9 @@ h6,
     font-weight: 500;
     outline: none;
 }
-
+#loginbtn{
+  margin-top: -7.5px;
+}
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link.active {
     color: var(--primary);
@@ -194,7 +196,7 @@ h6,
         position: relative;
         min-height: 450px;
     }
-    
+
     #header-carousel .carousel-item img {
         position: absolute;
         width: 100%;
