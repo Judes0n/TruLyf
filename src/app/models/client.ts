@@ -1,7 +1,7 @@
 import { StatusEnum } from '../enum/user-status-enum';
 
 export interface Client {
-  clientID: number;
+  clientId: number;
   userID: number;
   clientName: string;
   gender: string;
@@ -9,5 +9,6 @@ export interface Client {
   address: string;
   profilePic: string;
   phoneNum: number;
+  email : string;
   status: StatusEnum;
 }

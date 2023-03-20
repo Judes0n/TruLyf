@@ -1,9 +1,9 @@
 export interface Clientpolicy {
-  clientPolicyID: number;
-  clientID: number;
-  policyTermID: number;
+  clientPolicyId: number;
+  clientId: number;
+  policyTermId: number;
   startDate: string;
   expDate: string;
   status: number;
-  agentID: number;
+  agentId: number;
 }

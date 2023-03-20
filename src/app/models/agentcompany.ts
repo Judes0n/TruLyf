@@ -1,4 +1,4 @@
 export interface Agentcompany {
-  agentID: number;
-  companyID: number;
+  agentId: number;
+  companyId: number;
 }

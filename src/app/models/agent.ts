@@ -1,8 +1,8 @@
 import { StatusEnum } from '../enum/user-status-enum';
 
 export interface Agent {
-  agentID: number;
-  userID: number;
+  agentId: number;
+  userId: number;
   agentName: string;
   gender: string;
   phoneNum: number;

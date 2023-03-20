@@ -1,4 +1,4 @@
 export interface Policytype {
-  policytypeID: number;
+  policytypeId: number;
   policytypeName: string;
 }

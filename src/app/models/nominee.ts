@@ -1,6 +1,6 @@
 export interface Nominee {
-  nomineeID: number;
-  clientID: number;
+  nomineeId: number;
+  clientId: number;
   nomineeName: number;
   relation: number;
   address: number;

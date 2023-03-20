@@ -1,6 +1,6 @@
 export interface Maturity {
-  maturityID: number;
-  clientPolicyID: number;
+  maturityId: number;
+  clientPolicyId: number;
   maturityDate: string;
   claimAmount: number;
   startDate: string;

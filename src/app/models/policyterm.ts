@@ -1,6 +1,6 @@
 export interface Policyterm {
-  policyTermID: number;
-  policyID: number;
+  policyTermId: number;
+  policyId: number;
   period: number;
   terms: number;
   premiumAmount: number;

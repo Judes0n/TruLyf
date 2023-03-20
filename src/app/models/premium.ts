@@ -1,6 +1,6 @@
 export interface Premium {
-  premiumID: number;
-  clientPolicyID: number;
+  premiumId: number;
+  clientPolicyId: number;
   dateOfCollection: string;
   penality: number;
 }

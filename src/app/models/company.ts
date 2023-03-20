@@ -1,8 +1,8 @@
 import { StatusEnum } from '../enum/user-status-enum';
 
 export interface Company {
-  companyID: number;
-  userID: number;
+  companyId: number;
+  userId: number;
   companyName: string;
   address: string;
   email: string;

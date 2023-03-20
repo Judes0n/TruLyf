@@ -1,6 +1,6 @@
 export interface Clientdeath {
-  clientDeathID: number;
-  clientPolicyID: number;
+  clientDeathId: number;
+  clientPolicyId: number;
   dod: string;
   startDate: string;
   claimAmount: number;

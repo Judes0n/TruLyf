@@ -13,13 +13,13 @@ import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { FeaturesComponent } from './pages/features/features.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { SigninComponent } from './pages/signin/signin.component';
 import { AdminhomeComponent } from './admin/adminhome/adminhome.component';
 import { ClienthomeComponent } from './client/clienthome/clienthome.component';
 import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 import { UserService } from './services/User/user.service';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 
 @NgModule({
@@ -32,12 +32,12 @@ import { LoginComponent } from './login/login.component';
     ContactComponent,
     FeaturesComponent,
     ErrorComponent,
-    SigninComponent,
     AdminhomeComponent,
     ClienthomeComponent,
     AgenthomeComponent,
     CompanyhomeComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
