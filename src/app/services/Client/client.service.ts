@@ -10,7 +10,7 @@ export class ClientService {
   {
 
   }
-  public clientLogin()
+  public updateClient()
   {
 
   }
