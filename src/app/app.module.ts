@@ -19,7 +19,8 @@ import { AgenthomeComponent } from './agent/agenthome/agenthome.component';
 import { CompanyhomeComponent } from './company/companyhome/companyhome.component';
 import { UserService } from './services/User/user.service';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { RegisterComponent } from './pages/register/register.component';
     AgenthomeComponent,
     CompanyhomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

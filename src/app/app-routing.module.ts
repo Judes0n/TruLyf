@@ -13,7 +13,8 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { FeaturesComponent } from './pages/features/features.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'Home/Agent', title: 'TruLyf | Agent Home', component: AgenthomeComponent },
   { path: 'Home/Company', title: 'TruLyf | Company Home', component: CompanyhomeComponent },
   { path: 'Home/Admin', title: 'TruLyf | Admin Home', component: AdminhomeComponent },
+  { path: 'Profile/:userid',title : 'TruLyf | Profile', component: ProfileComponent },
   { path: 'Register',title : 'TruLyf | Register', component: RegisterComponent },
   { path: 'Login',title : 'TruLyf | Login', component: LoginComponent },
   { path: '', title: 'TruLyf | Home', redirectTo: 'Home', pathMatch: 'full' },

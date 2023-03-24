@@ -8,14 +8,16 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit,OnChanges{
   role : string;
   homeRoute: string;
-  profileRoute: string;
   isLoggedIn : boolean;
+  userid : number;
   constructor(private router : Router,private changedec : ChangeDetectorRef){ }
   ngOnInit() {
+    this.userid = +this.readSession('userID');
     this.AuthUser();
   }
   ngOnChanges(changes : SimpleChanges)
   {
+    this.userid = +this.readSession('userID');
     this.AuthUser();
   }
   readSession(key : string) : string
@@ -25,6 +27,7 @@ export class HeaderComponent implements OnInit,OnChanges{
   AuthUser() : boolean
   {
     this.role = this.readSession('log_role');
+    this.userid = +this.readSession('userID');
     this.SetHomeRoute();
     if(this.role!=null)
       return false;
@@ -43,21 +46,6 @@ export class HeaderComponent implements OnInit,OnChanges{
       case 'admin': this.homeRoute = '/Home/Admin';
         break;
       default: this.homeRoute = '/Home'
-    }
-  }
-  SetProfileRoute()
-  {
-    this.isLoggedIn = this.role === null ? false : true;
-    switch (this.role) {
-      case 'client': this.profileRoute = '/Client/Profile';
-        break;
-      case 'agent': this.profileRoute = '/Agent/Profile';
-        break;
-      case 'company': this.profileRoute = '/Company/Profile';
-        break;
-      case 'admin': this.profileRoute = '/Admin/Profile';
-        break;
-      default: this.profileRoute = '/Error'
     }
   }
   logout()

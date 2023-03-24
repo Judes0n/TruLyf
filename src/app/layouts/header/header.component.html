@@ -34,7 +34,7 @@
               </ng-container>
                 <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link" *ngIf="AuthUser(); else elseAccount"><button id="loginbtn" class="btn btn-primary">Login</button></a>
                 <ng-template #elseAccount>
-                  <a routerLink="{{ profileRoute }}" routerLinkActive="active current" class="nav-item nav-link active">Profile</a>
+                  <a [routerLink]="['/Profile',userid]" routerLinkActive="active current" class="nav-item nav-link active">Profile</a>
                   <a routerLink="/Home" routerLinkActive="active current" class="nav-item nav-link active" (click)="logout()"><button id="loginbtn" class="btn btn-danger">Logout</button></a>
                 </ng-template>
 
