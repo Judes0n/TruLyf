@@ -25,15 +25,13 @@ export class LoginComponent {
   Login()
   {
     this.formuser = {
-      userId : 0,
-      userName : this.reactiveForm.get('userName').value,
-      password : this.reactiveForm.get('password').value,
-      type : UserTypeEnum.Client,
-      status : StatusEnum.Inactive
+    userId : 0,
+    userName : this.reactiveForm.get("userName").value,
+    password : this.reactiveForm.get("password").value,
+    type     : UserTypeEnum.Client,
+    status   : StatusEnum.Inactive
     };
-    switch(this.userservice.login(this.formuser).subscribe())
-    {
-
+   this.userservice.login(this.formuser);
     }
     // if (this.radioValue == 'Client') {
     //   if ( == 'client' && == '12345')
@@ -62,4 +60,4 @@ export class LoginComponent {
     //   } else
     //   console.log('Invalid Credentials');
      }
-}
+

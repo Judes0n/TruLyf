@@ -1,23 +1,23 @@
-import { Component,OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component,OnChanges,OnInit,SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit,OnChanges{
   role : string;
   homeRoute: string;
   profileRoute: string;
   isLoggedIn : boolean;
-  constructor(private router : Router)
-  {
-
-  }
+  constructor(private router : Router,private changedec : ChangeDetectorRef){ }
   ngOnInit() {
     this.AuthUser();
   }
-
+  ngOnChanges(changes : SimpleChanges)
+  {
+    this.AuthUser();
+  }
   readSession(key : string) : string
   {
     return sessionStorage.getItem(key);
@@ -62,6 +62,10 @@ export class HeaderComponent implements OnInit{
   }
   logout()
   {
-    sessionStorage.removeItem('log_role');
+      this.changedec.detectChanges()
+      {
+      sessionStorage.removeItem('log_role');
+      sessionStorage.removeItem('userID');
+      }
   }
 }
