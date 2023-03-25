@@ -1,50 +1,63 @@
 <div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
   <div class="container">
-      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
 <div class="form_wrapper" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-  <div class="form_container" >
+  <div class="form_container">
     <div class="title_container">
       <h2>Responsive Registration Form</h2>
     </div>
     <div class="row clearfix">
       <div class="">
-        <form>
+        <form [formGroup]="regForm" (ngSubmit)="register()">
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+            <input type="text" name="name" placeholder="Full Name" formControlName="name" />
+          </div>
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-            <input type="email" name="email" placeholder="Email" required />
+            <input type="email" name="email" placeholder="Email" formControlName="email" required />
           </div>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-            <input type="password" name="password" placeholder="Password" required />
-          </div>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-            <input type="password" name="password" placeholder="Re-type Password" required />
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+            <input type="text" name="name" placeholder="User Name" formControlName="username" required />
           </div>
           <div class="row clearfix">
             <div class="col_half">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" name="name" placeholder="First Name" />
+              <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input type="password" name="password" placeholder="Password" formControlName="password" required />
               </div>
             </div>
             <div class="col_half">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" name="name" placeholder="Last Name" required />
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input type="password" name="password" placeholder="Re-type Password" formControlName="repassword" required />
               </div>
+            </div>
+            <div *ngIf="regForm.get('password').value!=regForm.get('repassword').value && regForm.get('repassword').touched && regForm.get('password').touched" style="color: red">
+              Passwords do not match
+            </div>
+            <div *ngIf="regForm.get('repassword').hasError('required') && regForm.get('repassword').touched" style="color: red;">
+              Retype password is required
+            </div>
+            <div class="clearfix">
+            <label for="pic" style="font-size: medium;" >Profile Pic:</label>
+            <input id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload" style="margin-left: 2em;">
             </div>
           </div>
-            	<div class="input_field radio_option">
-              <input type="radio" name="radiogroup1" id="rd1">
-              <label for="rd1">Male</label>
-              <input type="radio" name="radiogroup1" id="rd2">
-              <label for="rd2">Female</label>
-              </div>
-            <div class="input_field checkbox_option">
-            	<input type="checkbox" id="cb1">
-    			<label for="cb1">I agree with terms and conditions</label>
-            </div>
-          <input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" />
+          <div class="input_field radio_option">
+            <input type="radio" formControlName="type" value="3" id="rd1">
+            <label for="rd1" style="font-size: small;">Client</label>
+            <input type="radio" formControlName="type" value="2" id="rd2">
+            <label for="rd2" style="font-size: small;">Agent</label>
+            <input type="radio" formControlName="type" value="1" id="rd3">
+            <label for="rd3" style="font-size: small;">Company</label>
+          </div>
+          <div class="input_field checkbox_option">
+            <input type="checkbox" id="cb1" formControlName="checkbox">
+            <label for="cb1">I agree with terms and conditions</label>
+          </div>
+          <input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(regForm.valid &&regForm.get('checkbox').value)" />
         </form>
-        Already Registerd?<a routerLink="/Login"> Login</a>
+        <hr>
+        <div style="margin-left: 15em;">Already Registerd? <a routerLink="/Login"> Login</a></div>
       </div>
     </div>
   </div>

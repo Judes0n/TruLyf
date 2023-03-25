@@ -14,7 +14,7 @@ body {
 
 .form_wrapper {
   background: #fff;
-  width: 400px;
+  width: 500px;
   max-width: 100%;
   box-sizing: border-box;
 
@@ -131,6 +131,10 @@ body {
 .form_wrapper input[type=submit]:focus {
   background: #355EFC;
 }
+.form_wrapper input[type=submit]:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
 .form_wrapper input[type=checkbox], .form_wrapper input[type=radio] {
   border: 0;
   clip: rect(0 0 0 0);
@@ -154,8 +158,8 @@ body {
 .checkbox_option label:before {
   content: "";
   display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
+  width: 1.3em;
+  height: 1.3em;
   margin-right: 0.5em;
   vertical-align: -2px;
   border: 2px solid #cccccc;
@@ -199,8 +203,8 @@ body {
 .radio_option label:before {
   content: "";
   display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
+  width: 1.5em;
+  height: 1.5em;
   margin-right: 0.5em;
   border-radius: 100%;
   vertical-align: -3px;
@@ -250,7 +254,7 @@ body {
 .select_arrow {
   position: absolute;
   top: calc(50% - 4px);
-  right: 15px;
+  right: 5px;
   width: 0;
   height: 0;
   pointer-events: none;

@@ -15,15 +15,13 @@ export class UserService {
   dbuser: Observable<User>;
   constructor(private http: HttpClient, private router: Router) {}
 
-  register(userreq: User): Observable<User> {
-    this.http
-      .post(environment.baseApiUrl + '/api/User/Register', userreq)
-      .subscribe(
+  register(userreq: User ,file : File ): Observable<User> {
+    this.http.post(environment.baseApiUrl + '/api/User/Register', userreq).subscribe(
         (response) => {
           console.log(response);
         },
         (error) => {
-          console.log('Error' + error);
+          console.log('Error:' + JSON.stringify(error));
         }
       );
     return null;
@@ -95,13 +93,23 @@ export class UserService {
   getuser(userName: string) {
     this.http
       .put<User>(environment.baseApiUrl + '/api/User/GetUser', userName)
-      .subscribe(
-        (res) => {
+      .subscribe(res => {
           return res;
         },
-        (error) => {
+        error => {
           console.log('Error:' + error);
         }
       );
+  }
+
+  uploadFile(file : File,type : any) : string{
+    const formData = new FormData();
+    formData.append('pic',file);
+    formData.append('pic',type);
+    var dbpath: string;
+    this.http.post(environment.baseApiUrl+ '/api/User/Upload',formData).subscribe((res : any)=>{
+     dbpath=res;
+    });
+    return dbpath;
   }
 }
