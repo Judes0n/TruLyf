@@ -105,7 +105,7 @@ export class UserService {
   uploadFile(file : File,type : any) : string{
     const formData = new FormData();
     formData.append('pic',file);
-    formData.append('pic',type);
+    formData.append('type',type);
     var dbpath: string;
     this.http.post(environment.baseApiUrl+ '/api/User/Upload',formData).subscribe((res : any)=>{
      dbpath=res;
