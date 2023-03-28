@@ -17,8 +17,17 @@
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
             <input type="email" name="email" placeholder="Email" formControlName="email" required />
           </div>
+          <div class="form-text text-danger" *ngIf="regForm.get('email').hasError('required')&& (regForm.get('email').touched ||regForm.get('email').dirty )" style="color: red">
+            Email is Required
+          </div>
+          <div class="form-text text-danger" *ngIf="regForm.get('email').hasError('pattern')&& (regForm.get('email').touched ||regForm.get('email').dirty )" style="color: red">
+            Invalid Email
+          </div>
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
             <input type="text" name="name" placeholder="User Name" formControlName="username" required />
+          </div>
+          <div class="form-text text-danger" *ngIf="regForm.get('username').hasError('required')&& (regForm.get('username').touched ||regForm.get('username').dirty )" style="color: red">
+            Username is Required
           </div>
           <div class="row clearfix">
             <div class="col_half">
@@ -31,10 +40,10 @@
                 <input type="password" name="password" placeholder="Re-type Password" formControlName="repassword" required />
               </div>
             </div>
-            <div *ngIf="regForm.get('password').value!=regForm.get('repassword').value && regForm.get('repassword').touched && regForm.get('password').touched" style="color: red">
+            <div class="form-text text-danger" *ngIf="regForm.get('password').value!=regForm.get('repassword').value && (regForm.get('repassword').touched || regForm.get('repassword').dirty )&& (regForm.get('password').touched || regForm.get('password').dirty)" >
               Passwords do not match
             </div>
-            <div *ngIf="regForm.get('repassword').hasError('required') && regForm.get('repassword').touched" style="color: red;">
+            <div class="form-text text-danger" *ngIf="regForm.get('repassword').hasError('required') && (regForm.get('repassword').touched || regForm.get('repassword').dirty)">
               Retype password is required
             </div>
             <div class="clearfix">
@@ -49,6 +58,14 @@
             <label for="rd2" style="font-size: small;">Agent</label>
             <input type="radio" formControlName="type" value="1" id="rd3">
             <label for="rd3" style="font-size: small;">Company</label>
+          </div>
+          <div class="input_field radio_option">
+            <input type="radio" formControlName="gender" value="Male" id="rd4">
+            <label for="rd4" style="font-size: small;">Male</label>
+            <input type="radio" formControlName="gender" value="Female" id="rd5">
+            <label for="rd5" style="font-size: small;">Female</label>
+            <input type="radio" formControlName="gender" value="Others" id="rd6">
+            <label for="rd6" style="font-size: small;">Others</label>
           </div>
           <div class="input_field checkbox_option">
             <input type="checkbox" id="cb1" formControlName="checkbox">

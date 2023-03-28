@@ -18,8 +18,8 @@ export class LoginComponent {
   ngOnInit()
   {
     this.reactiveForm = new FormGroup({
-      userName: new FormControl(null, Validators.required),
-      password: new FormControl(null, Validators.required),
+      userName: new FormControl(null,[Validators.required,Validators.minLength(4),Validators.pattern("[a-zA-z].*")]),
+      password: new FormControl(null,[Validators.required,Validators.minLength(4)])
     });
   }
   Login()

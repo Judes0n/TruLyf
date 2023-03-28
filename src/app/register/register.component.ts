@@ -21,8 +21,9 @@ export class RegisterComponent implements OnInit {
       password : new FormControl(null,Validators.required),
       repassword : new FormControl(null,Validators.required),
       name     : new FormControl(null),
-      email    : new FormControl(null,Validators.required),
+      email    : new FormControl(null,[Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
       type     : new FormControl(null,Validators.required),
+      gender   : new FormControl(null,Validators.required),
       checkbox : new FormControl(null,Validators.required),
       upload   : new FormControl(null,Validators.required)
     })
@@ -51,14 +52,14 @@ export class RegisterComponent implements OnInit {
 
   register()
   {
-    var type = this.regForm.get('type').value;
     this.reguser = {
-      userId : 0,
+      userId   : -1,
       userName : this.regForm.get('username').value,
       password : this.regForm.get('password').value,
-      type     : this.regForm.get('type').value,
+      type     : +this.regForm.get('type').value,
       status   : 0
     };
-    this.userservice.register(this.reguser,this.uploadFile);
+    console.log(this.reguser);
+    this.userservice.register(this.reguser,this.uploadFile,this.regForm.get('email').value,this.regForm.get('gender').value);
   }
 }

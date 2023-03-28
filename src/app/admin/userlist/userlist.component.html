@@ -1,0 +1,25 @@
+<div class="container my-5">
+  <h1 class="mb-3">Users</h1>
+  <table class="table table-black" *ngIf="users">
+    <thead>
+      <tr>
+        <th>UserID</th>
+        <th>UserName</th>
+        <th>Password</th>
+        <th>User Type</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.userId }}</td>
+        <td>{{ user.userName }}</td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.type }}</td>
+        <td>{{ user.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!users">No Users Found</p>
+</div>
+

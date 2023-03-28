@@ -26,12 +26,82 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
+              <!-- Home -->
               <a routerLink="{{ homeRoute }}" routerLinkActive="active current" class="nav-item nav-link active">Home</a>
-              <ng-container *ngIf="AuthUser();">
+
+              <ng-container *ngIf="AuthUser(); else admin">
                 <a routerLink="/About"routerLinkActive="active current" class="nav-item nav-link">About</a>
                 <a routerLink="/Features" routerLinkActive="active current" class="nav-item nav-link">Features</a>
                 <a routerLink="/Contact" routerLinkActive="active current" class="nav-item nav-link">Contact</a>
               </ng-container>
+              <!-- Admin Panel -->
+              <ng-template #admin>
+                <ng-container *ngIf="CheckUser()=='admin' else company">
+                  <a routerLink="/Admin/PolicyTypes"routerLinkActive="active current" class="nav-item nav-link">Policy Types</a>
+                  <a routerLink="/Admin/UserList" routerLinkActive="active current" class="nav-item nav-link">User List</a>
+                  <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
+                  <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+                    <div class="dropdown-menu border-light m-0">
+                        <a routerLink="/Admin/View" class="dropdown-item">Policies</a>
+                        <a routerLink="/Admin/View" class="dropdown-item">Mature Policies</a>
+                        <a routerLink="/Admin/View" class="dropdown-item">Feedbacks</a>
+                    </div>
+                </div>
+                </ng-container>
+              </ng-template>
+              <!-- Company Panel -->
+              <ng-template #company>
+                <ng-container *ngIf="CheckUser()=='company' else agent">
+                  <a routerLink="/Company/Policies"routerLinkActive="active current" class="nav-item nav-link">Policies</a>
+                  <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
+                  <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+                    <div class="dropdown-menu border-light m-0">
+                        <a routerLink="/Company/View" class="dropdown-item">Agents</a>
+                        <a routerLink="/Company/View" class="dropdown-item">Policies</a>
+                    </div>
+                </div>
+                </ng-container>
+              </ng-template>
+              <!-- Agent Panel -->
+              <ng-template #agent>
+                <ng-container *ngIf="CheckUser()=='agent' else client">
+                  <a routerLink="/Agent/ClientPolicies"routerLinkActive="active current" class="nav-item nav-link">Client Policies</a>
+                  <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Categorizations</a>
+                    <div class="dropdown-menu border-light m-0">
+                        <a routerLink="/Agent/Category" class="dropdown-item">Client Deaths</a>
+                        <a routerLink="/Agent/Category" class="dropdown-item">Maturity</a>
+                        <a routerLink="/Agent/Category" class="dropdown-item">Premia</a>
+                    </div>
+                </div>
+                  <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+                    <div class="dropdown-menu border-light m-0">
+                        <a routerLink="/Agent/View" class="dropdown-item">Clients</a>
+                        <a routerLink="/Agent/View" class="dropdown-item">Companies</a>
+                        <a routerLink="/Agent/View" class="dropdown-item">Policies</a>
+                    </div>
+                </div>
+                <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
+                </ng-container>
+              </ng-template>
+              <!-- Client Panel -->
+              <ng-template #client>
+                <ng-container *ngIf="CheckUser()=='client'">
+                  <a routerLink="/Client/Policies" routerLinkActive="active current" class="nav-item nav-link">Policies</a>
+                  <a routerLink="/Client/Nominee" routerLinkActive="active current" class="nav-item nav-link">Nominees</a>
+                  <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+                    <div class="dropdown-menu border-light m-0">
+                      <a routerLink="/Client/View" class="dropdown-item">Premia</a>
+                      <a routerLink="/Client/View" class="dropdown-item">Maturity</a>
+                    </div>
+                </div>
+                </ng-container>
+              </ng-template>
+              <!-- Login/Logout -->
                 <a routerLink="/Login" routerLinkActive="active current" class="nav-item nav-link" *ngIf="AuthUser(); else elseAccount"><button id="loginbtn" class="btn btn-primary">Login</button></a>
                 <ng-template #elseAccount>
                   <a [routerLink]="['/Profile',userid]" routerLinkActive="active current" class="nav-item nav-link active">Profile</a>

@@ -21,6 +21,14 @@ import { UserService } from './services/User/user.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProfileComponent } from './profile/profile/profile.component';
+import { PolicytypesComponent } from './admin/policytypes/policytypes.component';
+import { UserlistComponent } from './admin/userlist/userlist.component';
+import { PoliciesComponent } from './company/policies/policies.component';
+import { ClientpoliciesComponent } from './agent/clientpolicies/clientpolicies.component';
+import { CategoryComponent } from './agent/category/category.component';
+import { ReportComponent } from './report/report.component';
+import { NomineeComponent } from './client/nominee/nominee.component';
+import { CPoliciesComponent } from './client/policies/policies.component';
 
 
 @NgModule({
@@ -39,7 +47,16 @@ import { ProfileComponent } from './profile/profile/profile.component';
     CompanyhomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    PolicytypesComponent,
+    UserlistComponent,
+    PoliciesComponent,
+    ClientpoliciesComponent,
+    CategoryComponent,
+    ReportComponent,
+    NomineeComponent,
+    CPoliciesComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

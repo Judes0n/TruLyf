@@ -33,6 +33,22 @@ export class HeaderComponent implements OnInit,OnChanges{
       return false;
     return true;
   }
+  CheckUser() : string
+  {
+    this.role = this.readSession('log_role');
+    switch(this.role)
+    {
+      case 'client': return 'client';
+
+      case 'agent': return 'agent';
+
+      case 'company': return 'company';
+
+      case 'admin': return 'admin';
+
+      default: return 'user'
+    }
+  }
   SetHomeRoute()
   {
     this.isLoggedIn = this.role === null ? false : true;

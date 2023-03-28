@@ -95,6 +95,9 @@ i {
 .input-field .input:valid {
   border-bottom: 1px solid #8f7bb4;
 }
+.input-field .input:invalid {
+  border-bottom: 1px solid #ff0303;
+}
 .submit {
   border: none;
   outline: none;
