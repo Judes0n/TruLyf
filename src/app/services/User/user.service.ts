@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { error, map } from 'jquery';
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment.development';
 export class UserService {
   dbuser: Observable<User>;
   constructor(private http: HttpClient, private router: Router) { }
-
+  //Register
   register(userreq: User, file: File, email: string, gender: string): Observable<User> {
     const formData = new FormData();
     formData.append('pic', file);
@@ -35,7 +35,7 @@ export class UserService {
     );
     return null;
   }
-
+  //Login Function
   login(userreq: User) {
     if (userreq == null) {
       console.log("Request Data is Faulty");
@@ -93,6 +93,7 @@ export class UserService {
       }
     );
   }
+  //FileUpload
   uploadFile(file: File): string {
     const formData = new FormData();
     formData.append('pic', file);
@@ -101,5 +102,22 @@ export class UserService {
       dbpath = res;
     });
     return dbpath;
+  }
+
+  GetUserByName(username : string) : Observable<User>
+  {
+    let queryParams = new HttpParams().append('username',username);
+    this.http.get(environment.baseApiUrl+'/api/User/GetUserByName',{params: queryParams}).subscribe((res)=>{
+      return res;
+    },
+    (error)=>{
+      console.log(JSON.stringify(error));
+    });
+    return null;
+  }
+
+  GetUser(userId : number): Observable<User>{
+    let queryParams = new HttpParams().append('userId',userId);
+    return this.http.get<User>(environment.baseApiUrl+'/api/User/GetUser',{params: queryParams});
   }
 }

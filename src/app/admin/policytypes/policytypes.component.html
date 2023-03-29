@@ -1,1 +1,39 @@
-<p>policytypes works!</p>
+<div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+  <div class="container">
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 >Add Policy Type<hr></h1>
+      <div class="container" style="padding-left: 0cm; padding-right: 1cm;">
+        <form [formGroup]="typeForm" (ngSubmit)="Sub()">
+          <label class="form-label">Policy Type Name:</label>
+          <input type="text" class="form-control" formControlName="typename" placeholder="Enter Type"><br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <h1 >Policy Types<hr></h1>
+      <table class="table table-striped table-dark table-hover table-bordered" *ngIf="ptypes!=null else notype">
+        <thead class="thead-dark">
+          <tr>
+            <th>Policy Type ID</th>
+            <th>Policy Type Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of ptypes">
+            <td>{{ type.policytypeId }}</td>
+            <td>{{ type.policytypeName }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #notype>
+        <p>No Policy Type Found</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

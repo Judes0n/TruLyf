@@ -12,20 +12,23 @@ import { UserService } from 'src/app/services/User/user.service';
 })
 export class AdminhomeComponent implements OnInit {
   users : User[] = [];
-
-  constructor(private adminservice : AdminService) { }
+  adminname : string;
+  constructor(private userservice : UserService) { }
 
   ngOnInit()
   {
-    this.adminservice.getAllUsers()
-    .subscribe({
-      next : (users)=>{
-       this.users = users;
-       console.log(users);
-      },
-      error : (response)=>{
-        console.log(response);
-      }
-    })
+    this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
+      console.log(res);
+      this.adminname = res.userName;
+    });
+  }
+  GetName()
+  {
+
+  }
+
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
   }
 }

@@ -4,7 +4,7 @@
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
                 <h4 class="text-white mb-4">Our Office</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>TruLyf Office,North Paravur,Ernakulam,Kerala India</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>TruLyf Office,<br>North Paravur,Ernakulam</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 987456132</p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>trulyf2002@gmail.com</p>
                 <div class="d-flex pt-2">
@@ -13,7 +13,7 @@
                     <a class="btn btn-square btn-outline-light rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6" *ngIf="AuthUser() else space">
                 <h4 class="text-white mb-4">Services</h4>
                 <a class="btn btn-link" href="#">Financial Planning</a>
                 <a class="btn btn-link" href="#">Cash Investment</a>
@@ -21,15 +21,34 @@
                 <a class="btn btn-link" href="#">Business Loans</a>
                 <a class="btn btn-link" href="#">Business Analysis</a>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <ng-template #space>
+              <div class="col-lg-3 col-md-6">
+
+              </div>
+            </ng-template>
+            <div class="col-lg-3 col-md-6" *ngIf="AuthUser() else adminfooter">
                 <h4 class="text-white mb-4">Quick Links</h4>
                 <a class="btn btn-link" routerLink="/About">About Us</a>
                 <a class="btn btn-link" routerLink="/Contact">Contact Us</a>
                 <a class="btn btn-link" href="#">Terms & Condition</a>
                 <a class="btn btn-link" href="#">Support</a>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-white mb-4">Newsletter</h4>
+
+            <ng-template #adminfooter>
+              <ng-container *ngIf="CheckUser()=='admin'">
+                <div class="col-lg-3 col-md-6">
+                  <h4 class="text-white mb-4">Quick Links</h4>
+                  <a class="btn btn-link" routerLink="/Admin/PolicyTypes">Policy Types</a>
+                  <a class="btn btn-link" routerLink="/Admin/UserList">Users List</a>
+                  <a class="btn btn-link" href="/Admin/View">Views</a>
+                  <a class="btn btn-link" href="/Reports">Reports</a>
+
+              </div>
+              </ng-container>
+            </ng-template>
+
+            <div class="col-lg-3 col-md-6" *ngIf="AuthUser()">
+                <h4 class="text-white mb-4">Newsletter  </h4>
                 <p>Let Us Know You</p>
                 <div class="position-relative w-100">
                     <input class="form-control bg-white border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your Message">
