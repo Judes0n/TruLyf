@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
+import { Feedback } from 'src/app/models/feedback';
+import { Maturity } from 'src/app/models/maturity';
 import { Policy } from 'src/app/models/policy';
 import { Policytype } from 'src/app/models/policytype';
 import { User } from 'src/app/models/user';
@@ -29,11 +31,8 @@ export class AdminService {
 
     this.userservice.GetUser(userId).subscribe((res)=>{
       res.status = StatusEnum.Active;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe(res=>{
-        alert("User Approved");
-      });
+      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe();
     });
-    alert("User Approved");
   }
 
 
@@ -41,11 +40,8 @@ export class AdminService {
   {
     this.userservice.GetUser(userId).subscribe((res)=>{
       res.status=StatusEnum.Blocked;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe(res=>{
-        alert("User Blocked");
-      });
+      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe();
     });
-    alert("User Blocked");
   }
 
   ViewAllTypes() : Observable<Policytype[]>
@@ -56,6 +52,16 @@ export class AdminService {
   ViewAllPolicies() : Observable<Policy[]>
   {
     return this.http.get<Policy[]>(this.baseApiUrl+'/api/Admin/GetAllPolicies');
+  }
+
+  ViewAllMaturities() : Observable<Maturity[]>
+  {
+    return this.http.get<Maturity[]>(this.baseApiUrl+'/api/Admin/GetAllMaturities');
+  }
+
+  ViewFeedbacks() : Observable<Feedback[]>
+  {
+    return this.http.get<Feedback[]>(this.baseApiUrl+'/api/Admin/GetFeedbacks');
   }
 
   AddPolicyType(typeName : string)
@@ -73,4 +79,28 @@ export class AdminService {
     }});
     alert("Policy Type Added");
   }
+
+  ApprovePolicy(policyId : number) : void
+  {
+    let queries = new HttpParams().append('policyId',policyId);
+    this.http.get<Policy>(environment.baseApiUrl,{params: queries}).subscribe((res)=>{
+      res.status = StatusEnum.Active;
+      this.http.put(environment.baseApiUrl+'/api/Admin/ChangePolicyStatus',res).subscribe(res=>{
+        alert("User Approved");
+      });
+    });
+  }
+
+
+  BlockPolicy(policyId : number)
+  {
+    let queries = new HttpParams().append('policyId',policyId);
+    this.http.get<Policy>(environment.baseApiUrl,{params: queries}).subscribe((res)=>{
+      res.status = StatusEnum.Blocked;
+      this.http.put(environment.baseApiUrl+'/api/Admin/ChangePolicyStatus',res).subscribe(res=>{
+        alert("User Approved");
+      });
+    });
+  }
+
 }

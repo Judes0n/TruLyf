@@ -28,10 +28,15 @@ export class UserlistComponent implements OnInit {
 
   Approve(userId : number)
   {
+
     this.adminservice.Approve(userId);
+    alert('User Approved');
+    this.ngOnInit();
   }
   Block(userId : number)
   {
     this.adminservice.Block(userId);
+    alert('User Blocked');
+    this.ngOnInit();
   }
 }

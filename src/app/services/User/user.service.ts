@@ -12,10 +12,10 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class UserService {
-  dbuser: Observable<User>;
   constructor(private http: HttpClient, private router: Router) { }
+
   //Register
-  register(userreq: User, file: File, email: string, gender: string): Observable<User> {
+  register(userreq: User, file: File, email: string, gender: string) {
     const formData = new FormData();
     formData.append('pic', file);
     formData.append('email', email);
@@ -27,14 +27,12 @@ export class UserService {
     }
     this.http.post(environment.baseApiUrl + '/api/User/Register', formData).subscribe(
       (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log('Error:' + JSON.stringify(error));
+        alert("User Registered");
       }
     );
-    return null;
   }
+
+
   //Login Function
   login(userreq: User) {
     if (userreq == null) {
