@@ -30,6 +30,7 @@ import { ReportComponent } from './report/report.component';
 import { NomineeComponent } from './client/nominee/nominee.component';
 import { CPoliciesComponent } from './client/policies/policies.component';
 import { AdminViewComponent } from './admin/view/view.component';
+import { CompanyViewComponent } from './company/view/view.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AdminViewComponent } from './admin/view/view.component';
     NomineeComponent,
     CPoliciesComponent,
     ReportComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    CompanyViewComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,74 @@
-<p>view works!</p>
+<div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+  <div class="container">
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+  </div>
+</div>
+<div class="container-fluid">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Policies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Agents</a>
+    </li>
+  </ul>
+  <div [class.hidden]="choice!=1">
+    <!-- <div class="container my-5">
+      <h1 class="mb-3">Policies</h1>
+      <table class="table table-black" *ngIf="policies==null else nopolicy">
+        <thead>
+          <tr>
+            <th>Policy ID</th>
+            <th>Company ID</th>
+            <th>Policy Type ID</th>
+            <th>Policy Name</th>
+            <th>Time Period</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let policy of policies">
+            <td class="parent-header">{{ policy.policyId }}</td>
+            <td>{{ policy.companyId }}</td>
+            <td>{{ policy.policytypeId }}</td>
+            <td>{{ policy.policyName }}</td>
+            <td>{{ policy.timePeriod }}</td>
+            <td>{{ policy.policyAmount }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nopolicy>
+        <p>No Policy Found</p>
+      </ng-template> -->
+
+    </div>
+  </div>
+  <div [class.hidden]="choice!=2">
+    <!-- <div class="container my-5">
+      <h1 class="mb-3">Mature Policies</h1>
+      <table class="table table-black" *ngIf="maturities==null else nompolicy">
+        <thead>
+          <tr>
+            <th>Maturity ID</th>
+            <th>Client Policy ID</th>
+            <th>Maturity Date</th>
+            <th>Policy Name</th>
+            <th>Claim Amount</th>
+            <th>Start Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let policy of maturities">
+            <td>{{ policy.maturityId }}</td>
+            <td>{{ policy.clientPolicyId }}</td>
+            <td>{{ policy.maturityDate }}</td>
+            <td>{{ policy.claimAmount }}</td>
+            <td>{{ policy.startDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nompolicy>
+        <p>No Mature Policies Found</p>
+      </ng-template> -->
+    </div>
