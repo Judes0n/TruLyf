@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let policy of policies">
-            <td>{{ policy.policyId }}</td>
+            <td class="parent-header">{{ policy.policyId }}</td>
             <td>{{ policy.companyId }}</td>
             <td>{{ policy.policytypeId }}</td>
             <td>{{ policy.policyName }}</td>
@@ -40,6 +40,7 @@
             <td>{{ policy.policyAmount }}</td>
             <td *ngIf="policy.status != 1 else block"><a class="link" (click)="Approve(policy.policyId);this.ngOnInit();"><i
                   class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a></td>
+            <div *ngIf="showpterms(policy.policyId)!=null"><tr class="child-header" *ngFor="let pterm of pterms"><td>{{pterm.terms}}</td><td>{{pterm.premiumAmount}}</td></tr></div>
             <ng-template #block>
               <td *ngIf="policy.status == 1"><a class="link" (click)="Reject(policy.policyId);this.ngOnInit();"><i
                     class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a></td>

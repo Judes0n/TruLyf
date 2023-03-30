@@ -6,6 +6,7 @@ import { StatusEnum } from 'src/app/enum/user-status-enum';
 import { Feedback } from 'src/app/models/feedback';
 import { Maturity } from 'src/app/models/maturity';
 import { Policy } from 'src/app/models/policy';
+import { Policyterm } from 'src/app/models/policyterm';
 import { Policytype } from 'src/app/models/policytype';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment.development';
@@ -62,6 +63,12 @@ export class AdminService {
   ViewFeedbacks() : Observable<Feedback[]>
   {
     return this.http.get<Feedback[]>(this.baseApiUrl+'/api/Admin/GetFeedbacks');
+  }
+
+  ViewPolicyterm(policyId : number): Observable<Policyterm[]>
+  {
+    let prmtrs = new HttpParams().append('policyId',policyId);
+    return this.http.get<Policyterm[]>(this.baseApiUrl+'/api/Admin/GetPolicyTerms',{params: prmtrs});
   }
 
   AddPolicyType(typeName : string)
