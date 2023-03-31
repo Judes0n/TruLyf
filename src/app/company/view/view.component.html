@@ -13,13 +13,12 @@
     </li>
   </ul>
   <div [class.hidden]="choice!=1">
-    <!-- <div class="container my-5">
+    <div class="container my-5">
       <h1 class="mb-3">Policies</h1>
       <table class="table table-black" *ngIf="policies==null else nopolicy">
         <thead>
           <tr>
             <th>Policy ID</th>
-            <th>Company ID</th>
             <th>Policy Type ID</th>
             <th>Policy Name</th>
             <th>Time Period</th>
@@ -29,8 +28,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let policy of policies">
-            <td class="parent-header">{{ policy.policyId }}</td>
-            <td>{{ policy.companyId }}</td>
+            <td>{{ policy.policyId }}</td>
             <td>{{ policy.policytypeId }}</td>
             <td>{{ policy.policyName }}</td>
             <td>{{ policy.timePeriod }}</td>
@@ -39,36 +37,31 @@
         </tbody>
       </table>
       <ng-template #nopolicy>
-        <p>No Policy Found</p>
-      </ng-template> -->
+        <p>No Policy Found With Company Signature</p>
+      </ng-template>
 
     </div>
   </div>
   <div [class.hidden]="choice!=2">
-    <!-- <div class="container my-5">
-      <h1 class="mb-3">Mature Policies</h1>
-      <table class="table table-black" *ngIf="maturities==null else nompolicy">
+    <div class="container my-5">
+      <h1 class="mb-3">Agents</h1>
+      <table class="table table-black" *ngIf="agents==null else noagent">
         <thead>
           <tr>
-            <th>Maturity ID</th>
-            <th>Client Policy ID</th>
-            <th>Maturity Date</th>
-            <th>Policy Name</th>
-            <th>Claim Amount</th>
-            <th>Start Date</th>
+            <th>ID</th>
+            <th>Agent ID</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let policy of maturities">
-            <td>{{ policy.maturityId }}</td>
-            <td>{{ policy.clientPolicyId }}</td>
-            <td>{{ policy.maturityDate }}</td>
-            <td>{{ policy.claimAmount }}</td>
-            <td>{{ policy.startDate }}</td>
+          <tr *ngFor="let agent of agents">
+            <td>{{ agent.id }}</td>
+            <td>{{ agent.agentId }}</td>
+            <td>{{ agent.status }}</td>
           </tr>
         </tbody>
       </table>
-      <ng-template #nompolicy>
-        <p>No Mature Policies Found</p>
-      </ng-template> -->
+      <ng-template #noagent>
+        <p>No Agent Applications Found</p>
+      </ng-template>
     </div>

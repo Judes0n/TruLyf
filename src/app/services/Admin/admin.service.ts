@@ -11,6 +11,7 @@ import { Policytype } from 'src/app/models/policytype';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment.development';
 import { UserService } from '../User/user.service';
+import { Agent } from 'src/app/models/agent';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class AdminService {
    return this.http.get<User[]>(this.baseApiUrl+'/api/User/GetAllUsers');
   }
 
+  getAllAgents() : Observable<Agent[]>
+  {
+    return this.http.get<Agent[]>(environment.baseApiUrl+'/api/Admin/GetAllAgents');
+  }
 
   Approve(userId : number) : void
   {

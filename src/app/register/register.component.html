@@ -57,9 +57,9 @@
             <input type="radio" formControlName="type" value="2" id="rd2">
             <label for="rd2" style="font-size: small;">Agent</label>
             <input type="radio" formControlName="type" value="1" id="rd3">
-            <label for="rd3" style="font-size: small;">Company</label>
+            <label for="rd3" style="font-size: small;" (click)="this.regForm.get('gender').setValue('');">Company</label>
           </div>
-          <div class="input_field radio_option">
+          <div class="input_field radio_option" *ngIf="!(regForm.get('type').value==1)">
             <input type="radio" formControlName="gender" value="Male" id="rd4">
             <label for="rd4" style="font-size: small;">Male</label>
             <input type="radio" formControlName="gender" value="Female" id="rd5">
@@ -71,7 +71,9 @@
             <input type="checkbox" id="cb1" formControlName="checkbox">
             <label for="cb1">I agree with terms and conditions</label>
           </div>
-          <input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(regForm.valid &&regForm.get('checkbox').value)" />
+          <input *ngIf="regForm.get('type').value==1 else nocom" class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
+          <ng-template #nocom><input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(regForm.valid &&regForm.get('checkbox').value)" /></ng-template>
+
         </form>
         <hr>
         <div style="margin-left: 15em;">Already Registerd? <a routerLink="/Login"> Login</a></div>

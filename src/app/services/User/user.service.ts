@@ -19,7 +19,10 @@ export class UserService {
     const formData = new FormData();
     formData.append('pic', file);
     formData.append('email', email);
+    if(userreq.type != 1)
+    {
     formData.append('gender', gender);
+    }
     for (const key in userreq) {
       if (userreq.hasOwnProperty(key)) {
         formData.append(key, userreq[key]);

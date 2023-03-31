@@ -18,8 +18,13 @@ import { environment } from 'src/environments/environment.development';
 })
 export class PoliciesComponent implements OnInit {
   policyForm : FormGroup;
+  policytermForm : FormGroup;
+  choice : number;
   ptypes : Policytype[] = [];
   policy : Policy;
+  policies : Policy[] = [];
+  premiumAmount : number;
+  fullperiod : number;
   constructor(private adminservice : AdminService,private companyservice : CompanyService){}
 
   ngOnInit(): void {
@@ -31,9 +36,19 @@ export class PoliciesComponent implements OnInit {
       policyAmount : new FormControl(null,Validators.required)
     });
 
+    this.policytermForm = new FormGroup({
+      policyId : new FormControl(null,Validators.required),
+      Terms    : new FormControl(null,Validators.required),
+      premiumAmount : new FormControl(this.premiumAmount)
+    });
+    this.choice=1;
     this.adminservice.ViewAllTypes().subscribe(res=>{
       this.ptypes = res;
     });
+
+    this.adminservice.ViewAllPolicies().subscribe(res=>{
+      this.policies = res;
+    })
   }
 
   readSession(key : string) : string
@@ -56,8 +71,11 @@ export class PoliciesComponent implements OnInit {
       policyAmount : +this.policyForm.get('policyAmount').value,
       status : StatusEnum.Inactive
     };
-
     this.companyservice.AddPolicy(this.policy);
+  }
 
+  Changetab(ch : number)
+  {
+    this.choice = ch;
   }
 }
