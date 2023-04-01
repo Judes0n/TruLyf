@@ -21,7 +21,7 @@ export class PoliciesComponent implements OnInit {
   policytermForm : FormGroup;
   choice : number;
   ptypes : Policytype[] = [];
-  policy : Policy;
+  newpolicy : Policy;
   policies : Policy[] = [];
   premiumAmount : number;
   fullperiod : number;
@@ -29,7 +29,7 @@ export class PoliciesComponent implements OnInit {
 
   ngOnInit(): void {
     this.policyForm = new FormGroup({
-      companyId : new FormControl(null,Validators.required),
+      companyId : new FormControl(null),
       policyTypeId : new FormControl(null,Validators.required),
       policyName : new FormControl(null,[Validators.required,Validators.minLength(4)]),
       timePeriod : new FormControl(null,Validators.required),
@@ -58,20 +58,24 @@ export class PoliciesComponent implements OnInit {
 
   sub()
   {
-    let company : Company;
-    this.companyservice.GetCompany(+this.readSession('userId')).subscribe(res=>{
-      company = res;
-    });
-    this.policy = {
-      policyId : -1,
-      companyId : company.companyId,
+    var company : Company;
+    this.newpolicy = {
+      policyId : 0,
+      companyId : 10,
       policytypeId : +this.policyForm.get('policyTypeId').value,
       policyName : this.policyForm.get('policyName').value,
       timePeriod : +this.policyForm.get('timePeriod').value,
       policyAmount : +this.policyForm.get('policyAmount').value,
       status : StatusEnum.Inactive
     };
-    this.companyservice.AddPolicy(this.policy);
+    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(res=>{
+      this.newpolicy.companyId = res.companyId;
+      this.companyservice.AddPolicy(this.newpolicy);
+      console.log(this.newpolicy);
+    });
+
+
+
   }
 
   Changetab(ch : number)

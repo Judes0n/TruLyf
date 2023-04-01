@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
 import { Feedback } from 'src/app/models/feedback';
 import { Maturity } from 'src/app/models/maturity';
@@ -17,100 +17,96 @@ import { Agent } from 'src/app/models/agent';
   providedIn: 'root'
 })
 export class AdminService {
-  baseApiUrl : string = environment.baseApiUrl;
-  ptype : Policytype;
-  constructor(private http : HttpClient,private router : Router ,private userservice : UserService) { }
+  baseApiUrl: string = environment.baseApiUrl;
+  ptype: Policytype;
+  constructor(private http: HttpClient, private router: Router, private userservice: UserService) { }
 
 
-  getAllUsers() : Observable<User[]>
-  {
-   return this.http.get<User[]>(this.baseApiUrl+'/api/User/GetAllUsers');
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseApiUrl + '/api/User/GetAllUsers');
   }
 
-  getAllAgents() : Observable<Agent[]>
-  {
-    return this.http.get<Agent[]>(environment.baseApiUrl+'/api/Admin/GetAllAgents');
+  getAllAgents(): Observable<Agent[]> {
+    return this.http.get<Agent[]>(environment.baseApiUrl + '/api/Admin/GetAllAgents');
   }
 
-  Approve(userId : number) : void
-  {
+  Approve(user : User): Observable<StatusEnum> {
+    this.userservice.GetUser(user.userId).subscribe((userres) => {
+      userres.status = StatusEnum.Active;
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', userres).subscribe(res2 => {
+        return userres.status;
+      });
+      },
+    (err) => { },
+    () => {
+        return user.status;
+      });
+      return of(user.status);
+  }
 
-    this.userservice.GetUser(userId).subscribe((res)=>{
-      res.status = StatusEnum.Active;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe();
+
+  Block(userId: number) {
+    this.userservice.GetUser(userId).subscribe((res) => {
+      res.status = StatusEnum.Blocked;
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', res).subscribe();
     });
   }
 
-
-  Block(userId : number)
-  {
-    this.userservice.GetUser(userId).subscribe((res)=>{
-      res.status=StatusEnum.Blocked;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',res).subscribe();
-    });
+  ViewAllTypes(): Observable<Policytype[]> {
+    return this.http.get<Policytype[]>(this.baseApiUrl + '/api/Admin/GetAllTypes');
   }
 
-  ViewAllTypes() : Observable<Policytype[]>
-  {
-    return this.http.get<Policytype[]>(this.baseApiUrl+'/api/Admin/GetAllTypes');
+  ViewAllPolicies(): Observable<Policy[]> {
+    return this.http.get<Policy[]>(this.baseApiUrl + '/api/Admin/GetAllPolicies');
   }
 
-  ViewAllPolicies() : Observable<Policy[]>
-  {
-    return this.http.get<Policy[]>(this.baseApiUrl+'/api/Admin/GetAllPolicies');
+  ViewAllMaturities(): Observable<Maturity[]> {
+    return this.http.get<Maturity[]>(this.baseApiUrl + '/api/Admin/GetAllMaturities');
   }
 
-  ViewAllMaturities() : Observable<Maturity[]>
-  {
-    return this.http.get<Maturity[]>(this.baseApiUrl+'/api/Admin/GetAllMaturities');
+  ViewFeedbacks(): Observable<Feedback[]> {
+    return this.http.get<Feedback[]>(this.baseApiUrl + '/api/Admin/GetFeedbacks');
   }
 
-  ViewFeedbacks() : Observable<Feedback[]>
-  {
-    return this.http.get<Feedback[]>(this.baseApiUrl+'/api/Admin/GetFeedbacks');
+  ViewPolicyterm(policyId: number): Observable<Policyterm[]> {
+    let prmtrs = new HttpParams().append('policyId', policyId);
+    return this.http.get<Policyterm[]>(this.baseApiUrl + '/api/Admin/GetPolicyTerms', { params: prmtrs });
   }
 
-  ViewPolicyterm(policyId : number): Observable<Policyterm[]>
-  {
-    let prmtrs = new HttpParams().append('policyId',policyId);
-    return this.http.get<Policyterm[]>(this.baseApiUrl+'/api/Admin/GetPolicyTerms',{params: prmtrs});
-  }
-
-  AddPolicyType(typeName : string)
-  {
+  AddPolicyType(typeName: string) {
     this.ptype = {
-      policytypeId : 0,
-      policytypeName : typeName
+      policytypeId: 0,
+      policytypeName: typeName
     }
     console.log(this.ptype);
-    this.http.post(environment.baseApiUrl+'/api/Admin/AddPolicyType',this.ptype).subscribe({next:(res)=>{
-      console.log(res);
-    },
-    error:(error)=>{
-      console.log(JSON.stringify(error));
-    }});
+    this.http.post(environment.baseApiUrl + '/api/Admin/AddPolicyType', this.ptype).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(JSON.stringify(error));
+      }
+    });
     alert("Policy Type Added");
   }
 
-  ApprovePolicy(policyId : number) : void
-  {
-    let queries = new HttpParams().append('policyId',policyId);
-    this.http.get<Policy>(environment.baseApiUrl,{params: queries}).subscribe((res)=>{
+  ApprovePolicy(policyId: number): void {
+    let queries = new HttpParams().append('policyId', policyId);
+    this.http.get<Policy>(environment.baseApiUrl, { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Active;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangePolicyStatus',res).subscribe(res=>{
-        alert("User Approved");
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
+        alert("Policy Approved");
       });
     });
   }
 
 
-  BlockPolicy(policyId : number)
-  {
-    let queries = new HttpParams().append('policyId',policyId);
-    this.http.get<Policy>(environment.baseApiUrl,{params: queries}).subscribe((res)=>{
+  BlockPolicy(policyId: number) {
+    let queries = new HttpParams().append('policyId', policyId);
+    this.http.get<Policy>(environment.baseApiUrl, { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Blocked;
-      this.http.put(environment.baseApiUrl+'/api/Admin/ChangePolicyStatus',res).subscribe(res=>{
-        alert("User Approved");
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
+        alert("Policy Blocked");
       });
     });
   }

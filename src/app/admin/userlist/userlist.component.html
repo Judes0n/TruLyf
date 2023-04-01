@@ -10,7 +10,6 @@
       <tr>
         <th>UserID</th>
         <th>UserName</th>
-        <th>Password</th>
         <th>User Type</th>
         <th>Status</th>
       </tr>
@@ -19,14 +18,11 @@
       <tr *ngFor="let user of users">
         <td>{{ user.userId }}</td>
         <td>{{ user.userName }}</td>
-        <td>{{ user.password }}</td>
-        <td>{{ user.type }}</td>
-        <td *ngIf="user.status != 1 else block"><a class="link" (click)="Approve(user.userId);"><i
+        <td>{{ UserType(user.type) }}</td>
+        <td [class.hidden]="user.status == 1"><a class="link" (click)="user.status = Approve(user);"><i
               class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a></td>
-        <ng-template #block>
-          <td *ngIf="user.status == 1"><a class="link" (click)="Block(user.userId);"><i
+        <td [class.hidden]="user.status != 1"><a class="link" (click)="Block(user.userId);"><i
                 class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a></td>
-        </ng-template>
       </tr>
     </tbody>
   </table>

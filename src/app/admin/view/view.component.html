@@ -18,7 +18,7 @@
   <div [class.hidden]="choice!=1">
     <div class="container my-5">
       <h1 class="mb-3">Policies</h1>
-      <table class="table table-black" *ngIf="policies==null else nopolicy">
+      <table class="table table-black" *ngIf="policies!=null else nopolicy">
         <thead>
           <tr>
             <th>Policy ID</th>

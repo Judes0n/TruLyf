@@ -29,8 +29,9 @@ export class UserService {
       }
     }
     this.http.post(environment.baseApiUrl + '/api/User/Register', formData).subscribe(
-      (response) => {
-        alert("User Registered");
+      (response : User) => {
+        alert(response.userName+" Registered Sucessfully");
+        this.router.navigate(['/Login']);
       }
     );
   }
