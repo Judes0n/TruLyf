@@ -38,11 +38,11 @@
             <td>{{ policy.policyName }}</td>
             <td>{{ policy.timePeriod }}</td>
             <td>{{ policy.policyAmount }}</td>
-            <td *ngIf="policy.status != 1 else block"><a class="link" (click)="Approve(policy.policyId);this.ngOnInit();"><i
+            <td *ngIf="policy.status != 1 else block"><a title="approve" class="link" (click)="Approve(policy.policyId);"><i
                   class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a></td>
-            <div *ngIf="showpterms(policy.policyId)!=null"><tr class="child-header" *ngFor="let pterm of pterms"><td>{{pterm.terms}}</td><td>{{pterm.premiumAmount}}</td></tr></div>
+            <div *ngIf="policy.pterm!=null"><tr class="child-header" *ngFor="let pterm of policy.pterm"><td>{{pterm.terms}}</td><td>{{pterm.premiumAmount}}</td></tr></div>
             <ng-template #block>
-              <td *ngIf="policy.status == 1"><a class="link" (click)="Reject(policy.policyId);this.ngOnInit();"><i
+              <td *ngIf="policy.status == 1"><a title="block" class="link" (click)="Reject(policy.policyId);"><i
                     class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a></td>
             </ng-template>
           </tr>

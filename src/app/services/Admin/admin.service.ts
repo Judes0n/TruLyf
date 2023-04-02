@@ -70,7 +70,11 @@ export class AdminService {
 
   ViewPolicyterm(policyId: number): Observable<Policyterm[]> {
     let prmtrs = new HttpParams().append('policyId', policyId);
-    return this.http.get<Policyterm[]>(this.baseApiUrl + '/api/Admin/GetPolicyTerms', { params: prmtrs });
+    // let list : Policyterm[];
+   return this.http.get<Policyterm[]>(this.baseApiUrl +'/api/Admin/GetPolicyTerms', { params: prmtrs });//.subscribe(res=>{
+    //   list = res;
+    // });
+    // return of(list);
   }
 
   AddPolicyType(typeName: string) {
