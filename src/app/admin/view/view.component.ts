@@ -16,8 +16,7 @@ class Policieswithterm implements Policy {
   policyAmount: number;
   status: StatusEnum;
   policyId: number;
-  pterm: Policyterm[]
-
+  pterm: Policyterm[];
 }
 
 @Component({
@@ -51,7 +50,7 @@ export class AdminViewComponent implements OnInit {
               policyAmount: policy.policyAmount,
               status: policy.status,
               policyId: policy.policyId,
-              pterm : res })
+              pterm : res });
           });
           });
 
@@ -90,6 +89,13 @@ export class AdminViewComponent implements OnInit {
       ptlist= res;
     });
     return ptlist;
+  }
+
+  updateTerms(pid : number)
+  {
+    this.adminservice.ViewPolicyterm(pid).subscribe(res => {
+      this.pterms = res;
+    });
   }
 
   Approve(policyId: number) {
