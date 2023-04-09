@@ -19,17 +19,16 @@ export class CompanyViewComponent implements OnInit {
   ngOnInit()
   {
     this.choice=1;
-    this.companyservice.GetCompany(+this.readSession('userId')).subscribe(res=>
+    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp=>
       {
-        this.compId = res.companyId;
-      });
-    this.adminservice.ViewAllPolicies().subscribe(res=>{
-      if(res.find(a=>a.companyId == this.compId))
-      {
-        this.policies = res;
-      }
-    });
+        this.adminservice.ViewAllPolicies().subscribe(res=>{
+          if(res.find(a=>a.companyId == resp.companyId))
+          {
+            this.policies = res;
+          }
+        });
 
+      });
   }
 
   readSession(key : string) : string

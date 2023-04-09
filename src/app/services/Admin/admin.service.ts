@@ -96,10 +96,11 @@ export class AdminService {
 
   ApprovePolicy(policyId: number): void {
     let queries = new HttpParams().append('policyId', policyId);
-    this.http.get<Policy>(environment.baseApiUrl, { params: queries }).subscribe((res) => {
+    this.http.get<Policy>(environment.baseApiUrl + '/api/Admin/GetPolicy', { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Active;
       this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
         alert("Policy Approved");
+        this.router.navigate(['/Home/Admin']);
       });
     });
   }
@@ -107,10 +108,11 @@ export class AdminService {
 
   BlockPolicy(policyId: number) {
     let queries = new HttpParams().append('policyId', policyId);
-    this.http.get<Policy>(environment.baseApiUrl, { params: queries }).subscribe((res) => {
+    this.http.get<Policy>(environment.baseApiUrl + '/api/Admin/GetPolicy', { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Blocked;
       this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
         alert("Policy Blocked");
+        this.router.navigate(['/Home/Admin']);
       });
     });
   }

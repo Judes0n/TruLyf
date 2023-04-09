@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
@@ -26,6 +26,8 @@ class Policieswithterm implements Policy {
 })
 
 export class AdminViewComponent implements OnInit {
+
+  refreshEvent = new EventEmitter<void>();
   choice: number;
   policies: Policieswithterm[] = [];
   pterms: Policyterm[] = [];
@@ -90,6 +92,8 @@ export class AdminViewComponent implements OnInit {
     });
     return ptlist;
   }
+
+
 
   updateTerms(pid : number)
   {

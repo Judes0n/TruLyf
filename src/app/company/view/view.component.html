@@ -15,7 +15,7 @@
   <div [class.hidden]="choice!=1">
     <div class="container my-5">
       <h1 class="mb-3">Policies</h1>
-      <table class="table table-black" *ngIf="policies==null else nopolicy">
+      <table class="table table-dark" *ngIf="policies!=null else nopolicy">
         <thead>
           <tr>
             <th>Policy ID</th>
@@ -33,6 +33,13 @@
             <td>{{ policy.policyName }}</td>
             <td>{{ policy.timePeriod }}</td>
             <td>{{ policy.policyAmount }}</td>
+            <td *ngIf="policy.status==0 else pol">Unapproved</td>
+            <ng-template #pol>
+              <td *ngIf="policy.status==1 else nopol">Approved</td>
+              <ng-template #nopol>
+                <td>Blocked</td>
+              </ng-template>
+            </ng-template>
           </tr>
         </tbody>
       </table>
@@ -45,7 +52,7 @@
   <div [class.hidden]="choice!=2">
     <div class="container my-5">
       <h1 class="mb-3">Agents</h1>
-      <table class="table table-black" *ngIf="agents==null else noagent">
+      <table class="table table-dark" *ngIf="agents==null else noagent">
         <thead>
           <tr>
             <th>ID</th>

@@ -55,8 +55,8 @@
                   Policy Amount is required
                 </div>
               </div>
-              <input class="button" type="submit" value="Add Policy" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
-                [disabled]=" !(policyForm.valid)" />
+              <input class="button" type="submit" value="Add Policy"
+                style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(policyForm.valid)" />
             </form>
           </div>
         </div>
@@ -71,20 +71,25 @@
         </div>
         <div class="row clearfix">
           <div class="">
-            <form [formGroup]="policytermForm" (ngSubmit)="sub()">
-              Policy:
-              <select formControlName="policyId">
+            <form [formGroup]="policytermForm" (ngSubmit)="subTerms()">
+              Policy
+              <select id="formselect" formControlName="policyId" (change)="_autofill(this.policytermForm.get('policyId').value)">
                 <option selected="true" disabled="disabled">SELECT Policy</option>
                 <option *ngFor="let policy of policies" [value]="policy.policyId">{{ policy.policyName }}</option>
               </select>
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field">
-                    <input type="number" name="terms" min="1" maxlength="{{fullperiod}}" placeholder="Policy Term" formControlName="Terms" />
+                    Terms
+                    <select id="formselect" formControlName="Terms"
+                      (change)="autofill(this.policytermForm.get('policyId').value,this.policytermForm.get('Terms').value)">
+                      <option *ngFor="let term of terms" [value]="term">{{term}}</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col_half">
                   <div class="input_field">
+                    Premium Amount
                     <input type="number" name="policyAmount" value="{{premiumAmount}}" formControlName="premiumAmount"
                       readonly />
                   </div>
