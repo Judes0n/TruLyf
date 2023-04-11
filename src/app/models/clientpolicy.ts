@@ -4,6 +4,7 @@ export interface Clientpolicy {
   policyTermId: number;
   startDate: string;
   expDate: string;
+  counter: number;
   status: number;
   agentId: number;
 }

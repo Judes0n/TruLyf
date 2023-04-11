@@ -1,1 +1,47 @@
-<p>clientpolicies works!</p>
+<div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+  <div class="container">
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+  </div>
+</div>
+<div class="container my-5" style="height: 400px; overflow-y: scroll;">
+  <h1 class="mb-3">Policies</h1>
+  <table class="table table-dark" *ngIf="cpolicies!=null else nopolicy">
+    <thead>
+      <tr>
+        <th>Sl.No</th>
+        <th>Policy Name</th>
+        <th>Client Name</th>
+        <th>Policy Amount</th>
+        <th>Start Date</th>
+        <th>Expiry Date</th>
+        <th>Pending Turns</th>
+        <th>Premium Amount</th>
+
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cpolicy of cpolicies">
+        <td>{{ i }}</td>
+        <td>{{ findPolicyName(cpolicy.policyTermId) }}</td>
+        <td>{{ findClientName(cpolicy.clientId) }}</td>
+        <td>{{ findPolicyAmount(cpolicy.policyTermId)}}</td>
+        <td>{{ cpolicy.startDate }}</td>
+        <td>{{ cpolicy.expDate }}</td>
+        <td>{{ cpolicy.counter }}</td>
+        <td>{{ findpremium(cpolicy.policyTermId) }}</td>
+        <td *ngIf="cpolicy.status==0 else pol">Accept</td>
+        <ng-template #pol>
+          <td *ngIf="cpolicy.status==1 else nopol">Decline</td>
+          <ng-template #nopol>
+            <td>Blocked</td>
+          </ng-template>
+        </ng-template>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #nopolicy>
+    <p>No Client Policy Found With Agent Signature</p>
+  </ng-template>
+
+</div>

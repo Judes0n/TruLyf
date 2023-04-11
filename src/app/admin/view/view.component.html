@@ -16,9 +16,9 @@
       <a class="nav-link" [class.active]="choice==3" (click)="selectChoice(3)">Feedbacks</a>
     </li>
   </ul>
-  <div class="container-fluid" [class.hidden]="choice!=1">
+  <div class="container-fluid"  [class.hidden]="choice!=1">
     <div class="row row-cols-2">
-      <div clas="col-sm">
+      <div clas="col-sm" style="height: 400px; overflow-y: scroll;">
         <h2 class="mb-3">Policies</h2>
         <table class="table table-black table-striped table-hover" *ngIf="policies!=null else nopolicy">
           <thead>
@@ -53,6 +53,8 @@
           <p>No Policy Found</p>
         </ng-template>
       </div>
+
+
       <!--Policy Terms-->
       <div class="col">
         <h2 class="mb-3">Policy Terms</h2>
@@ -78,7 +80,7 @@
 
   </div>
   <div class="container" [class.hidden]="choice!=2">
-    <div class="container my-5">
+    <div class="container my-5" style="height: 400px; overflow-y: scroll;">
       <h1 class="mb-3">Mature Policies</h1>
       <table class="table table-black" *ngIf="maturities==null else nompolicy">
         <thead>
@@ -107,7 +109,7 @@
     </div>
   </div>
   <div class="container" [class.hidden]="choice!=3">
-    <div class="container my-5">
+    <div class="container my-5" style="height: 400px; overflow-y: scroll;">
       <h1 class="mb-3">Feedbacks</h1>
       <table class="table table-black" *ngIf="feeds==null else nofeed">
         <thead>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Agent } from 'src/app/models/agent';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Policy } from 'src/app/models/policy';
 import { AdminService } from 'src/app/services/Admin/admin.service';
