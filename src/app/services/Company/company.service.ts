@@ -1,7 +1,10 @@
+import { query } from '@angular/animations';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
+import { Agent } from 'src/app/models/agent';
+import { Agentcompany } from 'src/app/models/agentcompany';
 import { Company } from 'src/app/models/company';
 import { Policy } from 'src/app/models/policy';
 import { Policyterm } from 'src/app/models/policyterm';
@@ -52,4 +55,33 @@ constructor(private http : HttpClient) { }
     });
   }
 
+  GetAllCompany(): Observable<Company[]>{
+    return this.http.get<Company[]>(environment.baseApiUrl+'/api/Company/GetAllCompany');
+  }
+
+  Apply(companyId :number,agentId : number)
+  {
+
+    const formData = new FormData();
+    formData.append('companyId',companyId.toString());
+    formData.append('agentId',agentId.toString());
+    this.http.post(environment.baseApiUrl+'/api/Agent/ApplyCompany',formData).subscribe(res=>
+      {
+        alert("Applied for Company Authorization!");
+      },
+      error=>{
+        alert("Already Applied!!");
+      });
+  }
+
+  GetAgents(companyId : number): Observable<Agentcompany[]>{
+    let queries = new HttpParams().append('companyId',companyId);
+    return this.http.get<Agentcompany[]>(environment.baseApiUrl+'/api/Company/ViewAgents',{params: queries});
+  }
+
+  AgentName(agentId : number) : Observable<Agent>
+  {
+    let queries = new HttpParams().append('agentId',agentId);
+    return this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgentById',{params: queries});
+  }
 }

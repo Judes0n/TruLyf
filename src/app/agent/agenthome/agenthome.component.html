@@ -100,4 +100,34 @@
       </div>
   </div>
 </div>
+<div class="container-fluid">
+
+  <div class="container my-5" style="height: 400px; overflow-y: scroll;">
+    <h1 class="mb-3">Companies</h1>
+    <table class="table table-dark" *ngIf="companies&&companies.length else nocompany">
+      <thead>
+        <tr>
+          <th>Company ID</th>
+          <th>Company Name</th>
+          <th>Address</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of companies">
+          <td>{{ c.companyId }}</td>
+          <td>{{ c.companyName }}</td>
+          <td>{{ c.address }}</td>
+          <td>{{ c.email }}</td>
+          <td><a class="btn btn-primary" (click)="Apply(c.companyId)">Apply</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #nocompany>
+      <p>No Companies Found</p>
+    </ng-template>
+  </div>
+
+</div>
 <!-- Service End -->

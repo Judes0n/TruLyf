@@ -5,7 +5,7 @@
 </div>
 <div class="container my-5" style="height: 400px; overflow-y: scroll;">
   <h1 class="mb-3">Policies</h1>
-  <table class="table table-dark" *ngIf="cpolicies!=null else nopolicy">
+  <table class="table table-dark" *ngIf="!cpolicies else nocpolicy">
     <thead>
       <tr>
         <th>Sl.No</th>
@@ -40,8 +40,8 @@
       </tr>
     </tbody>
   </table>
-  <ng-template #nopolicy>
-    <p>No Client Policy Found With Agent Signature</p>
+  <ng-template #nocpolicy>
+    <p>No Client Policy Found With Your Signature</p>
   </ng-template>
 
 </div>

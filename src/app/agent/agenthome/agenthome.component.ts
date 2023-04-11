@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Company } from 'src/app/models/company';
+import { AdminService } from 'src/app/services/Admin/admin.service';
+import { AgentService } from 'src/app/services/Agent/agent.service';
+import { CompanyService } from 'src/app/services/Company/company.service';
 import { UserService } from 'src/app/services/User/user.service';
 
 @Component({
@@ -8,15 +12,29 @@ import { UserService } from 'src/app/services/User/user.service';
 })
 export class AgenthomeComponent implements OnInit {
 agentName : string;
-constructor(private userservice : UserService){}
+companies : Company[] = [];
+constructor(private userservice : UserService,private companyservice : CompanyService,private agentservice : AgentService){}
   ngOnInit(): void {
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
       console.log(res);
       this.agentName = res.userName;
     });
+
+    this.companyservice.GetAllCompany().subscribe(res=>
+      {
+         this.companies = res;
+      });
   }
   readSession(key : string) : string
   {
     return sessionStorage.getItem(key);
+  }
+
+  Apply(companyId : number)
+  {
+    this.agentservice.GetAgentId(+this.readSession('userID')).subscribe(res=>{
+      this.companyservice.Apply(companyId,res.agentId);
+    })
+
   }
 }

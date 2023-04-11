@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Agent } from 'src/app/models/agent';
 import { Client } from 'src/app/models/client';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { AgentService } from 'src/app/services/Agent/agent.service';
@@ -15,12 +16,13 @@ export class ClientpoliciesComponent implements OnInit {
   i : number;
   constructor(private agentservice: AgentService, private clientservice: ClientService) { }
   ngOnInit(): void {
-    this.cpolicies = [];
+    this.cpolicies = null;
     this.i = 1;
-    this.agentservice.GetClientPolicies(this.agentservice.GetAgentId(+this.readSession('userID'))).subscribe(res=>{
-      this.cpolicies = res;
+    this.agentservice.GetAgentId(+this.readSession('userID')).subscribe((res)=>{
+      this.agentservice.GetClientPolicies(res.agentId).subscribe(resp=>{
+        this.cpolicies = resp;
+      });
     });
-
   }
 
   findClientName(clientId: number) {

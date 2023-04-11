@@ -32,13 +32,9 @@ export class AgentService {
   }
 
 
-  GetAgentId(userID : number) : number{
-    let agent : Agent;
+  GetAgentId(userID : number) : Observable<Agent>{
     let queries = new HttpParams().append('userId',userID);
-    this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgent',{params: queries}).subscribe(res=>{
-      agent = res;
-    })
-    return agent.agentId;
+    return this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgent',{params: queries});
   }
 
   policyName(policytermId : number) : string

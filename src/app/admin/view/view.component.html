@@ -58,7 +58,7 @@
       <!--Policy Terms-->
       <div class="col">
         <h2 class="mb-3">Policy Terms</h2>
-        <table class="table table-black table-striped table-hover" *ngIf="pterms!=null else nopolicyterm">
+        <table class="table table-black table-striped table-hover" *ngIf="!pterms else nopolicyterm">
           <thead>
             <tr>
               <th>Terms</th>
@@ -82,7 +82,7 @@
   <div class="container" [class.hidden]="choice!=2">
     <div class="container my-5" style="height: 400px; overflow-y: scroll;">
       <h1 class="mb-3">Mature Policies</h1>
-      <table class="table table-black" *ngIf="maturities==null else nompolicy">
+      <table class="table table-black" *ngIf="!maturities else nompolicy">
         <thead>
           <tr>
             <th>Maturity ID</th>
@@ -111,7 +111,7 @@
   <div class="container" [class.hidden]="choice!=3">
     <div class="container my-5" style="height: 400px; overflow-y: scroll;">
       <h1 class="mb-3">Feedbacks</h1>
-      <table class="table table-black" *ngIf="feeds==null else nofeed">
+      <table class="table table-black" *ngIf="!feeds else nofeed">
         <thead>
           <tr>
             <th>Feedback ID</th>

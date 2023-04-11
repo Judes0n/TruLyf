@@ -18,8 +18,14 @@ export class CompanyViewComponent implements OnInit {
   ngOnInit()
   {
     this.choice=1;
+    let cid : number;
     this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp=>
       {
+        cid = resp.companyId;
+        this.companyservice.GetAgents(cid).subscribe(response=>{
+          this.agents = response;
+          console.log(this.agents);
+        });
         this.adminservice.ViewAllPolicies().subscribe(res=>{
           if(res.find(a=>a.companyId == resp.companyId))
           {
@@ -28,7 +34,8 @@ export class CompanyViewComponent implements OnInit {
         });
 
       });
-  }
+    }
+
 
   readSession(key : string) : string
   {
@@ -39,5 +46,14 @@ export class CompanyViewComponent implements OnInit {
   ChangeChoice(ch : number)
   {
     this.choice = ch;
+  }
+
+  FindAgentName(agentId :number) : string
+  {
+    let agentName : string;
+    this.companyservice.AgentName(agentId).subscribe(res=>{
+      agentName = res.agentName;
+    });
+    return agentName;
   }
 }
