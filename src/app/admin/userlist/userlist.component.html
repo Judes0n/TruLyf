@@ -19,10 +19,8 @@
         <td>{{ user.userId }}</td>
         <td>{{ user.userName }}</td>
         <td>{{ UserType(user.type) }}</td>
-        <td [class.hidden]="user.status == 1"><a class="link" (click)="user.status = Approve(user);"><i
-              class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i></a></td>
-        <td [class.hidden]="user.status != 1"><a class="link" (click)="Block(user.userId);"><i
-                class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i></a></td>
+        <td [class.hidden]="user.status == 1"><a class="btn btn-primary" (click)="user.status = Approve(user);">Approve</a></td>
+        <td [class.hidden]="user.status != 1"><a class="btn btn-danger" (click)="Block(user.userId);">Block</a></td>
       </tr>
     </tbody>
   </table>

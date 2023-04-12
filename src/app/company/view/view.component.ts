@@ -1,59 +1,76 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { map } from 'jquery';
+import { Observable, mapTo } from 'rxjs';
+import { Agent } from 'src/app/models/agent';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Policy } from 'src/app/models/policy';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 import { CompanyService } from 'src/app/services/Company/company.service';
-
+import { environment } from 'src/environments/environment.development';
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss']
 })
 export class CompanyViewComponent implements OnInit {
-  choice : number;
-  agents : Agentcompany[] = [];
-  policies : Policy[] = [];
-  compId : number;
-  constructor(private adminservice : AdminService,private companyservice : CompanyService) {}
-  ngOnInit()
-  {
-    this.choice=1;
-    let cid : number;
-    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp=>
-      {
-        cid = resp.companyId;
-        this.companyservice.GetAgents(cid).subscribe(response=>{
-          this.agents = response;
-          console.log(this.agents);
-        });
-        this.adminservice.ViewAllPolicies().subscribe(res=>{
-          if(res.find(a=>a.companyId == resp.companyId))
-          {
-            this.policies = res;
-          }
-        });
-
+  choice: number;
+  agents: Agentcompany[] = [];
+  policies: Policy[] = [];
+  compId: number;
+  agentNames: Agent[] = [];
+  constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient) { }
+  ngOnInit() {
+    this.choice = 1;
+    let cid: number;
+    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp => {
+      cid = resp.companyId;
+      this.companyservice.GetAgents(cid).subscribe(response => {
+        this.agents = response;
+        console.log(this.agents);
       });
-    }
+      this.adminservice.ViewAllPolicies().subscribe(res => {
+        if (res.find(a => a.companyId == resp.companyId)) {
+          this.policies = res;
+        }
+      });
+
+      this.AgentNames(resp.companyId).subscribe(agents => {
+        this.agentNames = agents;
+      })
+    });
 
 
-  readSession(key : string) : string
+
+  }
+  AgentNames(companyId: number): Observable<Agent[]> {
+    const queries = new HttpParams().set('companyId', companyId);
+    return this.http.get<Agent[]>(environment.baseApiUrl + '/api/Agent/GetAgentsById', { params: queries });
+  }
+
+  readAgentName(agentId : number) : string
   {
+    let aname : Agent = this.agentNames.find(a=>a.agentId == agentId);
+    if(aname != null)
+    {
+    return aname.agentName;
+    }
+    else
+    return null;
+  }
+
+  readSession(key: string): string {
     return sessionStorage.getItem(key);
   }
 
-
-  ChangeChoice(ch : number)
-  {
+  ChangeChoice(ch: number) {
     this.choice = ch;
   }
 
-  FindAgentName(agentId :number) : string
+  ChangeStatus(status : number,Id : number)
   {
-    let agentName : string;
-    this.companyservice.AgentName(agentId).subscribe(res=>{
-      agentName = res.agentName;
-    });
-    return agentName;
+    this.companyservice.ChangeStatus(status,Id);
+    this.ngOnInit();
+    this.choice = 2;
   }
 }

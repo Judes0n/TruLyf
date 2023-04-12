@@ -61,10 +61,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let agent of agents">
-            <td>{{ agent.id }}</td>
-            <td>{{ FindAgentName(agent.agentId) }}</td>
-            <td>{{ agent.status }}</td>
+          <tr *ngFor="let Agent of agents">
+            <td>{{ Agent.id }}</td>
+            <td>{{ readAgentName(Agent.agentId) }}</td>
+            <td *ngIf="Agent.status != 1"><a class="btn btn-primary" (click)="ChangeStatus(1,Agent.id)">Accept</a></td>
+            <td *ngIf="Agent.status == 1"><a class="btn btn-danger" (click)="ChangeStatus(0,Agent.id)">Reject</a></td>
           </tr>
         </tbody>
       </table>

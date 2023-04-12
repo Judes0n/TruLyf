@@ -79,9 +79,25 @@ constructor(private http : HttpClient) { }
     return this.http.get<Agentcompany[]>(environment.baseApiUrl+'/api/Company/ViewAgents',{params: queries});
   }
 
-  AgentName(agentId : number) : Observable<Agent>
+  AgentName(agentId : number) : string
   {
     let queries = new HttpParams().append('agentId',agentId);
-    return this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgentById',{params: queries});
+    let Name : string;
+    this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgentById',{params: queries}).subscribe(res=>{
+      Name = res.agentName;
+    });
+    return Name;
+  }
+
+  ChangeStatus(status : number,id : number)
+  {
+    const formData = new FormData();
+    formData.append('id',id.toString());
+    formData.append('status',status.toString());
+    this.http.post<Agentcompany>(environment.baseApiUrl+'/api/Company/ChangeAgentCompanyStatus',formData).subscribe((res)=>{
+      console.log(res);
+      alert('Status Updated!');
+    }
+    );
   }
 }
