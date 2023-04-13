@@ -37,7 +37,7 @@ export class AgentService {
     return this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgent',{params: queries});
   }
 
-  policyName(policytermId : number) : string
+  PolicyName(policytermId : number) : string
   {
     let policy : Policy;
     let queries = new HttpParams().append('policytermId',policytermId);
@@ -50,7 +50,7 @@ export class AgentService {
     return policy.policyName;
   }
 
-  policyAmount(policytermId : number) : number
+  PolicyAmount(policytermId : number) : number
   {
     let policy : Policy;
     let queries = new HttpParams().append('policytermId',policytermId);
@@ -61,5 +61,11 @@ export class AgentService {
       })
     });
     return policy.policyAmount;
+  }
+
+  ViewPolicies(companyId : number) : Observable<Policy[]>
+  {
+    let queries = new HttpParams().append('companyId',companyId);
+    return this.http.get<Policy[]>(environment.baseApiUrl+'/api/Agent/GetPolicies',{params: queries});
   }
 }

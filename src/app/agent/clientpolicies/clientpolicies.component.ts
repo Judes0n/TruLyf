@@ -41,7 +41,7 @@ export class ClientpoliciesComponent implements OnInit {
 
   findPolicyName(policytermId : number) : string
   {
-   return this.agentservice.policyName(policytermId);
+   return this.agentservice.PolicyName(policytermId);
   }
 
   findPolicyAmount(policytermId : number) : number

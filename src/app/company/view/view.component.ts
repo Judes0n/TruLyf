@@ -39,9 +39,6 @@ export class CompanyViewComponent implements OnInit {
         this.agentNames = agents;
       })
     });
-
-
-
   }
   AgentNames(companyId: number): Observable<Agent[]> {
     const queries = new HttpParams().set('companyId', companyId);

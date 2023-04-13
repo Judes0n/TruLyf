@@ -23,20 +23,16 @@
     <tbody>
       <tr *ngFor="let cpolicy of cpolicies">
         <td>{{ i }}</td>
-        <td>{{ findPolicyName(cpolicy.policyTermId) }}</td>
-        <td>{{ findClientName(cpolicy.clientId) }}</td>
-        <td>{{ findPolicyAmount(cpolicy.policyTermId)}}</td>
+        <td>{{ cpolicy.policyTermId }}</td>
+        <td>{{ cpolicy.clientId }}</td>
+        <td>{{ cpolicy.policyTermId}}</td>
         <td>{{ cpolicy.startDate }}</td>
         <td>{{ cpolicy.expDate }}</td>
         <td>{{ cpolicy.counter }}</td>
-        <td>{{ findpremium(cpolicy.policyTermId) }}</td>
-        <td *ngIf="cpolicy.status==0 else pol">Accept</td>
-        <ng-template #pol>
-          <td *ngIf="cpolicy.status==1 else nopol">Decline</td>
-          <ng-template #nopol>
-            <td>Blocked</td>
-          </ng-template>
-        </ng-template>
+        <td>{{ cpolicy.policyTermId }}</td>
+        <td *ngIf="cpolicy.status==0">Accept</td>
+        <td *ngIf="cpolicy.status==1">Decline</td>
+        <td *ngIf="cpolicy.status==2">Blocked</td>
       </tr>
     </tbody>
   </table>

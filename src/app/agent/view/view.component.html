@@ -11,22 +11,99 @@
     <li class="nav-item">
       <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Companies</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="choice==3" (click)="ChangeChoice(3)">Policies</a>
-    </li>
   </ul>
   <div [class.hidden]="choice!=1">
     <div class="container my-5" >
-
+      <h1 class="mb-3">Clients</h1>
+  <table class="table table-dark" *ngIf="clients&&clients.length else noclients">
+    <thead>
+      <tr>
+        <th>Client ID</th>
+        <th>Profile Pic</th>
+        <th>Client Name</th>
+        <th>Date of Birth</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.clientId }}</td>
+        <td>{{ client.profilePic }}</td>
+        <td>{{ client.clientName }}</td>
+        <td>{{ client.dob}}</td>
+        <td>{{ client.address }}</td>
+        <td>{{ client.gender }}</td>
+        <td>{{ client.phoneNum }}</td>
+        <td>{{ client.email }}</td>
+        <!-- <td *ngIf="client.status!=1">Accept</td>
+        <td *ngIf="client.status==1">Decline</td> -->
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noclients>
+    <p>No Clients Found With Your Signature</p>
+  </ng-template>
     </div>
   </div>
   <div [class.hidden]="choice!=2">
-    <div class="container my-5">
+    <div class="row row-cols-2">
+      <div clas="col-sm" style="height: 400px; overflow-y: scroll;">
+        <h2 class="mb-3">Companies</h2>
+        <table class="table table-black table-striped table-hover" *ngIf="companies&&companies.length else nocompany">
+          <thead>
+            <tr>
+              <th>Company ID</th>
+              <th>Company Name</th>
+              <th>Address</th>
+              <th>Email</th>
+              <th>Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let company of companies" (click)="updatePolicies(company.companyId)">
+              <td>{{ company.companyId }}</td>
+              <td>{{ company.companyName }}</td>
+              <td>{{ company.address }}</td>
+              <td>{{ company.email }}</td>
+              <td>{{ company.phoneNum }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #nocompany>
+          <p>No Company Found</p>
+        </ng-template>
+      </div>
 
-    </div>
-  </div>
-  <div [class.hidden]="choice!=3">
-    <div class="container my-5">
 
+      <!--Policy Terms-->
+      <div class="col">
+        <h2 class="mb-3">Policies</h2>
+        <table class="table table-black table-striped table-hover" *ngIf="policies&&policies.length else nopolicies">
+          <thead>
+            <tr>
+              <th>Policy ID</th>
+              <th>Policy Name</th>
+              <th>Time Period</th>
+              <th>Policy Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let policy of policies">
+              <td>{{ policy.policyId }}</td>
+              <td>{{ policy.policyName }}</td>
+              <td>{{policy.timePeriod}}</td>
+              <td>{{policy.policyAmount}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #nopolicies>
+          <p>No Policies Found</p>
+        </ng-template>
+      </div>
     </div>
+
   </div>
