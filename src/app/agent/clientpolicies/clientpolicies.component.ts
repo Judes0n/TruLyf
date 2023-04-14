@@ -1,4 +1,6 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { error } from 'jquery';
 import { Agent } from 'src/app/models/agent';
 import { Client } from 'src/app/models/client';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
@@ -25,33 +27,20 @@ export class ClientpoliciesComponent implements OnInit {
     });
   }
 
-  findClientName(clientId: number) {
-    let client: Client;
-    this.clientservice.GetClient(clientId).subscribe(res => {
-      client = res;
-    });
-    this.i++;
-    return client.clientName;
-  }
-
-  findpremium(policytermId : number) : number
-  {
-   return this.agentservice.premiumAmount(policytermId);
-  }
-
-  findPolicyName(policytermId : number) : string
-  {
-   return this.agentservice.PolicyName(policytermId);
-  }
-
-  findPolicyAmount(policytermId : number) : number
-  {
-    return this.agentservice.premiumAmount(policytermId);
-  }
-
   readSession(key : string) : string
   {
     return sessionStorage.getItem(key);
+  }
+
+  ChangeStatus(status : number,cpid : number)
+  {
+    this.agentservice.ChangeStatus(status,cpid).subscribe(res=>{
+      alert("Status Updated!");
+      this.ngOnInit();
+    },
+    error=>{
+      alert("Error: "+JSON.stringify(error));
+    });
   }
 
 }

@@ -12,21 +12,116 @@
       <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Maturity</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" [class.active]="choice==3" (click)="ChangeChoice(3)">Premia</a>
+      <a class="nav-link" [class.active]="choice==3" (click)="ChangeChoice(3)">Premium Penalty</a>
     </li>
   </ul>
   <div [class.hidden]="choice!=1">
-    <div class="container my-5" >
-
+    <div class="container my-5">
+      <h1 class="mb-3">Client Deaths</h1>
+      <table class="table table-dark" *ngIf="cpolicies&&cpolicies.length else nocpolicy">
+        <thead>
+          <tr>
+            <th>Client Policy ID</th>
+            <th>Client Name</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>Remaining Turns</th>
+            <th>Policy Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cpolicy of cpolicies">
+            <td>{{ cpolicy.clientPolicyId }}</td>
+            <td>{{ cpolicy.clientId }}</td>
+            <td>{{ cpolicy.startDate }}</td>
+            <td>{{ cpolicy.expDate}}</td>
+            <td>{{ cpolicy.counter }} of </td>
+            <td>{{ cpolicy.policyTermId }}</td>
+            <td>
+              <a class="btn btn-danger">Register Client Death</a>
+            </td>
+            <!-- <td *ngIf="client.status!=1">Accept</td>
+        <td *ngIf="client.status==1">Decline</td> -->
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nocpolicy>
+        <p>No Eligible ClientPolicies Found</p>
+      </ng-template>
     </div>
   </div>
   <div [class.hidden]="choice!=2">
     <div class="container my-5">
-
+      <h1 class="mb-3">Maturities</h1>
+      <table class="table table-dark" *ngIf="cpolicies&&cpolicies.length else nocpolicy">
+        <thead>
+          <tr>
+            <th>Client Policy ID</th>
+            <th>Client Name</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>Policy Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cpolicy of cpolicies">
+            <div *ngIf="cpolicy.counter == 0">
+            <td>{{ cpolicy.clientPolicyId }}</td>
+            <td>{{ cpolicy.clientId }}</td>
+            <td>{{ cpolicy.startDate }}</td>
+            <td>{{ cpolicy.expDate}}</td>
+            <td>{{ cpolicy.policyTermId }}</td>
+            <td>
+              <a class="btn btn-primary">Register as Mature</a>
+            </td>
+          </div>
+            <!-- <td *ngIf="client.status!=1">Accept</td>
+        <td *ngIf="client.status==1">Decline</td> -->
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nocpolicy>
+        <p>No Eligible ClientPolicies Found</p>
+      </ng-template>
     </div>
   </div>
   <div [class.hidden]="choice!=3">
     <div class="container my-5">
-
+      <h1 class="mb-3">Premium Penalty</h1>
+      <table class="table table-dark" *ngIf="cpolicies&&cpolicies.length else nocpolicy">
+        <thead>
+          <tr>
+            <th>Client Policy ID</th>
+            <th>Client Name</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>Remaining Turns</th>
+            <th>Policy Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cpolicy of cpolicies">
+            <div *ngIf="cpolicy.counter != 0">
+            <td>{{ cpolicy.clientPolicyId }}</td>
+            <td>{{ cpolicy.clientId }}</td>
+            <td>{{ cpolicy.startDate }}</td>
+            <td>{{ cpolicy.expDate}}</td>
+            <td>{{ cpolicy.counter }} of </td>
+            <td>{{ cpolicy.policyTermId }}</td>
+            <td>
+              <a class="btn btn-danger">Impose Penalty</a>
+            </td>
+          </div>
+            <!-- <td *ngIf="client.status!=1">Accept</td>
+        <td *ngIf="client.status==1">Decline</td> -->
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nocpolicy>
+        <p>No Eligible ClientPolicies Found</p>
+      </ng-template>
     </div>
   </div>

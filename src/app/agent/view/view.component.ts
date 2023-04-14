@@ -17,17 +17,20 @@ export class AgentViewComponent implements OnInit {
   clients : Client[] = [];
   companies : Company[] = [];
   policies : Policy[] = [];
-
+  private allpolicies : Policy[] =[];
   constructor(private agentservies : AgentService,private http : HttpClient){}
 
   ngOnInit(): void {
     this.choice = 1;
     this.agentservies.GetAgentId(+this.readSession('userID')).subscribe(response=>{
 
-      this.Companies(response.agentId).subscribe(res=>{
+      this.agentservies.Companies(response.agentId).subscribe(res=>{
         this.companies = res;
       });
       //clients[] init
+      this.agentservies.Clients(response.agentId).subscribe(resp=>{
+        this.clients = resp;
+      })
     })
     }
 
@@ -44,13 +47,16 @@ export class AgentViewComponent implements OnInit {
   updatePolicies(cid : number)
   {
     this.agentservies.ViewPolicies(cid).subscribe((res) => {
-      this.policies = res;
+      this.allpolicies = res;
+    });
+    this.allpolicies.forEach(policy => {
+      if(policy.status ==1)
+      {
+        this.policies.push(policy);
+      }
     });
   }
 
-  Companies(agentId: number): Observable<Company[]> {
-    const queries = new HttpParams().set('agentId', agentId);
-    return this.http.get<Company[]>(environment.baseApiUrl + '/api/Agent/GetCompanies', { params: queries });
-  }
+
 
 }
