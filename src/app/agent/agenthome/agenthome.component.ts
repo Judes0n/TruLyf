@@ -11,29 +11,26 @@ import { UserService } from 'src/app/services/User/user.service';
   styleUrls: ['./agenthome.component.scss']
 })
 export class AgenthomeComponent implements OnInit {
-agentName : string;
-companies : Company[] = [];
-constructor(private userservice : UserService,private companyservice : CompanyService,private agentservice : AgentService){}
+  agentName: string;
+  companies: Company[] = [];
+  constructor(private userservice: UserService, private companyservice: CompanyService, private agentservice: AgentService) { }
   ngOnInit(): void {
-    this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
+    this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
       console.log(res);
       this.agentName = res.userName;
     });
 
-    this.companyservice.GetAllCompany().subscribe(res=>
-      {
-         this.companies = res;
-      });
+    this.companyservice.GetAllCompany().subscribe(res => {
+      this.companies = res;
+    });
   }
-  readSession(key : string) : string
-  {
+  readSession(key: string): string {
     return sessionStorage.getItem(key);
   }
 
-  Apply(companyId : number)
-  {
-    this.agentservice.GetAgentId(+this.readSession('userID')).subscribe(res=>{
-      this.companyservice.Apply(companyId,res.agentId);
+  Apply(companyId: number) {
+    this.agentservice.GetAgentId(+this.readSession('userID')).subscribe(res => {
+      this.companyservice.Apply(companyId, res.agentId);
     })
 
   }

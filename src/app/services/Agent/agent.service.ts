@@ -9,6 +9,9 @@ import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { Policy } from 'src/app/models/policy';
 import { Company } from 'src/app/models/company';
 import { Client } from 'src/app/models/client';
+import { Clientdeath } from 'src/app/models/clientdeath';
+import { Maturity } from 'src/app/models/maturity';
+import { Premium } from 'src/app/models/premium';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +45,13 @@ export class AgentService {
     });
     return of(policy);
   }
+  //Get Policy Term
+  GetPolicyTerm(policytermId : number) : Observable<Policyterm>
+  {
+    let queries = new HttpParams().append('policytermId',policytermId);
+    return this.http.get<Policyterm>(environment.baseApiUrl+'/api/Agent/GetPolicyTerms',{params:queries});
+  }
+
   //View Policies
   ViewPolicies(companyId : number) : Observable<Policy[]>
   {
@@ -67,4 +77,24 @@ export class AgentService {
     return this.http.put<Clientpolicy>(environment.baseApiUrl+'/api/Agent/ChangeCpolicyStatus',formData);
   }
 
+  AddClientDeath(clientdeath : Clientdeath)
+  {
+    this.http.post(environment.baseApiUrl+'/api/Agent/AddClientDeath',clientdeath).subscribe(res=>{
+      alert("Client Death Registered!");
+    });
+  }
+
+  AddMaturity(maturity : Maturity)
+  {
+    this.http.post(environment.baseApiUrl+'/api/Agent/AddMaturity',maturity).subscribe(res=>{
+      alert("Maturity Registered!");
+    });
+  }
+
+  AddPenalty(premium : Premium)
+  {
+    this.http.post(environment.baseApiUrl+'/api/Agent/AddPenalty',premium).subscribe(res=>{
+      alert("Penalty Registered!");
+    });
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Client } from 'src/app/models/client';
+import { ClientService } from 'src/app/services/Client/client.service';
+import { UserService } from 'src/app/services/User/user.service';
 
 @Component({
   selector: 'app-clienthome',
@@ -8,9 +8,16 @@ import { Client } from 'src/app/models/client';
   styleUrls: ['./clienthome.component.scss'],
 })
 export class ClienthomeComponent implements OnInit {
-  client : Client;
-  constructor(private route: ActivatedRoute) {}
+  clientName: string;
+  constructor(private userservice : UserService,private clientservice: ClientService) { }
   ngOnInit(): void {
+    this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
+      console.log(res);
+      this.clientName = res.userName;
+    });
+  }
 
+  readSession(key: string): string {
+    return sessionStorage.getItem(key);
   }
 }
