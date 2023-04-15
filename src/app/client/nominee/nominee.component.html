@@ -9,12 +9,13 @@
       <h1 >Add Nominee<hr></h1>
       <div class="container" style="padding-left: 0cm; padding-right: 1cm;">
         <form [formGroup]="nomineeForm" (ngSubmit)="Sub()">
-          <label class="form-label">Nominee Name:</label>
+          <label class="form-label">Enter Nominee Details:</label>
           <input type="text" class="form-control" formControlName="nomineename" placeholder="Enter Name"><br>
           <input type="text" class="form-control" formControlName="relation" placeholder="Enter Relation"><br>
           <input type="text" class="form-control" formControlName="address" placeholder="Enter Address"><br>
-          <input type="number" class="form-control" formControlName="phoneNum"><br>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <input type="number" class="form-control" formControlName="phoneNum" placeholder="Enter Phone Number"><br>
+          <div class="form-label" style="color: red;" *ngIf="!this.nomineeForm.valid">Fill All Fields to Submit</div><br>
+          <button type="submit" class="btn btn-primary" [disabled]="!this.nomineeForm.valid">Submit</button>
         </form>
       </div>
     </div>

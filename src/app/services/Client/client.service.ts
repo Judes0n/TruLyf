@@ -18,27 +18,19 @@ export class ClientService {
   public ViewNominees(clientId : number) : Observable<Nominee[]>
   {
     let queries = new HttpParams().append('clientId',clientId);
-    return this.http.get<Nominee[]>(environment.baseApiUrl+'',{params : queries});
+    return this.http.get<Nominee[]>(environment.baseApiUrl+'/api/Client/ViewNominee',{params : queries});
   }
 
   public GetClient(clientId : number) : Observable<Client>
   {
-    let dbclient : Client;
     let queries = new HttpParams().append('clientId',clientId);
-    this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClient',{params : queries}).subscribe(res=>{
-      dbclient = res;
-    });
-    return of(dbclient);
+    return this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClient',{params : queries});
   }
 
-  public GetClientById(userId : number) : Observable<Client>
+  GetClientById(userId : number) : Observable<Client>
   {
-    let dbclient : Client;
     let queries = new HttpParams().append('userId',userId);
-    this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClientById',{params : queries}).subscribe(res=>{
-      dbclient = res;
-    });
-    return of(dbclient);
+    return this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClientById',{params : queries});
   }
 
   public AddNominee(nominee : Nominee)

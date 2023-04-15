@@ -1,8 +1,8 @@
 export interface Nominee {
   nomineeId: number;
   clientId: number;
-  nomineeName: number;
-  relation: number;
-  address: number;
+  nomineeName: string;
+  relation: string;
+  address: string;
   phoneNum: number;
 }

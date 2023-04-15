@@ -26,6 +26,7 @@ import { CategoryComponent } from './agent/category/category.component';
 import { ClientViewComponent } from './client/view/view.component';
 import { CPoliciesComponent } from './client/policies/policies.component';
 import { ReportComponent } from './report/report.component';
+import { NomineeComponent } from './client/nominee/nominee.component';
 
 
 const routes: Routes = [
@@ -52,7 +53,7 @@ const routes: Routes = [
   { path: 'Agent/View', title: 'TruLyf | Agent | View', component: AgentViewComponent },
   //Client
   { path: 'Client/Policies', title: 'TruLyf | Client | Client Policies', component: CPoliciesComponent },
-  { path: 'Client/Category', title: 'TruLyf | Client | Categories', component: CategoryComponent },
+  { path: 'Client/Nominee', title: 'TruLyf | Client | Nominees', component: NomineeComponent },
   { path: 'Client/View', title: 'TruLyf | Client | View', component: ClientViewComponent },
   //Common
   { path: 'Reports',title : 'TruLyf | Report', component: ReportComponent },
