@@ -8,7 +8,7 @@ export interface Client {
   dob: string;
   address: string;
   profilePic: string;
-  phoneNum: number;
+  phoneNum: string;
   email : string;
   status: StatusEnum;
 }

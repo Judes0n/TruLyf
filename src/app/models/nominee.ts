@@ -4,5 +4,5 @@ export interface Nominee {
   nomineeName: string;
   relation: string;
   address: string;
-  phoneNum: number;
+  phoneNum: string;
 }

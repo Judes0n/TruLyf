@@ -5,7 +5,7 @@ export interface Agent {
   userId: number;
   agentName: string;
   gender: string;
-  phoneNum: number;
+  phoneNum: string;
   dob: string;
   email: string;
   address: string;

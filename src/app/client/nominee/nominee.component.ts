@@ -40,6 +40,7 @@ export class NomineeComponent implements OnInit {
       address : this.nomineeForm.get('address').value,
       phoneNum : this.nomineeForm.get('phoneNum').value
     }
+    nominee.phoneNum = nominee.phoneNum.toString();
     this.clientservice.AddNominee(nominee);
     this.ngOnInit();
   }
