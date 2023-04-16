@@ -39,7 +39,9 @@ export class ClientService {
       alert('Nominee Added Successfully');
     },
     error=>{
+      console.log(error);
       alert('Action Failed : '+JSON.stringify(error));
+
     });
   }
 }
