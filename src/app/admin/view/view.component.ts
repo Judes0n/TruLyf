@@ -2,10 +2,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
+import { Company } from 'src/app/models/company';
 import { Feedback } from 'src/app/models/feedback';
 import { Maturity } from 'src/app/models/maturity';
 import { Policy } from 'src/app/models/policy';
 import { Policyterm } from 'src/app/models/policyterm';
+import { Policytype } from 'src/app/models/policytype';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 
 class Policieswithterm implements Policy {
@@ -52,7 +54,8 @@ export class AdminViewComponent implements OnInit {
               policyAmount: policy.policyAmount,
               status: policy.status,
               policyId: policy.policyId,
-              pterm : res });
+              pterm : res
+               });
           });
           });
 
