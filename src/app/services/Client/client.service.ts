@@ -35,7 +35,13 @@ export class ClientService {
 
   public AddNominee(nominee : Nominee)
   {
-    this.http.post(environment.baseApiUrl+'/api/Client/AddNominee',nominee).subscribe(res=>{
+    const formData = new FormData();
+    for (const prop in nominee) {
+      if (nominee.hasOwnProperty(prop)) {
+        formData.append(prop, nominee[prop]);
+      }
+    }
+    this.http.post(environment.baseApiUrl+'/api/Client/AddNominee',formData).subscribe(res=>{
       alert('Nominee Added Successfully');
     },
     error=>{

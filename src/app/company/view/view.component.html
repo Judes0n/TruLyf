@@ -13,41 +13,72 @@
     </li>
   </ul>
   <div [class.hidden]="choice!=1">
-    <div class="container my-5" style="height: 400px; overflow-y: scroll;">
-      <h1 class="mb-3">Policies</h1>
-      <table class="table table-dark" *ngIf="policies&&policies.length else nopolicy">
-        <thead>
-          <tr>
-            <th>Policy ID</th>
-            <th>Policy Type ID</th>
-            <th>Policy Name</th>
-            <th>Time Period</th>
-            <th>Amount</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let policy of policies">
-            <td>{{ policy.policyId }}</td>
-            <td>{{ policy.policytypeId }}</td>
-            <td>{{ policy.policyName }}</td>
-            <td>{{ policy.timePeriod }}</td>
-            <td>{{ policy.policyAmount }}</td>
-            <td *ngIf="policy.status==0 else pol">Unapproved</td>
-            <ng-template #pol>
-              <td *ngIf="policy.status==1 else nopol">Approved</td>
-              <ng-template #nopol>
-                <td>Blocked</td>
-              </ng-template>
-            </ng-template>
-          </tr>
-        </tbody>
-      </table>
-      <ng-template #nopolicy>
-        <p>No Policy Found With Company Signature</p>
-      </ng-template>
+    <hr>
+    <h4 style="text-align: center;">Click Over Policies to View Terms.</h4>
+    <hr>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col" style="height: 400px; overflow-y: scroll;">
+          <h1 class="mb-3">Policies</h1>
+          <table class="table table-dark table-hover table-striped" *ngIf="policies&&policies.length else nopolicy">
+            <thead>
+              <tr>
+                <th>Policy ID</th>
+                <th>Policy Type ID</th>
+                <th>Policy Name</th>
+                <th>Time Period</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let policy of policies" (click)="updateTerms(policy.policyId)">
+                <td>{{ policy.policyId }}</td>
+                <td>{{ policy.policytypeId }}</td>
+                <td>{{ policy.policyName }}</td>
+                <td>{{ policy.timePeriod }}</td>
+                <td>{{ policy.policyAmount }}</td>
+                <td *ngIf="policy.status==0 else pol">Unapproved</td>
+                <ng-template #pol>
+                  <td *ngIf="policy.status==1 else nopol">Approved</td>
+                  <ng-template #nopol>
+                    <td>Blocked</td>
+                  </ng-template>
+                </ng-template>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #nopolicy>
+            <p>No Policy Found With Company Signature</p>
+          </ng-template>
 
+        </div>
+        <div class="col col-lg-3 ">
+          <div>
+            <h2 class="mb-3">Policy Terms</h2>
+            <table class="table table-dark table-striped table-hover" *ngIf="pterms&&pterms.length  else nopolicyterm">
+              <thead>
+                <tr>
+                  <th>Terms</th>
+                  <th>Premium Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pterm of pterms">
+                  <td>{{ pterm.terms }}</td>
+                  <td>{{ pterm.premiumAmount }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-template #nopolicyterm>
+              <p>No Policy Terms Found</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
     </div>
+
+
   </div>
   <div [class.hidden]="choice!=2">
     <div class="container my-5">
@@ -64,7 +95,8 @@
           <tr *ngFor="let Agent of agents">
             <td>{{ Agent.id }}</td>
             <td>{{ readAgentName(Agent.agentId) }}</td>
-            <td *ngIf="Agent.status != 1"><a class="btn btn-primary" (click)="ChangeStatus(1,Agent.id)">Accept</a></td>
+            <td *ngIf="Agent.status != 1"><a class="btn btn-primary" (click)="ChangeStatus(1,Agent.id)">Accept</a>
+            </td>
             <td *ngIf="Agent.status == 1"><a class="btn btn-danger" (click)="ChangeStatus(0,Agent.id)">Reject</a></td>
           </tr>
         </tbody>

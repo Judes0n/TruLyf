@@ -98,9 +98,14 @@ export class AdminService {
     let queries = new HttpParams().append('policyId', policyId);
     this.http.get<Policy>(environment.baseApiUrl + '/api/Admin/GetPolicy', { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Active;
-      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
+      const formData = new FormData();
+      for (const prop in res) {
+        if (res.hasOwnProperty(prop)) {
+          formData.append(prop, res[prop]);
+        }
+      }
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', formData).subscribe(res => {
         alert("Policy Approved");
-        this.router.navigate(['/Home/Admin']);
       });
     });
   }
@@ -110,9 +115,14 @@ export class AdminService {
     let queries = new HttpParams().append('policyId', policyId);
     this.http.get<Policy>(environment.baseApiUrl + '/api/Admin/GetPolicy', { params: queries }).subscribe((res) => {
       res.status = StatusEnum.Blocked;
-      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', res).subscribe(res => {
+      const formData = new FormData();
+      for (const prop in res) {
+        if (res.hasOwnProperty(prop)) {
+          formData.append(prop, res[prop]);
+        }
+      }
+      this.http.put(environment.baseApiUrl + '/api/Admin/ChangePolicyStatus', formData).subscribe(res => {
         alert("Policy Blocked");
-        this.router.navigate(['/Home/Admin']);
       });
     });
   }

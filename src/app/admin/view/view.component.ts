@@ -107,10 +107,12 @@ export class AdminViewComponent implements OnInit {
 
   Approve(policyId: number) {
     this.adminservice.ApprovePolicy(policyId);
+    this.ngOnInit();
   }
 
   Reject(policyId: number) {
     this.adminservice.BlockPolicy(policyId);
+    this.ngOnInit();
   }
 
   selectChoice(choice: number) {

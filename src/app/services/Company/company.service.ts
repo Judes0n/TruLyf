@@ -23,21 +23,16 @@ export class CompanyService {
   }
 
   AddPolicy(policy: Policy) {
-    this.http.post(environment.baseApiUrl + '/api/Company/AddPolicy', policy).subscribe(res => {
-      this.policyterm = {
-        policyId: policy.policyId,
-        period: policy.timePeriod,
-        policyTermId: 0,
-        premiumAmount: policy.policyAmount,
-        terms: 1
+    const formData = new FormData();
+    for (const prop in policy) {
+      if (policy.hasOwnProperty(prop)) {
+        formData.append(prop, policy[prop]);
       }
-      this.http.post(environment.baseApiUrl + '/api/Company/AddPolicyTerm', this.policyterm).subscribe();
+    }
+    this.http.post(environment.baseApiUrl + '/api/Company/AddPolicy',formData).subscribe((res : Policy) => {
       console.log(res);
       alert("Policy Added Sucessfully\nPlease Add Policy Terms on Next page");
-    },
-      error => {
-        alert("Error:" + JSON.stringify(error));
-      }
+    }
   );
 }
 
@@ -49,7 +44,13 @@ GetPolicy(policyId : number) : Observable<Policy>
 }
 
 AddPolicyTerm(policyterm : Policyterm){
-  this.http.post(environment.baseApiUrl + '/api/Company/AddPolicyTerm', policyterm).subscribe(res => {
+  const formData = new FormData();
+  for (const prop in policyterm) {
+    if (policyterm.hasOwnProperty(prop)) {
+      formData.append(prop, policyterm[prop]);
+    }
+  }
+  this.http.post(environment.baseApiUrl + '/api/Company/AddPolicyTerm', formData).subscribe(res => {
     alert("Policy Term Added Successfully");
   });
 }

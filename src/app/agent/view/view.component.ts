@@ -48,13 +48,14 @@ export class AgentViewComponent implements OnInit {
   {
     this.agentservies.ViewPolicies(cid).subscribe((res) => {
       this.allpolicies = res;
+      this.allpolicies.forEach(policy => {
+        if(policy.status ==1)
+        {
+          this.policies.push(policy);
+        }
+      });
     });
-    this.allpolicies.forEach(policy => {
-      if(policy.status ==1)
-      {
-        this.policies.push(policy);
-      }
-    });
+
   }
 
 

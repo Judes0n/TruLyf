@@ -5,6 +5,7 @@ import { Observable, mapTo } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Policy } from 'src/app/models/policy';
+import { Policyterm } from 'src/app/models/policyterm';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { environment } from 'src/environments/environment.development';
@@ -19,6 +20,8 @@ export class CompanyViewComponent implements OnInit {
   policies: Policy[] = [];
   compId: number;
   agentNames: Agent[] = [];
+  pterms : Policyterm[] = [];
+
   constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient) { }
   ngOnInit() {
     this.choice = 1;
@@ -69,5 +72,12 @@ export class CompanyViewComponent implements OnInit {
     this.companyservice.ChangeStatus(status,Id);
     this.ngOnInit();
     this.choice = 2;
+  }
+
+  updateTerms(pid : number)
+  {
+    this.adminservice.ViewPolicyterm(pid).subscribe(res => {
+      this.pterms = res;
+    });
   }
 }

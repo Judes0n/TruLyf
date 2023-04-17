@@ -73,6 +73,8 @@ export class PoliciesComponent implements OnInit {
       this.newpolicy.companyId = res.companyId;
       this.companyservice.AddPolicy(this.newpolicy);
       console.log(this.newpolicy);
+      this.choice = 2;
+      this.ngOnInit();
     });
   }
 

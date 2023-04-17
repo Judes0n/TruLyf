@@ -16,8 +16,11 @@
     </li>
   </ul>
   <div class="container-fluid" [class.hidden]="choice!=1">
+    <hr>
+    <h4 style="text-align: center;">Click Over Policies to View Terms.</h4>
+    <hr>
     <div class="row">
-      <div class="col ">
+      <div class="col">
         <div style="height: 400px; overflow-y: scroll;">
           <h2 class="mb-3">Policies</h2>
           <table class="table table-dark table-striped table-hover" *ngIf="policies&&policies.length else nopolicy">
@@ -40,11 +43,11 @@
                 <td>{{ policy.policyName }}</td>
                 <td>{{ policy.timePeriod }}</td>
                 <td>{{ policy.policyAmount }}</td>
-                <td *ngIf="policy.status != 1 else block"><a title="approve" class="link"
+                <td *ngIf="policy.status != 1 else block"><a title="approve" class="btn btn-primary"
                     (click)="Approve(policy.policyId);">Approve</a>
                 </td>
                 <ng-template #block>
-                  <td *ngIf="policy.status == 1"><a title="block" class="link"
+                  <td *ngIf="policy.status == 1"><a title="block" class="btn btn-danger"
                       (click)="Reject(policy.policyId);">Reject</a></td>
                 </ng-template>
               </tr>
