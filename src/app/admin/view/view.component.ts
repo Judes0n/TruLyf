@@ -42,6 +42,7 @@ export class AdminViewComponent implements OnInit {
 
   ngOnInit() {
     this.choice = 1;
+    this.policies = [];
     this.adminservice.ViewAllPolicies().subscribe(
       (policies) => {
         policies.forEach(policy => {
@@ -58,9 +59,6 @@ export class AdminViewComponent implements OnInit {
                });
           });
           });
-
-
-        console.log(policies);
       },
       (error) => {
         console.log(error);
@@ -70,7 +68,6 @@ export class AdminViewComponent implements OnInit {
     this.adminservice.ViewAllMaturities().subscribe(
       (maturities) => {
         this.maturities = maturities;
-        console.log(maturities);
       },
       (error) => {
         console.log(error);
@@ -80,7 +77,6 @@ export class AdminViewComponent implements OnInit {
     this.adminservice.ViewFeedbacks().subscribe(
       (feedback) => {
         this.feeds = feedback;
-        console.log(feedback);
       },
       (error) => {
         console.log(error);
@@ -107,12 +103,10 @@ export class AdminViewComponent implements OnInit {
 
   Approve(policyId: number) {
     this.adminservice.ApprovePolicy(policyId);
-    this.ngOnInit();
   }
 
   Reject(policyId: number) {
     this.adminservice.BlockPolicy(policyId);
-    this.ngOnInit();
   }
 
   selectChoice(choice: number) {

@@ -18,7 +18,6 @@ export class UserlistComponent implements OnInit {
     this.adminservice.getAllUsers().subscribe({
       next : (users)=>{
        this.users = users;
-       console.log(users);
       },
       error : (response)=>{
         console.log(response);
@@ -30,8 +29,7 @@ export class UserlistComponent implements OnInit {
   {
 
     this.adminservice.Approve(user).subscribe(res=>{
-      alert('User Approved');
-      this.ngOnInit();
+      alert('User Approved\nPlease Reload List');
       return res;
     });
 
@@ -41,8 +39,7 @@ export class UserlistComponent implements OnInit {
   Block(userId : number)
   {
     this.adminservice.Block(userId);
-    alert('User Blocked');
-    this.ngOnInit();
+    alert('User Blocked\nPlease Reload List');
   }
 
   UserType(type : number) : string

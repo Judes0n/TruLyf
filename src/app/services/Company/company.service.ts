@@ -94,7 +94,6 @@ ChangeStatus(status : number, id : number)
   formData.append('id', id.toString());
   formData.append('status', status.toString());
   this.http.post<Agentcompany>(environment.baseApiUrl + '/api/Company/ChangeAgentCompanyStatus', formData).subscribe((res) => {
-    console.log(res);
     alert('Status Updated!');
   }
   );

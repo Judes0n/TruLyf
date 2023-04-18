@@ -50,6 +50,7 @@
     </div>
   </div>
   <div class="container-fluid" [class.hidden]="choice!=2">
+    <h3 style="text-align: center;">Click on Companies to Reveal their Policies</h3>
     <div class="row">
       <div class="col" style="height: 400px; overflow-y: scroll;">
         <h2 class="mb-3">Companies</h2>
@@ -61,15 +62,18 @@
               <th>Address</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>Referral Code</th>
             </tr>
           </thead>
           <tbody>
+
             <tr *ngFor="let company of companies" (click)="updatePolicies(company.companyId)">
               <td>{{ company.companyId }}</td>
               <td>{{ company.companyName }}</td>
               <td>{{ company.address }}</td>
               <td>{{ company.email }}</td>
               <td>{{ company.phoneNum }}</td>
+              <td><a class="btn btn-info" (click)="GetReferral(company.companyId)">Copy Code</a></td>
             </tr>
           </tbody>
         </table>

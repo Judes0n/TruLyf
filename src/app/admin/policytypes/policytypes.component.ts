@@ -20,7 +20,6 @@ export class PolicytypesComponent implements OnInit {
 
     this.adminservice.ViewAllTypes().subscribe({next : (type)=>{
       this.ptypes = type;
-      console.log(type);
      },
      error : (response)=>{
        console.log(response);

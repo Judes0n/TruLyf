@@ -1,5 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Feedback } from 'src/app/models/feedback';
+import { environment } from 'src/environments/environment.development';
 
 @Component({
   selector: 'app-footer',
@@ -11,8 +15,14 @@ export class FooterComponent implements OnInit {
   homeRoute: string;
   isLoggedIn : boolean;
   userid : number;
-  constructor(private router : Router){ }
+  feedForm : FormGroup;
+
+  constructor(private router : Router,private http : HttpClient){ }
+
   ngOnInit() {
+    this.feedForm = new FormGroup({
+      feed : new FormControl(null,Validators.required)
+    });
     this.userid = +this.readSession('userID');
     this.AuthUser();
   }
@@ -64,5 +74,17 @@ export class FooterComponent implements OnInit {
   {
       sessionStorage.removeItem('log_role');
       sessionStorage.removeItem('userID');
+  }
+
+  sendfeed()
+  {
+    let feedback : Feedback;
+    feedback = {
+      fid : 0,
+      feed : this.feedForm.get("feed").value
+    };
+    this.http.post(environment.baseApiUrl+'/api/User/Feed',feedback).subscribe(res=>{
+      alert("Send Feedback Successfully!!");
+    });
   }
 }

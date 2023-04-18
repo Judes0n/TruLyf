@@ -30,7 +30,6 @@ export class CompanyViewComponent implements OnInit {
       cid = resp.companyId;
       this.companyservice.GetAgents(cid).subscribe(response => {
         this.agents = response;
-        console.log(this.agents);
       });
       this.adminservice.ViewAllPolicies().subscribe(res => {
         if (res.find(a => a.companyId == resp.companyId)) {
@@ -70,8 +69,6 @@ export class CompanyViewComponent implements OnInit {
   ChangeStatus(status : number,Id : number)
   {
     this.companyservice.ChangeStatus(status,Id);
-    this.ngOnInit();
-    this.choice = 2;
   }
 
   updateTerms(pid : number)

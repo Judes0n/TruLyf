@@ -12,6 +12,7 @@ import { Client } from 'src/app/models/client';
 import { Clientdeath } from 'src/app/models/clientdeath';
 import { Maturity } from 'src/app/models/maturity';
 import { Premium } from 'src/app/models/premium';
+import { Agentcompany } from 'src/app/models/agentcompany';
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +97,11 @@ export class AgentService {
     this.http.post(environment.baseApiUrl+'/api/Agent/AddPenalty',premium).subscribe(res=>{
       alert("Penalty Registered!");
     });
+  }
+
+  GetRefs(agentId : number,companyId : number) : Observable<Agentcompany>
+  {
+    let queries = new HttpParams().set('agentId', agentId).set('companyId',companyId);
+    return this.http.get<Agentcompany>(environment.baseApiUrl+'/api/Agent/GetRefs',{params: queries});
   }
 }

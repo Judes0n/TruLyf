@@ -12,7 +12,6 @@ export class ClienthomeComponent implements OnInit {
   constructor(private userservice : UserService,private clientservice: ClientService) { }
   ngOnInit(): void {
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
-      console.log(res);
       this.clientName = res.userName;
     });
   }

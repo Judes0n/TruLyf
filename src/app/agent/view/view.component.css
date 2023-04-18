@@ -1,0 +1,19 @@
+.copy-button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.copy-button:focus {
+  outline: none;
+}
+
+.copy-button i {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.copy-button:hover i {
+  color: #007bff;
+}

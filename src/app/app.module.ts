@@ -69,7 +69,8 @@ import { AgentViewComponent } from './agent/view/view.component';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
+    HttpClientModule
+
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

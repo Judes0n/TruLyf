@@ -27,7 +27,6 @@ export class NomineeComponent implements OnInit {
       this.client = res;
       this.clientservice.ViewNominees(res.clientId).subscribe((nominee)=>{
         this.nominees = nominee;
-        console.log(nominee);
        });
     });
   }
