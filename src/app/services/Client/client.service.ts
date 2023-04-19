@@ -4,6 +4,7 @@ import { error } from 'jquery';
 import { Observable, of } from 'rxjs';
 import { Client } from 'src/app/models/client';
 import { Nominee } from 'src/app/models/nominee';
+import { Policy } from 'src/app/models/policy';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -11,43 +12,43 @@ import { environment } from 'src/environments/environment.development';
 })
 export class ClientService {
 
-  constructor(private http : HttpClient)
-  {
+  constructor(private http: HttpClient) {
 
   }
-  public ViewNominees(clientId : number) : Observable<Nominee[]>
-  {
-    let queries = new HttpParams().append('clientId',clientId);
-    return this.http.get<Nominee[]>(environment.baseApiUrl+'/api/Client/ViewNominee',{params : queries});
+  public ViewNominees(clientId: number): Observable<Nominee[]> {
+    let queries = new HttpParams().append('clientId', clientId);
+    return this.http.get<Nominee[]>(environment.baseApiUrl + '/api/Client/ViewNominee', { params: queries });
   }
 
-  public GetClient(clientId : number) : Observable<Client>
-  {
-    let queries = new HttpParams().append('clientId',clientId);
-    return this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClient',{params : queries});
+  public GetClient(clientId: number): Observable<Client> {
+    let queries = new HttpParams().append('clientId', clientId);
+    return this.http.get<Client>(environment.baseApiUrl + '/api/Client/GetClient', { params: queries });
   }
 
-  GetClientById(userId : number) : Observable<Client>
-  {
-    let queries = new HttpParams().append('userId',userId);
-    return this.http.get<Client>(environment.baseApiUrl+'/api/Client/GetClientById',{params : queries});
+  GetClientById(userId: number): Observable<Client> {
+    let queries = new HttpParams().append('userId', userId);
+    return this.http.get<Client>(environment.baseApiUrl + '/api/Client/GetClientById', { params: queries });
   }
 
-  public AddNominee(nominee : Nominee)
-  {
+  public AddNominee(nominee: Nominee) {
     const formData = new FormData();
     for (const prop in nominee) {
       if (nominee.hasOwnProperty(prop)) {
         formData.append(prop, nominee[prop]);
       }
     }
-    this.http.post(environment.baseApiUrl+'/api/Client/AddNominee',formData).subscribe(res=>{
+    this.http.post(environment.baseApiUrl + '/api/Client/AddNominee', formData).subscribe(res => {
       alert('Nominee Added Successfully');
     },
-    error=>{
-      console.log(error);
-      alert('Action Failed : '+JSON.stringify(error));
+      error => {
+        console.log(error);
+        alert('Action Failed : ' + JSON.stringify(error));
 
-    });
+      });
+  }
+
+  public GetPolicies(policytypeId: number, agentId: number, order: number): Observable<Policy[]> {
+    let queries = new HttpParams().set('policytypeId',policytypeId).set('agentId',agentId).set('order',order);
+    return this.http.get<Policy[]>(environment.baseApiUrl + '/api/Client/ViewPolicies', { params: queries });
   }
 }

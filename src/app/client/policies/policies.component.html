@@ -1,1 +1,25 @@
-<p>policies works!</p>
+<div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+  <div class="container">
+      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+  </div>
+</div>
+<div class="container mt-5 pt-4">
+  <div class="row">
+      <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2" *ngFor="let policy of policies">
+          <div class="card border-0 bg-light rounded shadow">
+              <div class="card-body p-4">
+                  <span class="badge rounded-pill bg-primary float-md-end mb-3 mb-sm-0">{{policy.policytypeId}}</span>
+                  <h5>{{policy.policyName}}</h5>
+                  <div class="mt-3">
+                      <span class="text-muted d-block"><i class="fa fa-home" aria-hidden="true"></i> <a href="#" target="_blank" class="text-muted">{{policy.policyAmount}}</a></span>
+                      <span class="text-muted d-block"><i class="fa fa-map-marker" aria-hidden="true"></i> {{policy.companyId}}</span>
+                      <span class="text-muted d-block"><i class="fa fa-map-marker" aria-hidden="true"></i> {{policy.timePeriod}} Months</span>
+                  </div>
+                  <div class="mt-3">
+                      <a class="btn btn-primary">View Details</a>
+                  </div>
+              </div>
+          </div>
+      </div><!--end col-->
+  </div><!--end row-->
+</div>
