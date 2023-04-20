@@ -32,6 +32,8 @@ import { CPoliciesComponent } from './client/policies/policies.component';
 import { AdminViewComponent } from './admin/view/view.component';
 import { CompanyViewComponent } from './company/view/view.component';
 import { AgentViewComponent } from './agent/view/view.component';
+import { DetailsComponent } from './client/details/details.component';
+import { PaymentComponent } from './client/payment/payment.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import { AgentViewComponent } from './agent/view/view.component';
     ReportComponent,
     AdminViewComponent,
     CompanyViewComponent,
-    AgentViewComponent
+    AgentViewComponent,
+    DetailsComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { error } from 'jquery';
 import { Observable, of } from 'rxjs';
 import { Client } from 'src/app/models/client';
+import { Company } from 'src/app/models/company';
 import { Nominee } from 'src/app/models/nominee';
 import { Policy } from 'src/app/models/policy';
+import { Policytype } from 'src/app/models/policytype';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -50,5 +52,15 @@ export class ClientService {
   public GetPolicies(policytypeId: number, agentId: number, order: number): Observable<Policy[]> {
     let queries = new HttpParams().set('policytypeId',policytypeId).set('agentId',agentId).set('order',order);
     return this.http.get<Policy[]>(environment.baseApiUrl + '/api/Client/ViewPolicies', { params: queries });
+  }
+
+  public GetType() : Observable<Policytype[]>
+  {
+    return this.http.get<Policytype[]>(environment.baseApiUrl+'/api/Client/GetTypes');
+  }
+
+  public GetCompanies() : Observable<Company[]>
+  {
+    return this.http.get<Company[]>(environment.baseApiUrl+'/api/Client/GetCompanies');
   }
 }
