@@ -38,9 +38,9 @@
                 <td>{{ policy.policyName }}</td>
                 <td>{{ policy.timePeriod }}</td>
                 <td>{{ policy.policyAmount }}</td>
-                <td *ngIf="policy.status==0 else pol">Unapproved</td>
+                <td *ngIf="policy.status==0 else pol">Not Approved</td>
                 <ng-template #pol>
-                  <td *ngIf="policy.status==1 else nopol">Approved</td>
+                  <td *ngIf="policy.status==1 else nopol"><a (click)="ChangePolicyStatus(policy.policyId,2)" class="btn btn-danger">Discontinue Policy</a></td>
                   <ng-template #nopol>
                     <td>Blocked</td>
                   </ng-template>

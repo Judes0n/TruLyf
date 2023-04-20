@@ -98,4 +98,14 @@ ChangeStatus(status : number, id : number)
   }
   );
 }
+
+ChangePolicyStatus(status : number,policyId : number)
+{
+  const formData = new FormData();
+  formData.set('policyId',policyId.toString());
+  formData.set('status',status.toString());
+  this.http.put(environment.baseApiUrl+'/api/Company/ChangePolicyStatus',formData).subscribe(res=>{
+    alert('Blocked Policy');
+  })
+}
 }

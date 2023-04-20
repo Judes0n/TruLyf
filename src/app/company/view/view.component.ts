@@ -71,6 +71,11 @@ export class CompanyViewComponent implements OnInit {
     this.companyservice.ChangeStatus(status,Id);
   }
 
+  ChangePolicyStatus(policyId : number, status : number)
+  {
+    this.companyservice.ChangePolicyStatus(status,policyId);
+  }
+
   updateTerms(pid : number)
   {
     this.adminservice.ViewPolicyterm(pid).subscribe(res => {
