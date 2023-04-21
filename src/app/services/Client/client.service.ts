@@ -63,4 +63,9 @@ export class ClientService {
   {
     return this.http.get<Company[]>(environment.baseApiUrl+'/api/Client/GetCompanies');
   }
+
+  public GetPolicy(policyId : number) : Observable <Policy>
+  {
+    return this.http.get<Policy>(environment.baseApiUrl+'/api/Admin/GetPolicy',{params : new HttpParams().append("policyId",policyId)});
+  }
 }
