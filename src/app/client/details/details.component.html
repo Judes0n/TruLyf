@@ -7,11 +7,16 @@
 <div class="container-fluid" style="width: fit-content;">
  <div class="card">
     <br>
-    <div class="img">
+    <div class="card-image">
       <img src="https://previews.123rf.com/images/dmvector/dmvector2003/dmvector200300144/142959745-insurance-policy-icon-vector-icon-isolated-on-white-background.jpg" alt="">
     </div>
     <div class="card-details">
       <h2>{{policy.policyName}}</h2>
+      <hr>
+      <p></p>
+
+      <p>Policy Type : {{ReadTypeName(policy.policytypeId)}}</p>
+      <p>Provider : {{ReadCompanyName(policy.companyId)}}</p>
       <p>Time Period : {{policy.timePeriod}} Months</p>
       <p>Policy Amount : ₹{{policy.policyAmount}}</p>
       <a class="button btn btn-primary">Proceed</a>
