@@ -8,9 +8,9 @@
  <div class="card">
     <br>
     <div class="card-image">
-      <img src="https://previews.123rf.com/images/dmvector/dmvector2003/dmvector200300144/142959745-insurance-policy-icon-vector-icon-isolated-on-white-background.jpg" alt="">
+      <img src="assets/img/insurance.png" alt=""><a href="https://www.flaticon.com/free-icons/privacy-policy" title="privacy policy icons">Privacy policy icons created by Pixel perfect - Flaticon</a>
     </div>
-    <div class="card-details">
+    <div class="card-details" *ngIf="policy!=null">
       <h2>{{policy.policyName}}</h2>
       <hr>
       <p></p>
@@ -19,7 +19,9 @@
       <p>Provider : {{ReadCompanyName(policy.companyId)}}</p>
       <p>Time Period : {{policy.timePeriod}} Months</p>
       <p>Policy Amount : ₹{{policy.policyAmount}}</p>
-      <a class="button btn btn-primary">Proceed</a>
+      <p *ngIf="showOverlay"><input [style]="check(val)" type="text" placeholder="Agent Referral Code" #referral>&nbsp;<a class="btn btn-primary" (click)="ValidateReferral(referral.value)">></a></p>
+      <button (click)="toggleOverlay()" class="button btn btn-primary">Proceed</button>
     </div>
   </div>
+
 </div>

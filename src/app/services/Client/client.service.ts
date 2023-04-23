@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { error } from 'jquery';
 import { Observable, of } from 'rxjs';
+import { Agentcompany } from 'src/app/models/agentcompany';
 import { Client } from 'src/app/models/client';
 import { Company } from 'src/app/models/company';
 import { Nominee } from 'src/app/models/nominee';
@@ -67,5 +68,17 @@ export class ClientService {
   public GetPolicy(policyId : number) : Observable <Policy>
   {
     return this.http.get<Policy>(environment.baseApiUrl+'/api/Admin/GetPolicy',{params : new HttpParams().append("policyId",policyId)});
+  }
+
+  public ValidateRef(ref : string) : Observable<Agentcompany>
+  {
+    let result : Agentcompany;
+    this.http.get(environment.baseApiUrl+'/api/Client/ValidateReferral',{params : new HttpParams().append('referral',ref)}).subscribe((res : Agentcompany)=>{
+      result = res;
+    },
+    error=>{
+      console.log('Error'+JSON.stringify(error));
+    });
+    return of(result);
   }
 }

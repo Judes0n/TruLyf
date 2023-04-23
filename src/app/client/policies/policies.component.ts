@@ -32,10 +32,18 @@ export class CPoliciesComponent implements OnInit {
   }
 
   ReadTypeName(typeId: number): String {
-    return this.types.find(t => t.policytypeId == typeId).policytypeName;
+    let r = this.types.find(t => t.policytypeId == typeId);
+    if (r != null) {
+      return r.policytypeName;
+    }
+    else return "";
   }
 
   ReadCompanyName(cid: number): String {
-    return this.companies.find(c => c.companyId == cid).companyName;
+    let r = this.companies.find(c => c.companyId == cid);
+    if (r != null) {
+      return r.companyName;
+    }
+    else return "";
   }
 }
