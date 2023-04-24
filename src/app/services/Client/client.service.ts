@@ -4,9 +4,11 @@ import { error } from 'jquery';
 import { Observable, of } from 'rxjs';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Client } from 'src/app/models/client';
+import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { Company } from 'src/app/models/company';
 import { Nominee } from 'src/app/models/nominee';
 import { Policy } from 'src/app/models/policy';
+import { Policyterm } from 'src/app/models/policyterm';
 import { Policytype } from 'src/app/models/policytype';
 import { environment } from 'src/environments/environment.development';
 
@@ -50,6 +52,17 @@ export class ClientService {
       });
   }
 
+  public AddClientPolicy(cpolicy : Clientpolicy) : Observable<Clientpolicy>
+  {
+    const formData = new FormData();
+    for (const prop in cpolicy) {
+      if (cpolicy.hasOwnProperty(prop)) {
+        formData.append(prop, cpolicy[prop]);
+      }
+    }
+    return this.http.post<Clientpolicy>(environment.baseApiUrl+'/api/Client/AddClientPolicy',formData);
+  }
+
   public GetPolicies(policytypeId: number, agentId: number, order: number): Observable<Policy[]> {
     let queries = new HttpParams().set('policytypeId',policytypeId).set('agentId',agentId).set('order',order);
     return this.http.get<Policy[]>(environment.baseApiUrl + '/api/Client/ViewPolicies', { params: queries });
@@ -72,13 +85,11 @@ export class ClientService {
 
   public ValidateRef(ref : string) : Observable<Agentcompany>
   {
-    let result : Agentcompany;
-    this.http.get(environment.baseApiUrl+'/api/Client/ValidateReferral',{params : new HttpParams().append('referral',ref)}).subscribe((res : Agentcompany)=>{
-      result = res;
-    },
-    error=>{
-      console.log('Error'+JSON.stringify(error));
-    });
-    return of(result);
+    return this.http.get<Agentcompany>(environment.baseApiUrl+'/api/Client/ValidateReferral',{params : new HttpParams().append('referral',ref)});
+  }
+
+  public GetTerms(policyId : number) : Observable<Policyterm[]>
+  {
+    return this.http.get<Policyterm[]>(environment.baseApiUrl+'/api/Client/GetTerms',{params : new HttpParams().append('policyId',policyId)});
   }
 }

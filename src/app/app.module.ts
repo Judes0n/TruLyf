@@ -34,6 +34,7 @@ import { CompanyViewComponent } from './company/view/view.component';
 import { AgentViewComponent } from './agent/view/view.component';
 import { DetailsComponent } from './client/details/details.component';
 import { PaymentComponent } from './client/payment/payment.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -76,7 +77,7 @@ import { PaymentComponent } from './client/payment/payment.component';
     HttpClientModule
 
   ],
-  providers: [UserService],
+  providers: [UserService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
