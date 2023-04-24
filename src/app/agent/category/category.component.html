@@ -41,8 +41,6 @@
             <td>
               <a class="btn btn-danger" (click)="regClientDeath(cpolicy.clientPolicyId)">Register Client Death</a>
             </td>
-            <!-- <td *ngIf="client.status!=1">Accept</td>
-        <td *ngIf="client.status==1">Decline</td> -->
           </tr>
         </tbody>
       </table>
@@ -67,16 +65,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let cpolicy of cpolicies">
-            <div *ngIf="cpolicy.counter == 0">
             <td>{{ cpolicy.clientPolicyId }}</td>
             <td>{{ ReadClientName(cpolicy.clientId) }}</td>
             <td>{{ cpolicy.startDate }}</td>
             <td>{{ cpolicy.expDate}}</td>
             <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
             <td>
-              <a class="btn btn-primary" (click)="regMaturity(cpolicy)">Register Mature</a>
+              <a class="btn btn-primary" [class.hidden]="cpolicy.counter != 0" (click)="regMaturity(cpolicy)">Register
+                Mature</a>
             </td>
-          </div>
             <!-- <td *ngIf="client.status!=1">Accept</td>
         <td *ngIf="client.status==1">Decline</td> -->
           </tr>
@@ -104,7 +101,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let cpolicy of cpolicies">
-            <div *ngIf="cpolicy.counter != 0">
             <td>{{ cpolicy.clientPolicyId }}</td>
             <td>{{ ReadClientName(cpolicy.clientId) }}</td>
             <td>{{ cpolicy.startDate }}</td>
@@ -114,7 +110,7 @@
             <td>
               <a class="btn btn-danger" (click)="regPenalty(cpolicy)">Impose Penalty</a>
             </td>
-          </div>
+
             <!-- <td *ngIf="client.status!=1">Accept</td>
         <td *ngIf="client.status==1">Decline</td> -->
           </tr>

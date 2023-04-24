@@ -39,6 +39,9 @@
         <td>{{ client.gender }}</td>
         <td>{{ client.phoneNum }}</td>
         <td>{{ client.email }}</td>
+        <td *ngIf="client.status==1">Active</td>
+        <td *ngIf="client.status==0">Inactive</td>
+        <td *ngIf="client.status==2">Blocked</td>
         <!-- <td *ngIf="client.status!=1">Accept</td>
         <td *ngIf="client.status==1">Decline</td> -->
       </tr>

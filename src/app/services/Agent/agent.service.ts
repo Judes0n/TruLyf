@@ -36,10 +36,8 @@ export class AgentService {
   GetPolicy(policytermId : number) : Observable<Policy>
   {
     let policy : Policy;
-    let queries = new HttpParams().append('policytermId',policytermId);
-    this.http.get<Policyterm>(environment.baseApiUrl+'/api/Agent/GetPolicyTerms',{params:queries}).subscribe(res  =>{
-      let policyId = new HttpParams().append('policyId',res.policyId);
-     this.http.get<Policy>(environment.baseApiUrl+'/api/Agent/GetPolicy'+{params: policyId}).subscribe(resp=>{
+    this.http.get<Policyterm>(environment.baseApiUrl+'/api/Agent/GetPolicyTerms',{params:new HttpParams().set('policytermId',policytermId)}).subscribe(res  =>{
+     this.http.get<Policy>(environment.baseApiUrl+'/api/Agent/GetPolicy'+{params: new HttpParams().set('policyId',res.policyId)}).subscribe(resp=>{
           policy = resp;
           return of(policy);
       })
