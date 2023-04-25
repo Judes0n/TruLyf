@@ -24,31 +24,35 @@ export class CategoryComponent implements OnInit {
   policies: Policy[] = [];
   policyterms: Policyterm[] = [];
   clients: Client[] = [];
-
-  constructor(private agentservices: AgentService , private http : HttpClient) { }
+  dataLoaded = false;
+  constructor(private agentservices: AgentService, private http: HttpClient) { }
 
   async ngOnInit() {
     this.choice = 1;
     let agentId: number;
     this.cpolicies = this.clients = this.policies = this.policyterms = [];
-    agentId = (await lastValueFrom(this.http.get<Agent>(environment.baseApiUrl+'/api/Agent/GetAgent',{params: new HttpParams().append('agentId',+this.readSession('userID'))}))).agentId;
-    this.agentservices.GetClientPolicies(agentId).subscribe(res => {
-      res.forEach(cpolicy => {
-        if (cpolicy.status == 1) {
-          this.cpolicies.push(cpolicy);
-          this.agentservices.GetPolicy(cpolicy.policyTermId).subscribe(resp => {
-            this.policies.push(resp);
-          });
-          this.agentservices.GetPolicyTerm(cpolicy.policyTermId).subscribe(policyterm => {
-            this.policyterms.push(policyterm);
-          });
-          this.agentservices.Clients(cpolicy.agentId).subscribe(clients => {
-            this.clients = clients;
-          })
-        }
+    agentId = +this.readSession('agentId');
+    this.cpolicies = await this.agentservices.GetClientPolicies(agentId).toPromise();
+    console.log(this.cpolicies);
+    if (this.cpolicies != null) {
+      const policyTermRequests = this.cpolicies.map(cpolicy => {
+        return this.agentservices.GetPolicyTerm(cpolicy.policyTermId).toPromise();
       });
-    });
-
+      const policyRequests = this.cpolicies.map(cpolicy => {
+        return this.agentservices.GetPolicy(cpolicy.policyTermId).toPromise();
+      });
+      this.clients = await this.agentservices.Clients(agentId).toPromise();
+      const pts = await Promise.all(policyTermRequests);
+      const ps = await Promise.all(policyRequests);
+      pts.forEach(pt => {
+        this.policyterms.push(pt);
+      });
+      ps.forEach(p => {
+        this.policies.push(p);
+      });
+      console.log(this.clients);
+    }
+    this.dataLoaded = true;
   }
 
   ChangeChoice(ch: number) {
@@ -65,7 +69,13 @@ export class CategoryComponent implements OnInit {
   }
 
   ReadPolicyAmount(policytermId: number): number {
-    return this.policies.find(p => p.policyId == this.policyterms.find(pt => pt.policyTermId == policytermId).policyTermId).policyAmount;
+      var policyId = this.policyterms.find(pt => pt.policyTermId == policytermId).policyId;
+      var res = this.policies.find(p => p.policyId == policyId);
+      if(res != null)
+      {
+      return res.policyAmount;
+      }
+      else return 0;
   }
 
   ReadClientName(clientId: number): string {
@@ -86,7 +96,7 @@ export class CategoryComponent implements OnInit {
       startDate: cp.startDate,
       claimAmount: (p.policyAmount * 1.75)
     };
-    if (window.confirm("You Are About to Mark ClientPolicy with ID: " + clientdeath.clientPolicyId + "as Deprecated(ClientDeath)\nAction cannot be Undone")) {
+    if (window.confirm("You Are About to Mark ClientPolicy with ID: '" + clientdeath.clientPolicyId + "' as Deprecated(ClientDeath)\nAction cannot be Undone")) {
       this.agentservices.AddClientDeath(clientdeath);
       this.ngOnInit();
     }
@@ -107,7 +117,7 @@ export class CategoryComponent implements OnInit {
       claimAmount: p.policyAmount * 1.2,
       startDate: cp.startDate
     };
-    if (window.confirm("You Are About to Mark ClientPolicy with ID: " + maturepolicy.clientPolicyId + "as Mature\nAction cannot be Undone")) {
+    if (window.confirm("You Are About to Mark ClientPolicy with ID: '" + maturepolicy.clientPolicyId + " as Mature\nAction cannot be Undone")) {
       this.agentservices.AddMaturity(maturepolicy);
       this.ngOnInit();
     }
@@ -120,14 +130,20 @@ export class CategoryComponent implements OnInit {
   regPenalty(cp: Clientpolicy) {
     let currentDate = new Date();
     let pt = this.policyterms.find(p => p.policyTermId == cp.policyTermId);
-    let p = this.policies.find(p => p.policyId == pt.policyId);
+    let penalty: number;
+    if (pt.terms < 6) {
+      penalty = pt.premiumAmount * 0.3;
+    }
+    else {
+      penalty = pt.premiumAmount * 2;
+    }
     let premium: Premium = {
       premiumId: 0,
       clientPolicyId: cp.clientPolicyId,
       dateOfCollection: currentDate.toString(),
-      penality: pt.premiumAmount * 2
+      penality: penalty
     };
-    if (window.confirm("You Are About to Impose ClientPolicy with ID: " + premium.clientPolicyId + "a penalty of" + premium.penality + "\nAction cannot be Undone")) {
+    if (window.confirm("You Are About to Impose ClientPolicy with ID: '" + premium.clientPolicyId + "' ,a penalty of '₹" + premium.penality + "'\nAction cannot be Undone")) {
       this.agentservices.AddPenalty(premium);
       this.ngOnInit();
     }

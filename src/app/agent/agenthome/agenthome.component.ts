@@ -18,6 +18,9 @@ export class AgenthomeComponent implements OnInit {
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
       console.log(res);
       this.agentName = res.userName;
+      this.agentservice.GetAgentId(res.userId).subscribe(resp=>{
+        sessionStorage.setItem('agentId',resp.agentId.toString());
+      });
     });
 
     this.companyservice.GetAllCompany().subscribe(res => {

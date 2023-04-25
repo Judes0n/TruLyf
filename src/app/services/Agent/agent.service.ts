@@ -36,8 +36,8 @@ export class AgentService {
   GetPolicy(policytermId : number) : Observable<Policy>
   {
     let policy : Policy;
-    this.http.get<Policyterm>(environment.baseApiUrl+'/api/Agent/GetPolicyTerms',{params:new HttpParams().set('policytermId',policytermId)}).subscribe(res  =>{
-     this.http.get<Policy>(environment.baseApiUrl+'/api/Agent/GetPolicy'+{params: new HttpParams().set('policyId',res.policyId)}).subscribe(resp=>{
+     this.http.get<Policyterm>(environment.baseApiUrl+'/api/Agent/GetPolicyTerms',{params:new HttpParams().append('policytermId',policytermId)}).subscribe(res  =>{
+     this.http.get<Policy>(environment.baseApiUrl+'/api/Agent/GetPolicy',{params: new HttpParams().append('policyId',res.policyId)}).subscribe(resp=>{
           policy = resp;
           return of(policy);
       })
@@ -85,6 +85,7 @@ export class AgentService {
 
   AddMaturity(maturity : Maturity)
   {
+
     this.http.post(environment.baseApiUrl+'/api/Agent/AddMaturity',maturity).subscribe(res=>{
       alert("Maturity Registered!");
     });
@@ -92,6 +93,7 @@ export class AgentService {
 
   AddPenalty(premium : Premium)
   {
+
     this.http.post(environment.baseApiUrl+'/api/Agent/AddPenalty',premium).subscribe(res=>{
       alert("Penalty Registered!");
     });
