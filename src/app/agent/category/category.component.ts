@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
 import { Client } from 'src/app/models/client';
@@ -25,21 +27,23 @@ export class CategoryComponent implements OnInit {
   policyterms: Policyterm[] = [];
   clients: Client[] = [];
   dataLoaded = false;
-  constructor(private agentservices: AgentService, private http: HttpClient) { }
+  constructor(private agentservices: AgentService, private datePipe: DatePipe,private route : Router) { }
 
   async ngOnInit() {
     this.choice = 1;
     let agentId: number;
-    this.cpolicies = this.clients = this.policies = this.policyterms = [];
+    this.cpolicies =[];
+    this.clients = [];
+    this.policies =[];
+    this.policyterms = [];
     agentId = +this.readSession('agentId');
     this.cpolicies = await this.agentservices.GetClientPolicies(agentId).toPromise();
-    console.log(this.cpolicies);
     if (this.cpolicies != null) {
       const policyTermRequests = this.cpolicies.map(cpolicy => {
         return this.agentservices.GetPolicyTerm(cpolicy.policyTermId).toPromise();
       });
-      const policyRequests = this.cpolicies.map(cpolicy => {
-        return this.agentservices.GetPolicy(cpolicy.policyTermId).toPromise();
+      const policyRequests = this.cpolicies.map(async cpolicy => {
+        return await this.agentservices.GetPolicy(cpolicy.policyTermId);
       });
       this.clients = await this.agentservices.Clients(agentId).toPromise();
       const pts = await Promise.all(policyTermRequests);
@@ -47,10 +51,10 @@ export class CategoryComponent implements OnInit {
       pts.forEach(pt => {
         this.policyterms.push(pt);
       });
-      ps.forEach(p => {
-        this.policies.push(p);
-      });
-      console.log(this.clients);
+      ps.forEach(p=>p.subscribe(res=>{
+        this.policies.push(res);
+      }));
+      console.log(this.policies);
     }
     this.dataLoaded = true;
   }
@@ -72,9 +76,7 @@ export class CategoryComponent implements OnInit {
       var policyId = this.policyterms.find(pt => pt.policyTermId == policytermId).policyId;
       var res = this.policies.find(p => p.policyId == policyId);
       if(res != null)
-      {
       return res.policyAmount;
-      }
       else return 0;
   }
 
@@ -92,17 +94,17 @@ export class CategoryComponent implements OnInit {
     clientdeath = {
       clientDeathId: 0,
       clientPolicyId: clientpolicyId,
-      dod: currentDate.toString(),
+      dod: this.datePipe.transform(currentDate,'shortDate'),
       startDate: cp.startDate,
       claimAmount: (p.policyAmount * 1.75)
     };
     if (window.confirm("You Are About to Mark ClientPolicy with ID: '" + clientdeath.clientPolicyId + "' as Deprecated(ClientDeath)\nAction cannot be Undone")) {
       this.agentservices.AddClientDeath(clientdeath);
-      this.ngOnInit();
+
     }
     else {
       alert("Action Cancelled");
-      this.ngOnInit();
+      this.route.navigate(["/Agent/ClientPolicies"]);
     }
   }
 
@@ -113,7 +115,7 @@ export class CategoryComponent implements OnInit {
     let maturepolicy: Maturity = {
       maturityId: 0,
       clientPolicyId: cp.clientPolicyId,
-      maturityDate: currentDate.toString(),
+      maturityDate: this.datePipe.transform(currentDate,'shortDate'),
       claimAmount: p.policyAmount * 1.2,
       startDate: cp.startDate
     };
@@ -140,16 +142,16 @@ export class CategoryComponent implements OnInit {
     let premium: Premium = {
       premiumId: 0,
       clientPolicyId: cp.clientPolicyId,
-      dateOfCollection: currentDate.toString(),
+      dateOfCollection: this.datePipe.transform(currentDate,'shortDate'),
       penality: penalty
     };
     if (window.confirm("You Are About to Impose ClientPolicy with ID: '" + premium.clientPolicyId + "' ,a penalty of '₹" + premium.penality + "'\nAction cannot be Undone")) {
       this.agentservices.AddPenalty(premium);
-      this.ngOnInit();
+
     }
     else {
       alert("Action Cancelled");
-      this.ngOnInit();
+      this.route.navigate[("/Home/Agent")];
     }
 
   }

@@ -1,6 +1,7 @@
 import { query } from '@angular/animations';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
@@ -15,7 +16,7 @@ import { environment } from 'src/environments/environment.development';
 })
 export class CompanyService {
   policyterm: Policyterm;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private route : Router) { }
 
   GetCompany(userId: number): Observable<Company> {
     let p = new HttpParams().append('userID', userId);
@@ -104,8 +105,12 @@ ChangePolicyStatus(status : number,policyId : number)
   const formData = new FormData();
   formData.set('policyId',policyId.toString());
   formData.set('status',status.toString());
-  this.http.put(environment.baseApiUrl+'/api/Company/ChangePolicyStatus',formData).subscribe(res=>{
+  this.http.put(environment.baseApiUrl+'/api/Company/ChangePolicyStatus',formData).subscribe((res : Policy)=>{
     alert('Blocked Policy');
+    this.route.navigate[("/Home/Company")];
+  },
+  error=>{
+    alert("Action Failed!!");
   })
 }
 }

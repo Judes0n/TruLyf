@@ -17,7 +17,8 @@
   </ul>
   <div class="container-fluid" [class.hidden]="choice!=1">
     <hr>
-    <h4 style="text-align: center;">Click Over Policies to View Terms.<br> <a class="btn btn-secondary" (click)="this.ngOnInit()">RELOAD</a> After Action</h4>
+    <h4 style="text-align: center;">Click Over Policies to View Terms.<br> <a class="btn btn-secondary"
+        (click)="this.ngOnInit()">RELOAD</a> After Action</h4>
     <hr>
     <div class="row">
       <div class="col">
@@ -43,13 +44,13 @@
                 <td>{{ policy.policyName }}</td>
                 <td>{{ policy.timePeriod }}</td>
                 <td>{{ policy.policyAmount }}</td>
-                <td *ngIf="policy.status != 1 else block"><a title="approve" class="btn btn-primary"
+                <td *ngIf="policy.status == 0"><a title="approve" class="btn btn-primary"
                     (click)="Approve(policy.policyId);">Approve</a>
                 </td>
-                <ng-template #block>
-                  <td *ngIf="policy.status == 1"><a title="block" class="btn btn-danger"
-                      (click)="Reject(policy.policyId);">Reject</a></td>
-                </ng-template>
+                <td *ngIf="policy.status == 1"><a title="block" class="btn btn-danger"
+                    (click)="Reject(policy.policyId);">Reject</a></td>
+                <td *ngIf="policy.status == 2"><button (click)="Approve(policy.policyId);"  class="btn btn-primary">Unblock</button></td>
+                <td *ngIf="policy.status == 3"><button disabled class="btn btn-secondary">Deprecated</button></td>
               </tr>
             </tbody>
           </table>

@@ -21,7 +21,11 @@ export class CPoliciesComponent implements OnInit {
     this.types = [];
     this.companies = [];
     this.clientservices.GetPolicies(0, 0, 0).subscribe(res => {
-      this.policies = res;
+      res.forEach(p => {
+        if (p.status == 1) {
+          this.policies.push(p);
+        }
+      });
     });
     this.clientservices.GetType().subscribe(res => {
       this.types = res;

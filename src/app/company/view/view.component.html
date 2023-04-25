@@ -28,7 +28,7 @@
                 <th>Policy Name</th>
                 <th>Time Period</th>
                 <th>Amount</th>
-                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -38,13 +38,12 @@
                 <td>{{ policy.policyName }}</td>
                 <td>{{ policy.timePeriod }}</td>
                 <td>{{ policy.policyAmount }}</td>
-                <td *ngIf="policy.status==0 else pol">Not Approved</td>
-                <ng-template #pol>
-                  <td *ngIf="policy.status==1 else nopol"><a (click)="ChangePolicyStatus(policy.policyId,2)" class="btn btn-danger">Discontinue Policy</a></td>
-                  <ng-template #nopol>
-                    <td>Blocked</td>
-                  </ng-template>
-                </ng-template>
+                <td *ngIf="policy.status==0"><button disabled class="btn btn-primary">Unapproved</button></td>
+                <td *ngIf="policy.status==1"><a (click)="ChangePolicyStatus(policy.policyId,3)"
+                    class="btn btn-danger">Discontinue Policy</a></td>
+                <td *ngIf="policy.status == 2"><a (click)="ChangePolicyStatus(policy.policyId,1)"
+                  class="btn btn-primary">Unblock</a></td>
+                <td *ngIf="policy.status == 3"><button disabled class="btn btn-secondary">Discontinued</button></td>
               </tr>
             </tbody>
           </table>
@@ -82,7 +81,10 @@
   </div>
   <div [class.hidden]="choice!=2">
     <div class="container my-5">
-      <h1 class="mb-3">Agents</h1><div style="text-align: right;"><a class="btn btn-secondary" (click)="this.ngOnInit();this.choice=2;">RELOAD</a></div><hr>
+      <h1 class="mb-3">Agents</h1>
+      <div style="text-align: right;"><a class="btn btn-secondary" (click)="this.ngOnInit();this.choice=2;">RELOAD</a>
+      </div>
+      <hr>
       <table class="table table-dark" *ngIf="agents&&agents.length else noagent">
         <thead>
           <tr>
@@ -104,4 +106,9 @@
       <ng-template #noagent>
         <p>No Agent Applications Found</p>
       </ng-template>
+    </div>
+    <div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+      <div class="container">
+        <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+      </div>
     </div>

@@ -51,7 +51,12 @@ export class PoliciesComponent implements OnInit {
     });
 
     this.adminservice.ViewAllPolicies().subscribe(res => {
-      this.policies = res;
+      res.forEach(p=>{
+        if(p.status != 2)
+        {
+          this.policies.push(p);
+        }
+      });
     })
   }
 

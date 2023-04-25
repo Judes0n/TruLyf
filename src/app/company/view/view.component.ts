@@ -73,7 +73,13 @@ export class CompanyViewComponent implements OnInit {
 
   ChangePolicyStatus(policyId : number, status : number)
   {
-    this.companyservice.ChangePolicyStatus(status,policyId);
+    if (window.confirm("You Are About to Discontinue Policy with ID: '" + policyId + "'\nAction cannot be Undone")) {
+      this.companyservice.ChangePolicyStatus(status,policyId);
+    }
+    else {
+      alert("Action Cancelled");
+    }
+
   }
 
   updateTerms(pid : number)

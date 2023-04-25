@@ -33,6 +33,7 @@
         <td *ngIf="cpolicy.status==0"><a class="btn btn-primary" (click)="ChangeStatus(1,cpolicy.clientPolicyId)">Accept</a></td>
         <td *ngIf="cpolicy.status==1"><a class="btn btn-danger" (click)="ChangeStatus(2,cpolicy.clientPolicyId)">Decline</a></td>
         <td *ngIf="cpolicy.status == 2"><a class="btn btn-warning" (click)="ChangeStatus(0,cpolicy.clientPolicyId)">Unblock</a></td>
+        <td *ngIf="cpolicy.status==3"><button disabled class="btn btn-primary">Matured</button></td>
       </tr>
     </tbody>
   </table>

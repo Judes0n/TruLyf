@@ -39,7 +39,10 @@
             <td>{{ cpolicy.counter }} of {{ ReadTotalTurns(cpolicy.policyTermId) }}</td>
             <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
             <td>
-              <a class="btn btn-danger" (click)="regClientDeath(cpolicy.clientPolicyId)">Register Client Death</a>
+              <a *ngIf="cpolicy.status == 1" class="btn btn-danger" (click)="regClientDeath(cpolicy.clientPolicyId)">Register Client Death</a>
+              <button *ngIf="cpolicy.status == 0" disabled class="btn btn-primary">Inactive</button>
+              <button *ngIf="cpolicy.status == 2" disabled class="btn btn-danger">Blocked</button>
+              <button *ngIf="cpolicy.status == 3" disabled class="btn btn-primary">Matured</button>
             </td>
           </tr>
         </tbody>
@@ -48,6 +51,7 @@
         <p>No Eligible ClientPolicies Found</p>
       </ng-template>
     </div>
+    <p style="text-align: center; color: red; stroke-width: 1.2px;">Note: If Remaining Terms is Higher than Total Terms,a Penalty is Imposed(Each Penalty Impose will Increase Remaining Terms by two more)</p>
   </div>
   <div [class.hidden]="choice!=2">
     <div class="container my-5">
@@ -71,8 +75,11 @@
             <td>{{ cpolicy.expDate}}</td>
             <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
             <td>
-              <a class="btn btn-primary" *ngIf="cpolicy.counter == 0" (click)="regMaturity(cpolicy)">Register Mature</a>
-              <button disabled class="btn btn-danger" *ngIf="cpolicy.counter != 0">Terms Not Satisfied</button>
+              <button *ngIf="cpolicy.status == 0" disabled class="btn btn-primary">Inactive</button>
+              <a class="btn btn-primary" *ngIf="cpolicy.counter == 0 && cpolicy.status == 1" (click)="regMaturity(cpolicy)">Register Mature</a>
+              <button disabled class="btn btn-danger" *ngIf="cpolicy.counter != 0 && cpolicy.status == 1">Terms Not Satisfied</button>
+              <button *ngIf="cpolicy.status == 2" disabled class="btn btn-danger">Blocked</button>
+              <button *ngIf="cpolicy.status == 3" disabled class="btn btn-primary">Matured</button>
             </td>
             <!-- <td *ngIf="client.status!=1">Accept</td>
         <td *ngIf="client.status==1">Decline</td> -->
@@ -108,7 +115,10 @@
             <td>{{ cpolicy.counter }} of {{ ReadTotalTurns(cpolicy.policyTermId) }}</td>
             <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
             <td>
-              <a class="btn btn-danger" (click)="regPenalty(cpolicy)">Impose Penalty</a>
+              <button *ngIf="cpolicy.status == 0" disabled class="btn btn-primary">Inactive</button>
+              <a *ngIf="cpolicy.status == 1" class="btn btn-danger" (click)="regPenalty(cpolicy)">Impose Penalty</a>
+              <button *ngIf="cpolicy.status == 2" disabled class="btn btn-danger">Blocked</button>
+              <button *ngIf="cpolicy.status == 3" disabled class="btn btn-primary">Matured</button>
             </td>
 
             <!-- <td *ngIf="client.status!=1">Accept</td>
@@ -119,5 +129,10 @@
       <ng-template #nocpolicy>
         <p>No Eligible ClientPolicies Found</p>
       </ng-template>
+    </div>
+  </div>
+  <div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
+    <div class="container">
+      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
     </div>
   </div>
