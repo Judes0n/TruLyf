@@ -29,14 +29,19 @@ export class AgentViewComponent implements OnInit {
       this.agentId=response.agentId;
       this.agentservies.Companies(response.agentId).subscribe(res => {
         res.forEach(company => {
-          if (company.status == 1) {
+          if (company.status == 1 && (this.companies.find(com=>com.companyId == company.companyId)==null)) {
             this.companies.push(company);
           }
         });
       });
       //clients[] init
       this.agentservies.Clients(response.agentId).subscribe(resp => {
-        this.clients = resp;
+       resp.forEach(c=>{
+        if(this.clients.find(cl=>cl.clientId == c.clientId) == null )
+        {
+          this.clients.push(c);
+        }
+       });
       })
     })
   }

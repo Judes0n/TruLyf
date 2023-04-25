@@ -35,6 +35,7 @@ import { AgentViewComponent } from './agent/view/view.component';
 import { DetailsComponent } from './client/details/details.component';
 import { PaymentComponent } from './client/payment/payment.component';
 import { DatePipe } from '@angular/common';
+import { ClientViewComponent } from './client/view/view.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { DatePipe } from '@angular/common';
     CompanyViewComponent,
     AgentViewComponent,
     DetailsComponent,
-    PaymentComponent
+    PaymentComponent,
+    ClientViewComponent
   ],
   imports: [
     BrowserModule,

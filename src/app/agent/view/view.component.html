@@ -13,37 +13,37 @@
     </li>
   </ul>
   <div [class.hidden]="choice!=1">
-    <div class="container my-5" >
+    <div class="container my-5">
       <h1 class="mb-3">Clients</h1>
-  <table class="table table-dark" *ngIf="clients&&clients.length else noclients">
-    <thead>
-      <tr>
-        <th>Client ID</th>
-        <th>Profile Pic</th>
-        <th>Client Name</th>
-        <th>Date of Birth</th>
-        <th>Address</th>
-        <th>Gender</th>
-        <th>Phone</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let client of clients">
-        <td>{{ client.clientId }}</td>
-        <td>{{ client.profilePic }}</td>
-        <td>{{ client.clientName }}</td>
-        <td>{{ client.dob}}</td>
-        <td>{{ client.address }}</td>
-        <td>{{ client.gender }}</td>
-        <td>{{ client.phoneNum }}</td>
-        <td>{{ client.email }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-template #noclients>
-    <p>No Clients Found With Your Signature</p>
-  </ng-template>
+      <table class="table table-dark" *ngIf="clients&&clients.length else noclients">
+        <thead>
+          <tr>
+            <th>Client ID</th>
+            <th>Profile Pic</th>
+            <th>Client Name</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let client of clients">
+            <td>{{ client.clientId }}</td>
+            <td>{{ client.profilePic }}</td>
+            <td>{{ client.clientName }}</td>
+            <td>{{ client.dob}}</td>
+            <td>{{ client.address }}</td>
+            <td>{{ client.gender }}</td>
+            <td>{{ client.phoneNum }}</td>
+            <td>{{ client.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noclients>
+        <p>No Clients Found With Your Signature</p>
+      </ng-template>
     </div>
   </div>
   <div class="container-fluid" [class.hidden]="choice!=2">

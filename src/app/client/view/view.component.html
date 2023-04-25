@@ -13,6 +13,68 @@
     </li>
   </ul>
   <div [class.hidden]="choice!=1">
+    <div class="container my-5">
+      <h1 class="mb-3">Client Policies</h1>
+      <table class="table table-striped table-dark table-hover table-bordered"
+        *ngIf="cpolicies&&cpolicies.length else nopolicies">
+        <thead class="thead-dark">
+          <tr>
+            <th>Client Policy ID</th>
+            <th>Policy Name</th>
+            <th>Agent Name</th>
+            <th>Start Date</th>
+            <th>Expiry Date</th>
+            <th>Terms Left</th>
+            <th>Nominee Name</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let policy of cpolicies">
+            <td>{{ policy.clientPolicyId }}</td>
+            <td>{{ policy.policyTermId }}</td>
+            <td>{{ policy.agentId }}</td>
+            <td>{{ policy.startDate }}</td>
+            <td>{{ policy.expDate }}</td>
+            <td>{{ policy.counter }}</td>
+            <td>{{ policy.nomineeId }}</td>
+            <td *ngIf="policy.status == 0"><button disabled class="btn btn-white">Inactive</button></td>
+            <td *ngIf="policy.status == 1 && policy.counter == 0"><button disabled class="btn btn-primary">Amount Settled</button></td>
+            <td *ngIf="policy.status == 1 && policy.counter != 0"><button (click)="payment(policy.clientPolicyId)" class="btn btn-primary">Premium Payment</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nopolicies>
+        <p>No Client Policies Found</p>
+      </ng-template>
+    </div>
   </div>
   <div class="container-fluid" [class.hidden]="choice!=2">
+    <div class="container my-5">
+      <h1 class="mb-3">Mature Policies</h1>
+      <table class="table table-striped table-dark table-hover table-bordered"
+        *ngIf="mpolicies&&mpolicies.length else nompolicies">
+        <thead class="thead-dark">
+          <tr>
+            <th>Maturity ID</th>
+            <th>Client Policy ID</th>
+            <th>Start Date</th>
+            <th>Maturity Date</th>
+            <th>Claim Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mpolicy of mpolicies">
+            <td>{{ mpolicy.maturityId }}</td>
+            <td>{{ mpolicy.clientPolicyId }}</td>
+            <td>{{ mpolicy.startDate }}</td>
+            <td>{{ mpolicy.maturityDate }}</td>
+            <td>{{ mpolicy.claimAmount }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #nompolicies>
+        <p>No Mature Policies Found</p>
+      </ng-template>
+    </div>
   </div>
