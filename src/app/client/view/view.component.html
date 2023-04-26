@@ -40,7 +40,7 @@
             <td>{{ policy.nomineeId }}</td>
             <td *ngIf="policy.status == 0"><button disabled class="btn btn-white">Inactive</button></td>
             <td *ngIf="policy.status == 1 && policy.counter == 0"><button disabled class="btn btn-primary">Amount Settled</button></td>
-            <td *ngIf="policy.status == 1 && policy.counter != 0"><button (click)="payment(policy.clientPolicyId)" class="btn btn-primary">Premium Payment</button></td>
+            <td *ngIf="policy.status == 1 && policy.counter != 0"><button [routerLink]="['/Client/Payment',policy.clientPolicyId]" class="btn btn-primary">Premium Payment</button></td>
           </tr>
         </tbody>
       </table>

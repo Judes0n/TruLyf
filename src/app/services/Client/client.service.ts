@@ -68,6 +68,16 @@ export class ClientService {
   public GetMPolicies(clientId : number) : Observable<Maturity[]>{
     return this.http.get<Maturity[]>(environment.baseApiUrl+'/api/Client/GetMaturities',{params: new HttpParams().append('clientId',clientId)});
   }
+
+  public GetClientPolicy(clientpolicyId : number) : Observable <Clientpolicy>
+  {
+    return this.http.get<Clientpolicy>(environment.baseApiUrl+'/api/Client/GetCPolicy',{params : new HttpParams().append('clientpolicyId',clientpolicyId)});
+  }
+
+  public GetTerm(policytermId : number) : Observable <Policyterm>
+  {
+    return this.http.get<Policyterm>(environment.baseApiUrl+'/api/Client/GetPTerm',{params : new HttpParams().append('policytermId',policytermId)});
+  }
   //GET -END
   //POST
 

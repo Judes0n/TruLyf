@@ -138,4 +138,5 @@ export class DetailsComponent implements OnInit {
   readSession(key: string): string {
     return sessionStorage.getItem(key);
   }
+
 }

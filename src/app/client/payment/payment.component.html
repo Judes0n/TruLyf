@@ -1,6 +1,53 @@
 <div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
   <div class="container">
-      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
-<p>payment works!</p>
+<div class="payment-container" *ngIf="this.loaded">
+  <h2>Payment Details</h2>
+  <form [formGroup]="paymentForm">
+    <div class="form-group">
+      <label for="card-number">Card Number</label>
+      <input type="text" id="card-number" formControlName="cnum" (input)="onInputChange($event)"
+        pattern="[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}" placeholder="Enter your card number" />
+      <div *ngIf="paymentForm.get('cnum').invalid && paymentForm.get('cnum').touched" class="error-message">
+        <div *ngIf="paymentForm.get('cnum').hasError('required')">Card number is required</div>
+        <div *ngIf="paymentForm.get('cnum').hasError('invalidCardNumber')">Invalid card number</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="expiry">Expiry Date</label>
+      <input type="text" id="expiry" formControlName="exp" (input)="onExpiryDateChange($event)" maxlength="5"
+        placeholder="MM/YY" />
+      <div *ngIf="paymentForm.get('exp').invalid && paymentForm.get('exp').touched" class="error-message">
+        <div *ngIf="paymentForm.get('exp').hasError('required')">Expiry date is required</div>
+        <div *ngIf="paymentForm.get('exp').hasError('invalidExpiryDate')">Invalid expiry date</div>
+        <div *ngIf="paymentForm.get('exp').hasError('expiredExpiryDate')">Expiry date has passed</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" formControlName="cvv" maxlength="4" placeholder="Enter CVV" />
+      <div *ngIf="paymentForm.get('cvv').invalid && paymentForm.get('cvv').touched" class="error-message">
+        <div *ngIf="paymentForm.get('cvv').hasError('required')">CVV is required</div>
+        <div *ngIf="paymentForm.get('cvv').hasError('minlength')">CVV must be at least 3 characters long</div>
+        <div *ngIf="paymentForm.get('cvv').hasError('maxlength')">CVV cannot exceed 4 characters</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="name">Name on Card</label>
+      <input type="text" id="name" formControlName="cname" minlength="5" placeholder="Enter your name" />
+      <div *ngIf="paymentForm.get('cname').invalid && paymentForm.get('cname').touched" class="error-message">
+        <div *ngIf="paymentForm.get('cname').hasError('required')">Name on card is required</div>
+      </div>
+    </div>
+    <button *ngIf="!this.a"
+      [disabled]="(this.paymentForm.get('cnum').hasError('required') ||  this.paymentForm.get('cvv').hasError('required') )|| this.paymentForm.get('exp').hasError('required')  "
+      type="submit" (click)="verify()">VERIFY</button>
+    <div *ngIf="this.a" class="form-group">
+      <label for="amount">Amount</label>
+      <input id="amount" type="text" formControlName="amount" readonly>
+    </div>
+    <button *ngIf="this.a" type="submit">Pay Now</button>
+  </form>
+</div>
