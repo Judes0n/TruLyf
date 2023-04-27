@@ -30,27 +30,32 @@ export class AdminService {
     return this.http.get<Agent[]>(environment.baseApiUrl + '/api/Admin/GetAllAgents');
   }
 
-  Approve(user : User): Observable<StatusEnum> {
-    this.userservice.GetUser(user.userId).subscribe((userres) => {
-      userres.status = StatusEnum.Active;
-      this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', userres).subscribe(res2 => {
-        return userres.status;
-      });
-      },
-    (err) => { },
-    () => {
-        return user.status;
-      });
-      return of(user.status);
+  ChangeStatus(user : User , status : StatusEnum) : Observable<User>
+  {
+    user.status = status;
+    return this.http.put<User>(environment.baseApiUrl+'/api/Admin/ChangeUserStatus',user);
   }
+  // Approve(user : User): Observable<StatusEnum> {
+  //   this.userservice.GetUser(user.userId).subscribe((userres) => {
+  //     userres.status = StatusEnum.Active;
+  //     this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', userres).subscribe(res2 => {
+  //       return userres.status;
+  //     });
+  //     },
+  //   (err) => { },
+  //   () => {
+  //       return user.status;
+  //     });
+  //     return of(user.status);
+  // }
 
 
-  Block(userId: number) {
-    this.userservice.GetUser(userId).subscribe((res) => {
-      res.status = StatusEnum.Blocked;
-      this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', res).subscribe();
-    });
-  }
+  // Block(userId: number) {
+  //   this.userservice.GetUser(userId).subscribe((res) => {
+  //     res.status = StatusEnum.Blocked;
+  //     this.http.put(environment.baseApiUrl + '/api/Admin/ChangeUserStatus', res).subscribe();
+  //   });
+  // }
 
   ViewAllTypes(): Observable<Policytype[]> {
     return this.http.get<Policytype[]>(this.baseApiUrl + '/api/Admin/GetAllTypes');

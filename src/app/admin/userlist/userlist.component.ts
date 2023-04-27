@@ -10,43 +10,29 @@ import { UserTypeEnum } from 'src/app/enum/user-type-enum';
   styleUrls: ['./userlist.component.scss']
 })
 export class UserlistComponent implements OnInit {
-  users : User[] = [];
-  constructor(private adminservice : AdminService,private router : Router) { }
+  users: User[] = [];
+  constructor(private adminservice: AdminService, private router: Router) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     this.adminservice.getAllUsers().subscribe({
-      next : (users)=>{
-       this.users = users;
+      next: (users) => {
+        this.users = users;
       },
-      error : (response)=>{
+      error: (response) => {
         console.log(response);
       }
     });
   }
 
-  Approve(user : User) : StatusEnum
-  {
-
-    this.adminservice.Approve(user).subscribe(res=>{
-      alert('User Approved\nPlease Reload List');
-      return res;
-    });
-
-    this.ngOnInit();
-    return user.status;
-  }
-  Block(userId : number)
-  {
-    this.adminservice.Block(userId);
-    alert('User Blocked\nPlease Reload List');
+  ChangeUserStatus(user: User, status: StatusEnum) {
+    this.adminservice.ChangeStatus(user, status).subscribe(res => {
+        alert("Status Updation Success\nPlease Reload the List!");
+    })
   }
 
-  UserType(type : number) : string
-  {
-    switch(type)
-    {
-      case 1 :
+  UserType(type: number): string {
+    switch (type) {
+      case 1:
         return "Company";
       case 2:
         return "Agent";

@@ -41,12 +41,26 @@ button[type="submit"] {
   width: 100%;
 }
 
-button[type="submit"]:hover {
+button[type="ok"]:hover {
   background-color: #45a049;
 }
-button[type="submit"]:disabled {
+button[type="ok"]:disabled {
   background-color: #767776;
 }
+button[type="ok"]{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
 .error-message {
   color: red;
   font-size: 0.8

@@ -19,8 +19,9 @@
         <td>{{ user.userId }}</td>
         <td>{{ user.userName }}</td>
         <td>{{ UserType(user.type) }}</td>
-        <td [class.hidden]="user.status == 1"><a class="btn btn-primary" (click)="user.status = Approve(user);">Approve</a></td>
-        <td [class.hidden]="user.status != 1"><a class="btn btn-danger" (click)="Block(user.userId);">Block</a></td>
+        <td *ngIf="user.status == 0"><a class="btn btn-primary" (click)="ChangeUserStatus(user,1);">Approve</a></td>
+        <td *ngIf="user.status == 1"><a class="btn btn-danger" (click)="ChangeUserStatus(user,2);">Block</a></td>
+        <td *ngIf="user.status == 2"><a class="btn btn-warning" (click)="ChangeUserStatus(user,0);">Unblock</a></td>
       </tr>
     </tbody>
   </table>

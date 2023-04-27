@@ -8,6 +8,7 @@ import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { Company } from 'src/app/models/company';
 import { Maturity } from 'src/app/models/maturity';
 import { Nominee } from 'src/app/models/nominee';
+import { Payments } from 'src/app/models/payment';
 import { Policy } from 'src/app/models/policy';
 import { Policyterm } from 'src/app/models/policyterm';
 import { Policytype } from 'src/app/models/policytype';
@@ -106,6 +107,18 @@ export class ClientService {
       }
     }
     return this.http.post<Clientpolicy>(environment.baseApiUrl + '/api/Client/AddClientPolicy', formData);
+  }
+
+  public MakePayment(payment : Payments) : Observable<Payments>
+  {
+    const formData = new FormData();
+    for (const prop in payment) {
+      if (payment.hasOwnProperty(prop)) {
+        formData.append(prop, payment[prop]);
+      }
+    }
+
+    return this.http.post<Payments>(environment.baseApiUrl+'/api/Client/makePayment',formData);
   }
 //POST END
 

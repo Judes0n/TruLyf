@@ -5,7 +5,7 @@
 </div>
 <div class="payment-container" *ngIf="this.loaded">
   <h2>Payment Details</h2>
-  <form [formGroup]="paymentForm">
+  <form [formGroup]="paymentForm" (ngSubmit)="payment()">
     <div class="form-group">
       <label for="card-number">Card Number</label>
       <input type="text" id="card-number" formControlName="cnum" (input)="onInputChange($event)"
@@ -43,7 +43,7 @@
     </div>
     <button *ngIf="!this.a"
       [disabled]="(this.paymentForm.get('cnum').hasError('required') ||  this.paymentForm.get('cvv').hasError('required') )|| this.paymentForm.get('exp').hasError('required')  "
-      type="submit" (click)="verify()">VERIFY</button>
+      type="ok" (click)="verify()">VERIFY</button>
     <div *ngIf="this.a" class="form-group">
       <label for="amount">Amount</label>
       <input id="amount" type="text" formControlName="amount" readonly>

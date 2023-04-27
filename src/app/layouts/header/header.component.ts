@@ -70,6 +70,7 @@ export class HeaderComponent implements OnInit,OnChanges{
       {
       sessionStorage.removeItem('log_role');
       sessionStorage.removeItem('userID');
+      sessionStorage.removeItem('agentId');
       }
   }
 }
