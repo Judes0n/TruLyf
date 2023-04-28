@@ -20,7 +20,6 @@ export class ClientpoliciesComponent implements OnInit {
   policies: Policy[];
   policyterms: Policyterm[];
   clients: Client[];
-  i: number;
   dataLoaded = false;
 
   constructor(private agentservices: AgentService) { }
@@ -29,7 +28,6 @@ export class ClientpoliciesComponent implements OnInit {
     let agentId: number;
     this.dataLoaded = false;
     this.cpolicies = null;
-    this.i = 1;
     this.clients = [];
     this.policies = [];
     this.policyterms = [];
