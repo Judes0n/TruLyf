@@ -55,6 +55,7 @@
           <thead>
             <tr>
               <th>Company ID</th>
+              <th>Picture</th>
               <th>Company Name</th>
               <th>Address</th>
               <th>Email</th>
@@ -66,6 +67,7 @@
 
             <tr *ngFor="let company of companies" (click)="updatePolicies(company.companyId)">
               <td>{{ company.companyId }}</td>
+              <td><img [src]="check(company.profilePic)" width="200px" height="200px"  alt=""></td>
               <td>{{ company.companyName }}</td>
               <td>{{ company.address }}</td>
               <td>{{ company.email }}</td>

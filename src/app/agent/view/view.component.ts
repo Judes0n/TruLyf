@@ -39,9 +39,13 @@ export class AgentViewComponent implements OnInit {
     this.agentservies.GetAgentId(+this.readSession('userID')).subscribe(response => {
       this.agentId = response.agentId;
       this.agentservies.Companies(response.agentId).subscribe(res => {
-        res.forEach(company => {
+        res.forEach(async company => {
+          let a = new Imageset();
           if (company.status == 1 && (this.companies.find(com => com.companyId == company.companyId) == null)) {
             this.companies.push(company);
+            a.imagePath = company.profilePic;
+            a.image = await this.Getimage(company.profilePic);
+            this.imageset.push(a);
           }
         });
       });
