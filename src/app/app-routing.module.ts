@@ -29,6 +29,7 @@ import { ReportComponent } from './report/report.component';
 import { NomineeComponent } from './client/nominee/nominee.component';
 import { DetailsComponent } from './client/details/details.component';
 import { PaymentComponent } from './client/payment/payment.component';
+import { PenaltyComponent } from './client/penalty/penalty.component';
 
 
 const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
   { path: 'Client/View', title: 'TruLyf | Client | View', component: ClientViewComponent },
   { path: 'Client/ViewDetails/:policyId', title: 'TruLyf | Client | ViewDetails', component: DetailsComponent },
   { path: 'Client/Payment/:clientpolicyId', title: 'TruLyf | Client | Payment', component: PaymentComponent },
+  { path: 'Client/Penalty/:clientpolicyId', title: 'TruLyf | Client | Penalty Payment', component: PenaltyComponent },
   //Common
   { path: 'Reports',title : 'TruLyf | Report', component: ReportComponent },
   { path: 'Profile/:userid',title : 'TruLyf | Profile', component: ProfileComponent },

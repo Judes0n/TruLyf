@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { error } from 'jquery';
+import { error, param } from 'jquery';
 import { Observable, of } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
 import { Agentcompany } from 'src/app/models/agentcompany';
@@ -13,6 +13,7 @@ import { Payments } from 'src/app/models/payment';
 import { Policy } from 'src/app/models/policy';
 import { Policyterm } from 'src/app/models/policyterm';
 import { Policytype } from 'src/app/models/policytype';
+import { Premium } from 'src/app/models/premium';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -58,6 +59,11 @@ export class ClientService {
   public GetPolicyTerm(policytermId: number): Observable<Policyterm> {
     return this.http.get<Policyterm>(environment.baseApiUrl + '/api/Client/GetPTerm', { params: new HttpParams().append('policytermId', policytermId) });
   }
+
+  public GetPenalties(clientPolicyId : number) : Observable<Premium[]>
+  {
+    return this.http.get<Premium[]>(environment.baseApiUrl+'/api/Client/GetPenalties',{params : new HttpParams().append('clientPolicyId',clientPolicyId)});
+  }
   //
   public ValidateRef(ref: string): Observable<Agentcompany> {
     return this.http.get<Agentcompany>(environment.baseApiUrl + '/api/Client/ValidateReferral', { params: new HttpParams().append('referral', ref) });
@@ -86,6 +92,7 @@ export class ClientService {
   public GetAgent(agentId: number): Observable<Agent> {
     return this.http.get<Agent>(environment.baseApiUrl + '/api/Agent/GetAgentforClient', { params: new HttpParams().append('agentId', agentId) });
   }
+
   //GET -END
   //POST
 
@@ -116,14 +123,15 @@ export class ClientService {
     return this.http.post<Clientpolicy>(environment.baseApiUrl + '/api/Client/AddClientPolicy', formData);
   }
 
-  public MakePayment(payment: Payments): Observable<Payments> {
+  public MakePayment(payment: Payments , penalty : number = 0): Observable<Payments> {
     const formData = new FormData();
     for (const prop in payment) {
       if (payment.hasOwnProperty(prop)) {
         formData.append(prop, payment[prop]);
       }
     }
-
+    if(penalty == 1)
+      formData.append('penalty',penalty.toString());
     return this.http.post<Payments>(environment.baseApiUrl + '/api/Client/makePayment', formData);
   }
   //POST END

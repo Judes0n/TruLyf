@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { PenaltyStatusEnum } from 'src/app/enum/Penalty-Status-Enum.enum';
 import { Agent } from 'src/app/models/agent';
 import { Client } from 'src/app/models/client';
 import { Clientdeath } from 'src/app/models/clientdeath';
@@ -27,14 +28,14 @@ export class CategoryComponent implements OnInit {
   policyterms: Policyterm[] = [];
   clients: Client[] = [];
   dataLoaded = false;
-  constructor(private agentservices: AgentService, private datePipe: DatePipe,private route : Router) { }
+  constructor(private agentservices: AgentService, private datePipe: DatePipe, private route: Router) { }
 
   async ngOnInit() {
     this.choice = 1;
     let agentId: number;
-    this.cpolicies =[];
+    this.cpolicies = [];
     this.clients = [];
-    this.policies =[];
+    this.policies = [];
     this.policyterms = [];
     agentId = +this.readSession('agentId');
     this.cpolicies = await this.agentservices.GetClientPolicies(agentId).toPromise();
@@ -51,7 +52,7 @@ export class CategoryComponent implements OnInit {
       pts.forEach(pt => {
         this.policyterms.push(pt);
       });
-      ps.forEach(p=>p.subscribe(res=>{
+      ps.forEach(p => p.subscribe(res => {
         this.policies.push(res);
       }));
       console.log(this.policies);
@@ -73,11 +74,11 @@ export class CategoryComponent implements OnInit {
   }
 
   ReadPolicyAmount(policytermId: number): number {
-      var policyId = this.policyterms.find(pt => pt.policyTermId == policytermId).policyId;
-      var res = this.policies.find(p => p.policyId == policyId);
-      if(res != null)
+    var policyId = this.policyterms.find(pt => pt.policyTermId == policytermId).policyId;
+    var res = this.policies.find(p => p.policyId == policyId);
+    if (res != null)
       return res.policyAmount;
-      else return 0;
+    else return 0;
   }
 
   ReadClientName(clientId: number): string {
@@ -94,7 +95,7 @@ export class CategoryComponent implements OnInit {
     clientdeath = {
       clientDeathId: 0,
       clientPolicyId: clientpolicyId,
-      dod: this.datePipe.transform(currentDate,'shortDate'),
+      dod: this.datePipe.transform(currentDate, 'shortDate'),
       startDate: cp.startDate,
       claimAmount: (p.policyAmount * 1.75)
     };
@@ -115,7 +116,7 @@ export class CategoryComponent implements OnInit {
     let maturepolicy: Maturity = {
       maturityId: 0,
       clientPolicyId: cp.clientPolicyId,
-      maturityDate: this.datePipe.transform(currentDate,'shortDate'),
+      maturityDate: this.datePipe.transform(currentDate, 'shortDate'),
       claimAmount: p.policyAmount * 1.2,
       startDate: cp.startDate
     };
@@ -133,19 +134,15 @@ export class CategoryComponent implements OnInit {
     let currentDate = new Date();
     let pt = this.policyterms.find(p => p.policyTermId == cp.policyTermId);
     let penalty: number;
-    if (pt.terms < 6) {
-      penalty = pt.premiumAmount * 0.3;
-    }
-    else {
-      penalty = pt.premiumAmount * 2;
-    }
+    penalty = pt.premiumAmount * 0.2;
     let premium: Premium = {
       premiumId: 0,
       clientPolicyId: cp.clientPolicyId,
-      dateOfCollection: this.datePipe.transform(currentDate,'shortDate'),
-      penality: penalty
+      dateOfPenalty: this.datePipe.transform(currentDate, 'shortDate'),
+      penalty: penalty,
+      status: PenaltyStatusEnum.Pending
     };
-    if (window.confirm("You Are About to Impose ClientPolicy with ID: '" + premium.clientPolicyId + "' ,a penalty of '₹" + premium.penality + "'\nAction cannot be Undone")) {
+    if (window.confirm("You Are About to Impose ClientPolicy with ID: '" + premium.clientPolicyId + "' ,a penalty of '₹" + premium.penalty + "'\nAction cannot be Undone")) {
       this.agentservices.AddPenalty(premium);
 
     }

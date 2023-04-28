@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { PenaltyStatusEnum } from 'src/app/enum/Penalty-Status-Enum.enum';
 import { Agent } from 'src/app/models/agent';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { Maturity } from 'src/app/models/maturity';
 import { Nominee } from 'src/app/models/nominee';
 import { Policy } from 'src/app/models/policy';
 import { Policyterm } from 'src/app/models/policyterm';
+import { Premium } from 'src/app/models/premium';
 import { AgentService } from 'src/app/services/Agent/agent.service';
 import { ClientService } from 'src/app/services/Client/client.service';
 
@@ -22,7 +24,10 @@ export class ClientViewComponent implements OnInit {
   agents: Agent[];
   policies: Policy[];
   policyterms: Policyterm[];
+  penalties: Premium[];
   loaded: boolean;
+
+
   constructor(private clientservice: ClientService) { }
 
   async ngOnInit() {
@@ -34,7 +39,10 @@ export class ClientViewComponent implements OnInit {
     this.agents = [];
     this.policies = [];
     this.policyterms = [];
+    this.penalties = [];
     this.loaded = false;
+
+
     this.clientservice.ViewNominees(clientId).subscribe(res => {
       this.nominees = res;
     });
@@ -47,6 +55,11 @@ export class ClientViewComponent implements OnInit {
           this.policyterms.push(pterm);
           this.clientservice.GetPolicy(pterm.policyId).subscribe(pol => {
             this.policies.push(pol);
+          });
+          this.clientservice.GetPenalties(cpol.clientPolicyId).subscribe(pen => {
+            pen.forEach(p => {
+              this.penalties.push(p);
+            });
           });
         });
         this.clientservice.GetAgent(cpol.agentId).subscribe(agent => {
@@ -106,5 +119,17 @@ export class ClientViewComponent implements OnInit {
       return m.terms;
     else
       return 0;
+  }
+
+  CheckPenalties(clientPolicyId: number): boolean {
+    let p: Premium = null;
+    this.penalties.forEach(pen => {
+      if (pen.status == PenaltyStatusEnum.Pending)
+        p = pen;
+    });
+    if (p != null)
+      return true;
+    else
+      return false;
   }
 }

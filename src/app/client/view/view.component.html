@@ -40,9 +40,10 @@
             <td>{{ policy.counter }} of {{ ReadTotalTerm(policy.policyTermId) }}</td>
             <td>₹ {{ ReadPremium(policy.policyTermId) }}</td>
             <td>{{ ReadNomineeName(policy.nomineeId) }}</td>
-            <td *ngIf="policy.status == 0"><button disabled class="btn btn-white">Inactive</button></td>
-            <td *ngIf="policy.status == 1 && policy.counter == 0"><button disabled class="btn btn-primary">Amount Settled</button></td>
-            <td *ngIf="policy.status == 1 && policy.counter != 0"><button [routerLink]="['/Client/Payment',policy.clientPolicyId]" class="btn btn-primary">Premium Payment</button></td>
+            <td *ngIf="policy.status == 0"><button disabled class="btn btn-info">Inactive</button></td>
+            <td *ngIf="policy.status == 1 && policy.counter == 0 && CheckPenalties(policy.clientPolicyId)"><button disabled class="btn btn-primary">Amount Settled</button></td>
+            <td *ngIf="policy.status == 1 && policy.counter != 0 && !CheckPenalties(policy.clientPolicyId)"><button [routerLink]="['/Client/Payment',policy.clientPolicyId]" class="btn btn-primary">Pay Premium</button></td>
+            <td *ngIf="policy.status !=0 && CheckPenalties(policy.clientPolicyId) && policy.counter !=0"><button class="btn btn-warning" [routerLink]="['/Client/Penalty',policy.clientPolicyId]">Pay Penalty</button></td>
           </tr>
         </tbody>
       </table>
