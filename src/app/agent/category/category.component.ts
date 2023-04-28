@@ -134,7 +134,7 @@ export class CategoryComponent implements OnInit {
     let currentDate = new Date();
     let pt = this.policyterms.find(p => p.policyTermId == cp.policyTermId);
     let penalty: number;
-    penalty = pt.premiumAmount * 0.2;
+    penalty = Math.round(pt.premiumAmount * 0.2);
     let premium: Premium = {
       premiumId: 0,
       clientPolicyId: cp.clientPolicyId,

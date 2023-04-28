@@ -71,6 +71,7 @@ export class ClientViewComponent implements OnInit {
     this.clientservice.GetMPolicies(clientId).subscribe(res => {
       this.mpolicies = res;
     });
+    console.log(this.penalties);
     this.loaded = true;
   }
 
@@ -124,7 +125,7 @@ export class ClientViewComponent implements OnInit {
   CheckPenalties(clientPolicyId: number): boolean {
     let p: Premium = null;
     this.penalties.forEach(pen => {
-      if (pen.status == PenaltyStatusEnum.Pending)
+      if (pen.clientPolicyId == clientPolicyId && pen.status == PenaltyStatusEnum.Pending)
         p = pen;
     });
     if (p != null)

@@ -5,7 +5,7 @@
 </div>
 <div class="container my-5" style="height: 400px; overflow-y: scroll;">
   <h1 class="mb-3">Policies</h1>
-  <table class="table table-dark" *ngIf="cpolicies&&cpolicies.length else nocpolicy">
+  <table class="table table-dark" *ngIf="cpolicies&&cpolicies.length && dataLoaded == true else nocpolicy">
     <thead>
       <tr>
         <th>Sl.No</th>
@@ -23,13 +23,13 @@
     <tbody>
       <tr *ngFor="let cpolicy of cpolicies">
         <td>{{ i }}</td>
-        <td>{{ cpolicy.policyTermId }}</td>
-        <td>{{ cpolicy.clientId }}</td>
-        <td>{{ cpolicy.policyTermId}}</td>
+        <td>{{ ReadPolicyName(cpolicy.policyTermId) }}</td>
+        <td>{{ ReadClientName(cpolicy.clientId) }}</td>
+        <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
         <td>{{ cpolicy.startDate }}</td>
         <td>{{ cpolicy.expDate }}</td>
         <td>{{ cpolicy.counter }}</td>
-        <td>{{ cpolicy.policyTermId }}</td>
+        <td>{{ ReadPremiumAmount(cpolicy.policyTermId) }}</td>
         <td *ngIf="cpolicy.status==0"><a class="btn btn-primary" (click)="ChangeStatus(1,cpolicy.clientPolicyId)">Accept</a></td>
         <td *ngIf="cpolicy.status==1"><a class="btn btn-danger" (click)="ChangeStatus(2,cpolicy.clientPolicyId)">Decline</a></td>
         <td *ngIf="cpolicy.status == 2"><a class="btn btn-warning" (click)="ChangeStatus(0,cpolicy.clientPolicyId)">Unblock</a></td>
