@@ -15,7 +15,7 @@
   <div [class.hidden]="choice!=1">
     <div class="container my-5">
       <h1 class="mb-3">Clients</h1>
-      <table class="table table-dark" *ngIf="(clients&&clients.length)&&loaded else noclients">
+      <table class="table table-dark table-hover table-striped" *ngIf="(clients&&clients.length)&&loaded else noclients">
         <thead>
           <tr>
             <th>Client ID</th>
@@ -51,7 +51,7 @@
     <div class="row">
       <div class="col" style="height: 400px; overflow-y: scroll;">
         <h2 class="mb-3">Companies</h2>
-        <table class="table table-dark table-striped table-hover" *ngIf="(companies&&companies.length)&&loaded else nocompany">
+        <table class="table table-dark table-striped table-hover " *ngIf="(companies&&companies.length)&&loaded else nocompany">
           <thead>
             <tr>
               <th>Company ID</th>
