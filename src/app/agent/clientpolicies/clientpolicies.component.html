@@ -21,8 +21,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cpolicy of cpolicies">
-        <td>{{ i }}</td>
+      <tr *ngFor="let cpolicy of cpolicies;let i = index">
+        <td>{{ i + 1 }}</td>
         <td>{{ ReadPolicyName(cpolicy.policyTermId) }}</td>
         <td>{{ ReadClientName(cpolicy.clientId) }}</td>
         <td>{{ ReadPolicyAmount(cpolicy.policyTermId) }}</td>
