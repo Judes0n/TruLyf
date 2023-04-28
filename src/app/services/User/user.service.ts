@@ -122,4 +122,11 @@ export class UserService {
     let queryParams = new HttpParams().append('userId',userId);
     return this.http.get<User>(environment.baseApiUrl+'/api/User/GetUser',{params: queryParams});
   }
+
+  //Image Handling
+
+  GetImage(Imagepath : string) : Observable<Blob>
+  {
+    return this.http.get(environment.baseApiUrl+`/api/User/Images/${Imagepath}`,{responseType : 'blob'});
+  }
 }

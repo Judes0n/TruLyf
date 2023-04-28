@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { error } from 'jquery';
 import { Observable, of } from 'rxjs';
+import { Agent } from 'src/app/models/agent';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Client } from 'src/app/models/client';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
@@ -54,6 +55,10 @@ export class ClientService {
     return this.http.get<Policy>(environment.baseApiUrl + '/api/Admin/GetPolicy', { params: new HttpParams().append("policyId", policyId) });
   }
 
+  public GetPolicyTerm(policytermId: number): Observable<Policyterm> {
+    return this.http.get<Policyterm>(environment.baseApiUrl + '/api/Client/GetPTerm', { params: new HttpParams().append('policytermId', policytermId) });
+  }
+  //
   public ValidateRef(ref: string): Observable<Agentcompany> {
     return this.http.get<Agentcompany>(environment.baseApiUrl + '/api/Client/ValidateReferral', { params: new HttpParams().append('referral', ref) });
   }
@@ -62,22 +67,24 @@ export class ClientService {
     return this.http.get<Policyterm[]>(environment.baseApiUrl + '/api/Client/GetTerms', { params: new HttpParams().append('policyId', policyId) });
   }
 
-  public GetCPolicy(clientId : number) : Observable<Clientpolicy[]>{
-    return this.http.get<Clientpolicy[]>(environment.baseApiUrl+'/api/Client/GetClientPolicies',{params: new HttpParams().append('clientId',clientId)});
+  public GetCPolicy(clientId: number): Observable<Clientpolicy[]> {
+    return this.http.get<Clientpolicy[]>(environment.baseApiUrl + '/api/Client/GetClientPolicies', { params: new HttpParams().append('clientId', clientId) });
   }
 
-  public GetMPolicies(clientId : number) : Observable<Maturity[]>{
-    return this.http.get<Maturity[]>(environment.baseApiUrl+'/api/Client/GetMaturities',{params: new HttpParams().append('clientId',clientId)});
+  public GetMPolicies(clientId: number): Observable<Maturity[]> {
+    return this.http.get<Maturity[]>(environment.baseApiUrl + '/api/Client/GetMaturities', { params: new HttpParams().append('clientId', clientId) });
   }
 
-  public GetClientPolicy(clientpolicyId : number) : Observable <Clientpolicy>
-  {
-    return this.http.get<Clientpolicy>(environment.baseApiUrl+'/api/Client/GetCPolicy',{params : new HttpParams().append('clientpolicyId',clientpolicyId)});
+  public GetClientPolicy(clientpolicyId: number): Observable<Clientpolicy> {
+    return this.http.get<Clientpolicy>(environment.baseApiUrl + '/api/Client/GetCPolicy', { params: new HttpParams().append('clientpolicyId', clientpolicyId) });
   }
 
-  public GetTerm(policytermId : number) : Observable <Policyterm>
-  {
-    return this.http.get<Policyterm>(environment.baseApiUrl+'/api/Client/GetPTerm',{params : new HttpParams().append('policytermId',policytermId)});
+  public GetTerm(policytermId: number): Observable<Policyterm> {
+    return this.http.get<Policyterm>(environment.baseApiUrl + '/api/Client/GetPTerm', { params: new HttpParams().append('policytermId', policytermId) });
+  }
+
+  public GetAgent(agentId: number): Observable<Agent> {
+    return this.http.get<Agent>(environment.baseApiUrl + '/api/Agent/GetAgentforClient', { params: new HttpParams().append('agentId', agentId) });
   }
   //GET -END
   //POST
@@ -109,8 +116,7 @@ export class ClientService {
     return this.http.post<Clientpolicy>(environment.baseApiUrl + '/api/Client/AddClientPolicy', formData);
   }
 
-  public MakePayment(payment : Payments) : Observable<Payments>
-  {
+  public MakePayment(payment: Payments): Observable<Payments> {
     const formData = new FormData();
     for (const prop in payment) {
       if (payment.hasOwnProperty(prop)) {
@@ -118,8 +124,8 @@ export class ClientService {
       }
     }
 
-    return this.http.post<Payments>(environment.baseApiUrl+'/api/Client/makePayment',formData);
+    return this.http.post<Payments>(environment.baseApiUrl + '/api/Client/makePayment', formData);
   }
-//POST END
+  //POST END
 
 }

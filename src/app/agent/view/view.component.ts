@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Client } from 'src/app/models/client';
 import { Company } from 'src/app/models/company';
 import { Policy } from 'src/app/models/policy';
 import { AgentService } from 'src/app/services/Agent/agent.service';
+import { UserService } from 'src/app/services/User/user.service';
 
+export class Imageset {
+  imagePath: string;
+  image: SafeUrl;
+}
 
 @Component({
   selector: 'app-view',
@@ -17,33 +24,42 @@ export class AgentViewComponent implements OnInit {
   companies: Company[] = [];
   policies: Policy[] = [];
   private allpolicies: Policy[] = [];
-  agentId : number;
+  agentId: number;
+  imageset: Imageset[];
+  loaded: boolean;
 
-  constructor(private agentservies: AgentService) { }
+  constructor(private agentservies: AgentService, private userservice: UserService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.loaded = false;
     this.choice = 1;
     this.companies = [];
     this.policies = [];
+    this.imageset = [];
     this.agentservies.GetAgentId(+this.readSession('userID')).subscribe(response => {
-      this.agentId=response.agentId;
+      this.agentId = response.agentId;
       this.agentservies.Companies(response.agentId).subscribe(res => {
         res.forEach(company => {
-          if (company.status == 1 && (this.companies.find(com=>com.companyId == company.companyId)==null)) {
+          if (company.status == 1 && (this.companies.find(com => com.companyId == company.companyId) == null)) {
             this.companies.push(company);
           }
         });
       });
       //clients[] init
       this.agentservies.Clients(response.agentId).subscribe(resp => {
-       resp.forEach(c=>{
-        if(this.clients.find(cl=>cl.clientId == c.clientId) == null )
-        {
-          this.clients.push(c);
-        }
-       });
-      })
-    })
+        let a = new Imageset();
+        resp.forEach(async c => {
+          if (this.clients.find(cl => cl.clientId == c.clientId) == null) {
+            this.clients.push(c);
+            a.imagePath = c.profilePic;
+            a.image = await this.Getimage(c.profilePic);
+            this.imageset.push(a);
+          }
+        });
+      });
+    });
+    console.log(this.imageset);
+    this.loaded = true;
   }
 
   readSession(key: string): string {
@@ -65,11 +81,25 @@ export class AgentViewComponent implements OnInit {
       });
     });
   }
-  GetReferral(companyId : number)
-  {
-    this.agentservies.GetRefs(this.agentId,companyId).subscribe((res : Agentcompany)=>{
-    navigator.clipboard.writeText(res.referral).then(() => {alert(`Successfully copied Referral code to clipboard`);}).catch((error) =>{console.error(`Failed to copy ${res.referral} to clipboard: ${error}`);
-  });
-   });
+  GetReferral(companyId: number) {
+    this.agentservies.GetRefs(this.agentId, companyId).subscribe((res: Agentcompany) => {
+      navigator.clipboard.writeText(res.referral).then(() => { alert(`Successfully copied Referral code to clipboard`); }).catch((error) => {
+        console.error(`Failed to copy ${res.referral} to clipboard: ${error}`);
+      });
+    });
+  }
+
+ async Getimage(path: string): Promise<SafeUrl> {
+    let sanURL: SafeUrl;
+    let img = await this.userservice.GetImage(path).toPromise();
+    sanURL = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(img));
+    return sanURL;
+  }
+
+  check(path: string) : SafeUrl {
+    var res = this.imageset.find(i=>i.imagePath == path);
+    if(res != null)
+    return res.image;
+    else return "";
   }
 }
