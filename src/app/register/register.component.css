@@ -1,7 +1,6 @@
 body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 14px;
-  background: #f2f2f2;
 }
 
 .clearfix:after {
@@ -14,12 +13,12 @@ body {
 
 .form_wrapper {
   background: #fff;
-  width: 500px;
+  width: 640px;
   max-width: 100%;
   box-sizing: border-box;
 
-  padding: 25px;
-  margin: 8% auto 0;
+  padding: 40px 80px;
+  margin: 5% auto;
   position: relative;
   z-index: 1;
   border-top: 5px solid #355EFC;
@@ -51,6 +50,10 @@ body {
   line-height: 1.5em;
   margin: 0;
 }
+.form_wrapper .nav label {
+  font-size: 16px;
+  font-weight: 600;
+}
 .form_wrapper label {
   font-size: 12px;
 }
@@ -70,6 +73,7 @@ body {
   margin-bottom: 20px;
   -webkit-animation: bounce 0.6s ease-out;
   animation: bounce 0.6s ease-out;
+  border-radius: 20px;
 }
 .form_wrapper .input_field > span {
   position: absolute;
@@ -276,6 +280,11 @@ body {
 }
 .credit a {
   color: #e1a70a;
+}
+
+.login_link {
+  display: flex; 
+  justify-content: flex-end;
 }
 
 @-webkit-keyframes check {
