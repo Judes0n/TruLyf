@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { StatusEnum } from 'src/app/enum/user-status-enum';
-import { Agent } from 'src/app/models/agent';
-import { Client } from 'src/app/models/client';
-import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { AgentService } from 'src/app/services/Agent/agent.service';
 import { ClientService } from 'src/app/services/Client/client.service';
@@ -24,7 +20,8 @@ export class ProfileComponent implements OnInit {
   profileuser: User;
   profileForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
-    password: new FormControl(null, Validators.required)
+    password: new FormControl(null, Validators.required),
+    confirmpassword: new FormControl(null, Validators.required)
   });
 
   constructor(private route: ActivatedRoute, private userservice: UserService, private companyservice: CompanyService, private agentservice: AgentService, private clientservice: ClientService) { }
@@ -62,9 +59,14 @@ export class ProfileComponent implements OnInit {
       status: this.profileuser.status,
       type: this.profileuser.type
     };
-    this.userservice.UpdateUser(user).subscribe(res => {
-      alert("Profile Updated!!");
-    });
-    this.ngOnInit();
+    if (this.profileForm.get('confirmpassword').value == this.profileForm.get('password').value)
+      this.userservice.UpdateUser(user).subscribe(res => {
+        if (res.userId != 0) {
+          alert("Profile Updated!!");
+          this.ngOnInit();
+        }
+        else alert("Profile Updation Failed!!");
+      });
+
   }
 }

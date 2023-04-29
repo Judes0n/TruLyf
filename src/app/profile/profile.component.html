@@ -10,19 +10,14 @@
         <div class="col-lg-4">
           <div class="card mb-4">
             <div class="card-body text-center">
-
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{profileuser.userName}}</h5>
               <p class="text-muted mb-1">{{ usertype }}</p>
               <div class="d-flex justify-content-center mb-2">
                 <button *ngIf="!isEditable" (click)="Toggle()" type="button" class="btn btn-primary">Edit</button>
-                <button *ngIf="isEditable" type="submit" class="btn btn-outline-primary ms-1">Save</button>
+                <button *ngIf="isEditable" type="submit" class="btn btn-outline-primary ms-1" [disabled]="this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value">Save</button>
               </div>
-
             </div>
           </div>
-
         </div>
         <div class="col-lg-8">
           <div class="card mb-4">
@@ -46,6 +41,16 @@
                 </div>
               </div>
               <hr>
+              <div class="row" *ngIf="isEditable">
+                <div class="col-sm-3" *ngIf="isEditable">
+                  <p class="mb-0">Confirm Password</p>
+                </div>
+                <div class="col-sm-9" *ngIf="isEditable">
+                  <input class="form-control" type="password" formControlName="confirmpassword">
+                </div>
+              </div>
+              <hr *ngIf="isEditable">
+              <div style="color: red;" *ngIf="isEditable&&(this.profileForm.get('confirmpassword').touched&&this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value)">Confirm Password is Required and Must be Matching with Password</div>
             </div>
           </div>
         </div>
@@ -53,4 +58,3 @@
     </div>
   </form>
 </section>
-
