@@ -13,12 +13,16 @@
         <form [formGroup]="regForm" (ngSubmit)="register()">
           <nav class="nav nav-pills nav-justified mb-4">
             <input type="radio" formControlName="type" value="3" id="rd1">
-            <label for="rd1" class="nav-item nav-link" [class.active]="regForm.get('type').value == '3'" (click)="resetFormWhenTypeChanged('3')">Client</label>
+            <label for="rd1" class="nav-item nav-link" [class.active]="regForm.get('type').value == '3'"
+              (click)="resetFormWhenTypeChanged('3')">Client</label>
             <input type="radio" formControlName="type" value="2" id="rd2">
-            <label for="rd2" class="nav-item nav-link" [class.active]="regForm.get('type').value == '2'" (click)="resetFormWhenTypeChanged('2')">Agent</label>
+            <label for="rd2" class="nav-item nav-link" [class.active]="regForm.get('type').value == '2'"
+              (click)="resetFormWhenTypeChanged('2')">Agent</label>
             <input type="radio" formControlName="type" value="1" id="rd3">
-            <label for="rd3" class="nav-item nav-link" [class.active]="regForm.get('type').value == '1'" (click)="resetFormWhenTypeChanged('1')">Company</label>
+            <label for="rd3" class="nav-item nav-link" [class.active]="regForm.get('type').value == '1'"
+              (click)="resetFormWhenTypeChanged('1')">Company</label>
           </nav>
+          <hr>
           <!-- <div class="input_field radio_option">
             <input type="radio" formControlName="type" value="3" id="rd1">
             <label for="rd1" style="font-size: small;">Client</label>
@@ -27,23 +31,27 @@
             <input type="radio" formControlName="type" value="1" id="rd3">
             <label for="rd3" style="font-size: small;" (click)="this.regForm.get('gender').setValue('');">Company</label>
           </div> -->
+
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-            <input type="text" name="name" placeholder="Full Name" formControlName="name" />
+            <input type="text" name="name" placeholder="User Name" formControlName="username" required />
+          </div>
+          <div class="form-text text-danger"
+            *ngIf="regForm.get('username').hasError('required')&& (regForm.get('username').touched ||regForm.get('username').dirty )"
+            style="color: red">
+            Username is Required
           </div>
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
             <input type="email" name="email" placeholder="Email" formControlName="email" required />
           </div>
-          <div class="form-text text-danger" *ngIf="regForm.get('email').hasError('required')&& (regForm.get('email').touched ||regForm.get('email').dirty )" style="color: red">
+          <div class="form-text text-danger"
+            *ngIf="regForm.get('email').hasError('required')&& (regForm.get('email').touched ||regForm.get('email').dirty )"
+            style="color: red">
             Email is Required
           </div>
-          <div class="form-text text-danger" *ngIf="regForm.get('email').hasError('pattern')&& (regForm.get('email').touched ||regForm.get('email').dirty )" style="color: red">
+          <div class="form-text text-danger"
+            *ngIf="regForm.get('email').hasError('pattern')&& (regForm.get('email').touched ||regForm.get('email').dirty )"
+            style="color: red">
             Invalid Email
-          </div>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-            <input type="text" name="name" placeholder="User Name" formControlName="username" required />
-          </div>
-          <div class="form-text text-danger" *ngIf="regForm.get('username').hasError('required')&& (regForm.get('username').touched ||regForm.get('username').dirty )" style="color: red">
-            Username is Required
           </div>
           <div class="row clearfix">
             <div class="col_half">
@@ -53,34 +61,68 @@
             </div>
             <div class="col_half">
               <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                <input type="password" name="password" placeholder="Re-type Password" formControlName="repassword" required />
+                <input type="password" name="password" placeholder="Re-type Password" formControlName="repassword"
+                  required />
               </div>
             </div>
-            <div class="form-text text-danger" *ngIf="regForm.get('password').value!=regForm.get('repassword').value && (regForm.get('repassword').touched || regForm.get('repassword').dirty )&& (regForm.get('password').touched || regForm.get('password').dirty)" >
+            <div class="form-text text-danger"
+              *ngIf="regForm.get('password').value!=regForm.get('repassword').value && (regForm.get('repassword').touched || regForm.get('repassword').dirty )&& (regForm.get('password').touched || regForm.get('password').dirty)">
               Passwords do not match
             </div>
-            <div class="form-text text-danger" *ngIf="regForm.get('repassword').hasError('required') && (regForm.get('repassword').touched || regForm.get('repassword').dirty)">
+            <div class="form-text text-danger"
+              *ngIf="regForm.get('repassword').hasError('required') && (regForm.get('repassword').touched || regForm.get('repassword').dirty)">
               Retype password is required
             </div>
+            <hr>
             <div class="clearfix">
-            <label for="pic" style="font-size: medium;" >Profile Pic:</label>
-            <input id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload" style="margin-left: 2em;">
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="name" placeholder="Full Name" formControlName="name" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <div class="input_field radio_option" id="gen" *ngIf="formOwner != '1'">
+                Gender:
+                <input type="radio" formControlName="gender" value="Male" id="rd4">
+                <label for="rd4" style="font-size: small;">Male</label>
+                <input type="radio" formControlName="gender" value="Female" id="rd5">
+                <label for="rd5" style="font-size: small;">Female</label>
+                <input type="radio" formControlName="gender" value="Others" id="rd6">
+                <label for="rd6" style="font-size: small;">Others</label>
+              </div>
+            </div>
+            <div class="clearfix">
+              Date of Birth:
+              <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                <input type="date" formControlName="dob" name="dob">
+              </div>
+            </div>
+            <div class="clearfix">
+                <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                  <input type="text" placeholder="Phone Number" formControlName="phone" name="phone">
+                </div>
+              </div>
+              <div class="clearfix">
+                  <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
+                    <input type="text" placeholder="Address" formControlName="address" name="address">
+                  </div>
+                </div>
+            <div class="clearfix">
+              <label for="pic" style="font-size: medium;">Profile Pic:</label>
+              <input id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload"
+                style="margin-left: 2em;">
             </div>
           </div>
-          <div class="input_field radio_option" *ngIf="formOwner != '1'">
-            <input type="radio" formControlName="gender" value="Male" id="rd4">
-            <label for="rd4" style="font-size: small;">Male</label>
-            <input type="radio" formControlName="gender" value="Female" id="rd5">
-            <label for="rd5" style="font-size: small;">Female</label>
-            <input type="radio" formControlName="gender" value="Others" id="rd6">
-            <label for="rd6" style="font-size: small;">Others</label>
-          </div>
+
           <div class="input_field checkbox_option">
             <input type="checkbox" id="cb1" formControlName="checkbox">
             <label for="cb1">I agree with terms and conditions</label>
           </div>
-          <input *ngIf="regForm.get('type').value==1 else nocom" class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
-          <ng-template #nocom><input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(regForm.valid &&regForm.get('checkbox').value)" /></ng-template>
+          <input *ngIf="this.formOwner=='1' else nocom" class="button" type="submit" value="Register"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
+            [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
+          <ng-template #nocom><input class="button" type="submit" value="Register"
+              style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
+              [disabled]=" !(regForm.valid)" /></ng-template>
 
         </form>
         <hr>

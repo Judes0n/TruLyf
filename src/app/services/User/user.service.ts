@@ -5,6 +5,9 @@ import { error, map } from 'jquery';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
 import { UserTypeEnum } from 'src/app/enum/user-type-enum';
+import { Agent } from 'src/app/models/agent';
+import { Client } from 'src/app/models/client';
+import { Company } from 'src/app/models/company';
 import { User } from 'src/app/models/user';
 import { environment } from 'src/environments/environment.development';
 
@@ -15,22 +18,27 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) { }
 
   //Register
-  register(userreq: User, file: File, email: string, gender: string) {
+  register(userreq: User, file: File, actor: Client | Agent | Company) {
     const formData = new FormData();
     formData.append('pic', file);
-    formData.append('email', email);
-    if (userreq.type != 1) {
-      formData.append('gender', gender);
-    }
     for (const key in userreq) {
       if (userreq.hasOwnProperty(key)) {
         formData.append(key, userreq[key]);
       }
     }
+    for (const key in actor) {
+      if (actor.hasOwnProperty(key)) {
+        formData.append(key, actor[key]);
+      }
+    }
+
     this.http.post(environment.baseApiUrl + '/api/User/Register', formData).subscribe(
       (response: User) => {
-        alert(response.userName + " Registered Sucessfully");
-        this.router.navigate(['/Login']);
+        if (response.userId != -1) {
+          alert(" Registeration Completed Sucessfully!!\nPlease Wait for Admin Approval");
+          this.router.navigate(['/Login']);
+        }
+        else  alert("Registration Failed!");
       }
     );
   }
@@ -128,7 +136,7 @@ export class UserService {
         formData.append(prop, userreq[prop]);
       }
     }
-    return this.http.put<User>(environment.baseApiUrl+'/api/User/UpdateUser',formData);
+    return this.http.put<User>(environment.baseApiUrl + '/api/User/UpdateUser', formData);
   }
 
   //Image Handling
