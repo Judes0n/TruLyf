@@ -11,6 +11,22 @@
     <div class="row clearfix">
       <div class="">
         <form [formGroup]="regForm" (ngSubmit)="register()">
+          <nav class="nav nav-pills nav-justified mb-4">
+            <input type="radio" formControlName="type" value="3" id="rd1">
+            <label for="rd1" class="nav-item nav-link" [class.active]="regForm.get('type').value == '3'" (click)="resetFormWhenTypeChanged('3')">Client</label>
+            <input type="radio" formControlName="type" value="2" id="rd2">
+            <label for="rd2" class="nav-item nav-link" [class.active]="regForm.get('type').value == '2'" (click)="resetFormWhenTypeChanged('2')">Agent</label>
+            <input type="radio" formControlName="type" value="1" id="rd3">
+            <label for="rd3" class="nav-item nav-link" [class.active]="regForm.get('type').value == '1'" (click)="resetFormWhenTypeChanged('1')">Company</label>
+          </nav>
+          <!-- <div class="input_field radio_option">
+            <input type="radio" formControlName="type" value="3" id="rd1">
+            <label for="rd1" style="font-size: small;">Client</label>
+            <input type="radio" formControlName="type" value="2" id="rd2">
+            <label for="rd2" style="font-size: small;">Agent</label>
+            <input type="radio" formControlName="type" value="1" id="rd3">
+            <label for="rd3" style="font-size: small;" (click)="this.regForm.get('gender').setValue('');">Company</label>
+          </div> -->
           <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
             <input type="text" name="name" placeholder="Full Name" formControlName="name" />
           </div>
@@ -51,15 +67,7 @@
             <input id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload" style="margin-left: 2em;">
             </div>
           </div>
-          <div class="input_field radio_option">
-            <input type="radio" formControlName="type" value="3" id="rd1">
-            <label for="rd1" style="font-size: small;">Client</label>
-            <input type="radio" formControlName="type" value="2" id="rd2">
-            <label for="rd2" style="font-size: small;">Agent</label>
-            <input type="radio" formControlName="type" value="1" id="rd3">
-            <label for="rd3" style="font-size: small;" (click)="this.regForm.get('gender').setValue('');">Company</label>
-          </div>
-          <div class="input_field radio_option" *ngIf="!(regForm.get('type').value==1)">
+          <div class="input_field radio_option" *ngIf="formOwner != '1'">
             <input type="radio" formControlName="gender" value="Male" id="rd4">
             <label for="rd4" style="font-size: small;">Male</label>
             <input type="radio" formControlName="gender" value="Female" id="rd5">
@@ -76,7 +84,7 @@
 
         </form>
         <hr>
-        <div style="margin-left: 15em;">Already Registerd? <a routerLink="/Login"> Login</a></div>
+        <div class="login_link">Already Registerd? <a routerLink="/Login"> Login</a></div>
       </div>
     </div>
   </div>

@@ -13,20 +13,22 @@ export class RegisterComponent implements OnInit {
   reguser : User;
   uploadFile : any;
   regForm : FormGroup;
+  formOwner : string;
   constructor(private userservice : UserService , private renderer: Renderer2){}
   ngOnInit()
   {
+    this.formOwner = '3';
     this.regForm = new FormGroup({
       username : new FormControl(null,Validators.required),
       password : new FormControl(null,Validators.required),
       repassword : new FormControl(null,Validators.required),
       name     : new FormControl(null),
       email    : new FormControl(null,[Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
-      type     : new FormControl(null,Validators.required),
+      type     : new FormControl(this.formOwner,Validators.required),
       gender   : new FormControl(null,Validators.required),
       checkbox : new FormControl(null,Validators.required),
       upload   : new FormControl(null,Validators.required)
-    })
+    });
   }
   passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
@@ -61,5 +63,24 @@ export class RegisterComponent implements OnInit {
     };
     console.log(this.reguser);
     this.userservice.register(this.reguser,this.uploadFile,this.regForm.get('email').value,this.regForm.get('gender').value);
+  }
+
+  resetFormWhenTypeChanged(type: string) {
+    if(type != this.regForm.get('type').value) {
+      this.regForm = new FormGroup({
+        username : new FormControl(null,Validators.required),
+        password : new FormControl(null,Validators.required),
+        repassword : new FormControl(null,Validators.required),
+        name     : new FormControl(null),
+        email    : new FormControl(null,[Validators.required,Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
+        type     : new FormControl(type,Validators.required),
+        gender   : new FormControl(null,Validators.required),
+        checkbox : new FormControl(null,Validators.required),
+        upload   : new FormControl(null,Validators.required)
+      });
+      this.formOwner = type;
+      if (type == '1')
+        this.regForm.get('gender').setValue('none');
+    }
   }
 }
