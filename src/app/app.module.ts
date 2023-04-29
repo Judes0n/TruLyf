@@ -20,7 +20,7 @@ import { CompanyhomeComponent } from './company/companyhome/companyhome.componen
 import { UserService } from './services/User/user.service';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { PolicytypesComponent } from './admin/policytypes/policytypes.component';
 import { UserlistComponent } from './admin/userlist/userlist.component';
 import { PoliciesComponent } from './company/policies/policies.component';

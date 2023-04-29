@@ -14,7 +14,7 @@ import { ErrorComponent } from './pages/error/error.component';
 import { FeaturesComponent } from './pages/features/features.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile/profile.component';
+import { ProfileComponent } from './profile/profile.component';
 import { PolicytypesComponent } from './admin/policytypes/policytypes.component';
 import { UserlistComponent } from './admin/userlist/userlist.component';
 import { AdminViewComponent } from './admin/view/view.component';
