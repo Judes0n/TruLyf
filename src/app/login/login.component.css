@@ -9,21 +9,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 80vh;
 }
 .row {
-  width: 900px;
-  height: 600px;
+  width: 960px;
+  height: 480px;
   border-radius: 10px;
   background: #fff;
   box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.2);
 }
 .side-image {
   /* background-color: #0093e9; */
-  background-image: url("../../assets/img/login.jpg");
+  background-image: url("../../assets/img/siginIn.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  /* -webkit-transform: scaleX(-1);
+  transform: scaleX(-1); */
   position: relative;
   border-radius: 10px 0 0 10px;
 }
@@ -63,7 +65,7 @@ i {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 0 10px 0 10px;
+  padding: 0 10px 10px 10px;
 }
 .input {
   height: 45px;
@@ -102,7 +104,7 @@ i {
   border: none;
   outline: none;
   height: 45px;
-  background: #ececec;
+  background: rgba(37, 95, 156, 0.3);
   border-radius: 5px;
   transition: 0.4s;
 }
@@ -118,11 +120,12 @@ i {
 span a {
   text-decoration: none;
   font-weight: 700;
-  color: #aeaaaa;
+  color: #878484;
   transition: 0.5s;
 }
 span a:hover {
   text-decoration: underline;
+  font-weight: bolder;
   color: #141414a7;
 }
 label input {
