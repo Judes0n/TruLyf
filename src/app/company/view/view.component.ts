@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'jquery';
 import { Observable, mapTo } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
@@ -22,9 +23,9 @@ export class CompanyViewComponent implements OnInit {
   agentNames: Agent[] = [];
   pterms : Policyterm[] = [];
 
-  constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient) { }
+  constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient,private acroute : ActivatedRoute) { }
   ngOnInit() {
-    this.choice = 1;
+    this.choice = +this.acroute.snapshot.paramMap.get('choice');
     let cid: number;
     this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp => {
       cid = resp.companyId;

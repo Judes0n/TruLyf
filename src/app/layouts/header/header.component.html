@@ -43,11 +43,11 @@
             <a routerLink="/Admin/UserList" routerLinkActive="active current" class="nav-item nav-link">User List</a>
             <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
             <div class="nav-item dropdown">
-              <a routerLink="/Admin/View" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+              <a routerLink="/Admin/View/1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
               <div class="dropdown-menu border-light m-0">
-                <a routerLink="/Admin/View" class="dropdown-item">Policies</a>
-                <a routerLink="/Admin/View" class="dropdown-item">Mature Policies</a>
-                <a routerLink="/Admin/View" class="dropdown-item">Feedbacks</a>
+                <a routerLink="/Admin/View/1" class="dropdown-item">Policies</a>
+                <a routerLink="/Admin/View/2" class="dropdown-item">Mature Policies</a>
+                <a routerLink="/Admin/View/3" class="dropdown-item">Feedbacks</a>
               </div>
             </div>
           </ng-container>
@@ -58,10 +58,10 @@
             <a routerLink="/Company/Policies" routerLinkActive="active current" class="nav-item nav-link">Policies</a>
             <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
             <div class="nav-item dropdown">
-              <a routerLink="/Company/View" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+              <a routerLink="/Company/View/1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
               <div class="dropdown-menu border-light m-0">
-                <a routerLink="/Company/View" class="dropdown-item">Policies</a>
-                <a routerLink="/Company/View" class="dropdown-item">Agents</a>
+                <a routerLink="/Company/View/1" class="dropdown-item">Policies</a>
+                <a routerLink="/Company/View/2" class="dropdown-item">Agents</a>
               </div>
             </div>
           </ng-container>
@@ -72,19 +72,19 @@
             <a routerLink="/Agent/ClientPolicies" routerLinkActive="active current" class="nav-item nav-link">Client
               Policies</a>
             <div class="nav-item dropdown">
-              <a routerLink="/Agent/Category" class="nav-link dropdown-toggle"
+              <a routerLink="/Agent/Category/1" class="nav-link dropdown-toggle"
                 data-bs-toggle="dropdown">Categorizations</a>
               <div class="dropdown-menu border-light m-0">
-                <a routerLink="/Agent/Category" class="dropdown-item">Client Deaths</a>
-                <a routerLink="/Agent/Category" class="dropdown-item">Maturity</a>
-                <a routerLink="/Agent/Category" class="dropdown-item">Premium Penalty</a>
+                <a routerLink="/Agent/Category/1" class="dropdown-item">Client Deaths</a>
+                <a routerLink="/Agent/Category/2" class="dropdown-item">Maturity</a>
+                <a routerLink="/Agent/Category/3" class="dropdown-item">Premium Penalty</a>
               </div>
             </div>
             <div class="nav-item dropdown">
-              <a routerLink="/Agent/View" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+              <a routerLink="/Agent/View/1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
               <div class="dropdown-menu border-light m-0">
-                <a routerLink="/Agent/View" class="dropdown-item">Clients</a>
-                <a routerLink="/Agent/View" class="dropdown-item">Companies</a>
+                <a routerLink="/Agent/View/1" class="dropdown-item">Clients</a>
+                <a routerLink="/Agent/View/2" class="dropdown-item">Companies</a>
               </div>
             </div>
             <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
@@ -95,10 +95,10 @@
           <ng-container *ngIf="CheckUser()=='client'">
             <a routerLink="/Client/Policies" routerLinkActive="active current" class="nav-item nav-link">Policies</a>
             <div class="nav-item dropdown">
-              <a routerLink="/Client/View" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
+              <a routerLink="/Client/View/1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
               <div class="dropdown-menu border-light m-0">
-                <a routerLink="/Client/View" class="dropdown-item">My Policies</a>
-                <a routerLink="/Client/View" class="dropdown-item">My Maturities</a>
+                <a routerLink="/Client/View/1" class="dropdown-item">My Policies</a>
+                <a routerLink="/Client/View/2" class="dropdown-item">My Maturities</a>
               </div>
             </div>
             <a routerLink="/Client/Nominee" routerLinkActive="active current" class="nav-item nav-link">Nominees</a>

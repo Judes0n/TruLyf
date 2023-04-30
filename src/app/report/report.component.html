@@ -1,6 +1,43 @@
 <div class="container-fluid login-header mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding-bottom: 2cm;">
   <div class="container">
-      <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
+    <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
-<p>report works!</p>
+<div class="container-fluid" *ngIf="usertype =='admin'">
+  <h2 style="text-align: center;">Admin Reports</h2>
+  <ul class="nav nav-tabs" style="padding-left: 25%;">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Policies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Users</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==3" (click)="ChangeChoice(3)">Actors</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==4" (click)="ChangeChoice(4)">Maturities</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==5" (click)="ChangeChoice(5)">Client Deaths</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==6" (click)="ChangeChoice(6)">Feedbacks</a>
+    </li>
+  </ul>
+
+
+
+
+
+
+</div>
+<div class="container-fluid" *ngIf="usertype =='company'">
+  <h2>Company Reports</h2>
+</div>
+<div class="container-fluid" *ngIf="usertype =='agent'">
+  <h2>Agent Reports</h2>
+</div>
+<div class="container-fluid" *ngIf="usertype =='client'">
+  <h2>Client Reports</h2>
+</div>

@@ -14,6 +14,7 @@ export class ClienthomeComponent implements OnInit {
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
       this.clientName = res.userName;
     });
+    this.clientservice.GetClientById(+this.readSession('userID')).subscribe(resp=>sessionStorage.setItem("clientId",resp.clientId.toString()));
   }
 
   readSession(key: string): string {

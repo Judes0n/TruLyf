@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { PenaltyStatusEnum } from 'src/app/enum/Penalty-Status-Enum.enum';
 import { Agent } from 'src/app/models/agent';
@@ -28,10 +28,10 @@ export class CategoryComponent implements OnInit {
   policyterms: Policyterm[] = [];
   clients: Client[] = [];
   dataLoaded = false;
-  constructor(private agentservices: AgentService, private datePipe: DatePipe, private route: Router) { }
+  constructor(private agentservices: AgentService, private datePipe: DatePipe, private route: Router,private acroute : ActivatedRoute) { }
 
   async ngOnInit() {
-    this.choice = 1;
+    this.choice = +this.acroute.snapshot.paramMap.get('choice');
     let agentId: number;
     this.cpolicies = [];
     this.clients = [];

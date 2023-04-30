@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Agentcompany } from 'src/app/models/agentcompany';
 import { Client } from 'src/app/models/client';
@@ -28,11 +29,11 @@ export class AgentViewComponent implements OnInit {
   imageset: Imageset[];
   loaded: boolean;
 
-  constructor(private agentservies: AgentService, private userservice: UserService, private sanitizer: DomSanitizer) { }
+  constructor(private agentservies: AgentService, private userservice: UserService, private sanitizer: DomSanitizer,private acroute : ActivatedRoute) { }
 
   ngOnInit(): void {
     this.loaded = false;
-    this.choice = 1;
+    this.choice = +this.acroute.snapshot.paramMap.get('choice');
     this.companies = [];
     this.policies = [];
     this.imageset = [];

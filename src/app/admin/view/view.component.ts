@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
@@ -38,10 +39,10 @@ export class AdminViewComponent implements OnInit {
 
 
 
-  constructor(private adminservice: AdminService) { }
+  constructor(private adminservice: AdminService,private acroute : ActivatedRoute) { }
 
   ngOnInit() {
-    this.choice = 1;
+    this.choice = +this.acroute.snapshot.paramMap.get('choice');
     this.policies = [];
     this.adminservice.ViewAllPolicies().subscribe(
       (policies) => {

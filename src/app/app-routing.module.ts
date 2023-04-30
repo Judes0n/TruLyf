@@ -46,18 +46,18 @@ const routes: Routes = [
   //Admin
   { path: 'Admin/PolicyTypes', title: 'TruLyf | Admin | Policy Types', component: PolicytypesComponent },
   { path: 'Admin/UserList', title: 'TruLyf | Admin | User List', component: UserlistComponent },
-  { path: 'Admin/View', title: 'TruLyf | Admin | View', component: AdminViewComponent },
+  { path: 'Admin/View/:choice', title: 'TruLyf | Admin | View', component: AdminViewComponent },
   //Company
   { path: 'Company/Policies', title: 'TruLyf | Company | Policies', component: PoliciesComponent },
-  { path: 'Company/View', title: 'TruLyf | Company | View', component: CompanyViewComponent },
+  { path: 'Company/View/:choice', title: 'TruLyf | Company | View', component: CompanyViewComponent },
   //Agent
   { path: 'Agent/ClientPolicies', title: 'TruLyf | Agent | Client Policies', component: ClientpoliciesComponent },
-  { path: 'Agent/Category', title: 'TruLyf | Agent | Categories', component: CategoryComponent },
-  { path: 'Agent/View', title: 'TruLyf | Agent | View', component: AgentViewComponent },
+  { path: 'Agent/Category/:choice', title: 'TruLyf | Agent | Categories', component: CategoryComponent },
+  { path: 'Agent/View/:choice', title: 'TruLyf | Agent | View', component: AgentViewComponent },
   //Client
   { path: 'Client/Policies', title: 'TruLyf | Client | Client Policies', component: CPoliciesComponent },
   { path: 'Client/Nominee', title: 'TruLyf | Client | Nominees', component: NomineeComponent },
-  { path: 'Client/View', title: 'TruLyf | Client | View', component: ClientViewComponent },
+  { path: 'Client/View/:choice', title: 'TruLyf | Client | View', component: ClientViewComponent },
   { path: 'Client/ViewDetails/:policyId', title: 'TruLyf | Client | ViewDetails', component: DetailsComponent },
   { path: 'Client/Payment/:clientpolicyId', title: 'TruLyf | Client | Payment', component: PaymentComponent },
   { path: 'Client/Penalty/:clientpolicyId', title: 'TruLyf | Client | Penalty Payment', component: PenaltyComponent },

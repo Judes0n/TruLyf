@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PenaltyStatusEnum } from 'src/app/enum/Penalty-Status-Enum.enum';
 import { Agent } from 'src/app/models/agent';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
@@ -28,11 +29,11 @@ export class ClientViewComponent implements OnInit {
   loaded: boolean;
 
 
-  constructor(private clientservice: ClientService) { }
+  constructor(private clientservice: ClientService,private acroute : ActivatedRoute) { }
 
   async ngOnInit() {
     let clientId = (await this.clientservice.GetClientById(+this.readSession('userID')).toPromise()).clientId;
-    this.choice = 1;
+    this.choice = +this.acroute.snapshot.paramMap.get('choice');
     this.cpolicies = [];
     this.mpolicies = [];
     this.nominees = [];
