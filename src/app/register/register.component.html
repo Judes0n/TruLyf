@@ -15,114 +15,114 @@
             <input type="radio" formControlName="type" value="3" id="rd1">
             <label for="rd1" class="nav-item nav-link" [class.active]="regForm.get('type').value == '3'"
               (click)="resetFormWhenTypeChanged('3')">Client</label>
+            <div class="vertical_line"></div>
+
             <input type="radio" formControlName="type" value="2" id="rd2">
             <label for="rd2" class="nav-item nav-link" [class.active]="regForm.get('type').value == '2'"
               (click)="resetFormWhenTypeChanged('2')">Agent</label>
+            <div class="vertical_line"></div>
+
             <input type="radio" formControlName="type" value="1" id="rd3">
             <label for="rd3" class="nav-item nav-link" [class.active]="regForm.get('type').value == '1'"
               (click)="resetFormWhenTypeChanged('1')">Company</label>
           </nav>
-          <hr>
-          <!-- <div class="input_field radio_option">
-            <input type="radio" formControlName="type" value="3" id="rd1">
-            <label for="rd1" style="font-size: small;">Client</label>
-            <input type="radio" formControlName="type" value="2" id="rd2">
-            <label for="rd2" style="font-size: small;">Agent</label>
-            <input type="radio" formControlName="type" value="1" id="rd3">
-            <label for="rd3" style="font-size: small;" (click)="this.regForm.get('gender').setValue('');">Company</label>
-          </div> -->
 
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-            <input type="text" name="name" placeholder="User Name" formControlName="username" required />
+          <div class="input-group mt-3"> 
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-user"></i></span>
+            <input class="form-control" type="text" name="name" placeholder="User Name" formControlName="username" required 
+              [class.is-invalid]="regForm.get('username').hasError('required') && (regForm.get('username').touched || regForm.get('username').dirty)" />  
+          </div>
+            <div class="form-text text-danger" [class.hidden]="!(regForm.get('username').hasError('required') && (regForm.get('username').touched || regForm.get('username').dirty))">
+              Username is Required!
+            </div>
+
+          <div class="input-group mt-3"> 
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-envelope"></i></span>
+            <input class="form-control" type="email" name="email" placeholder="Email" formControlName="email" required 
+              [class.is-invalid]="(regForm.get('email').hasError('required') && (regForm.get('email').touched || regForm.get('email').dirty)) || (regForm.get('email').hasError('pattern') && (regForm.get('email').touched || regForm.get('email').dirty))"/>
           </div>
           <div class="form-text text-danger"
-            *ngIf="regForm.get('username').hasError('required')&& (regForm.get('username').touched ||regForm.get('username').dirty )"
-            style="color: red">
-            Username is Required
-          </div>
-          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-            <input type="email" name="email" placeholder="Email" formControlName="email" required />
+            [class.hidden]="!(regForm.get('email').hasError('required') && (regForm.get('email').touched || regForm.get('email').dirty))">
+            Email is Required!
           </div>
           <div class="form-text text-danger"
-            *ngIf="regForm.get('email').hasError('required')&& (regForm.get('email').touched ||regForm.get('email').dirty )"
-            style="color: red">
-            Email is Required
+            [class.hidden]="!(regForm.get('email').hasError('pattern') && (regForm.get('email').touched || regForm.get('email').dirty))">
+            Invalid Email!
+          </div>
+
+          <div class="input-group mt-3">
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-lock"></i></span>
+            <input class="form-control" type="password" name="password" placeholder="Password" formControlName="password" required 
+              [class.is-invalid]="regForm.get('password').hasError('required') && (regForm.get('password').touched || regForm.get('password').dirty || regForm.get('repassword').touched || regForm.get('repassword').dirty)"/>
+            <input class="form-control" type="password" name="password" placeholder="Re-type Password" formControlName="repassword" required 
+              [class.is-invalid]="!regForm.get('password').hasError('required') && regForm.get('password').value != regForm.get('repassword').value && regForm.get('repassword').touched"/>
           </div>
           <div class="form-text text-danger"
-            *ngIf="regForm.get('email').hasError('pattern')&& (regForm.get('email').touched ||regForm.get('email').dirty )"
-            style="color: red">
-            Invalid Email
+            [class.hidden]="!(regForm.get('password').hasError('required') && (regForm.get('password').touched || regForm.get('password').dirty || regForm.get('repassword').touched || regForm.get('repassword').dirty))">
+            Password is required!
           </div>
-          <div class="row clearfix">
-            <div class="col_half">
-              <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                <input type="password" name="password" placeholder="Password" formControlName="password" required />
-              </div>
+          <div class="form-text text-danger"
+            [class.hidden]="!(!regForm.get('password').hasError('required') && regForm.get('password').value != regForm.get('repassword').value && regForm.get('repassword').touched)">
+            Passwords do not match!
+          </div>
+
+          <div class="input-group mt-3">
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-user"></i></span>
+            <input class="form-control" type="text" name="name" [placeholder]="formOwner != '1' ? 'Full Name' : 'Company Name'" formControlName="name"
+              [class.is-invalid]="regForm.get('name').hasError('required') && (regForm.get('name').touched || regForm.get('name').dirty)" />
+          </div>
+          <div class="form-text text-danger"
+            [class.hidden]="!(regForm.get('name').hasError('required') && (regForm.get('name').touched || regForm.get('name').dirty))">
+            Name Required!
+          </div>
+
+          <div class="input-group mt-3">
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-phone"></i></span>
+            <input class="form-control" type="text" placeholder="Phone Number" formControlName="phone" name="phone">
+          </div>
+
+          <div class="input-group mt-3">
+            <span class="input-group-text"><i aria-hidden="true" class="fa fa-address-card"></i></span>
+            <input class="form-control" type="text" placeholder="Address" formControlName="address" name="address">
+          </div>
+
+          <div class="row mt-3" id="gen" *ngIf="formOwner != '1'">
+            <div class="col-sm-4 btn-check-label">Gender:</div>
+            <div class="col-sm-8 btn-group">
+              <input class="btn-check" type="radio" formControlName="gender" value="Male" id="rd4">
+              <label for="rd4" class="btn btn-outline-success">Male</label>
+              <input class="btn-check" type="radio" formControlName="gender" value="Female" id="rd5">
+              <label for="rd5" class="btn btn-outline-success">Female</label>
+              <input class="btn-check" type="radio" formControlName="gender" value="Others" id="rd6">
+              <label for="rd6" class="btn btn-outline-success">Others</label>
             </div>
-            <div class="col_half">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                <input type="password" name="password" placeholder="Re-type Password" formControlName="repassword"
-                  required />
-              </div>
-            </div>
-            <div class="form-text text-danger"
-              *ngIf="regForm.get('password').value!=regForm.get('repassword').value && (regForm.get('repassword').touched || regForm.get('repassword').dirty )&& (regForm.get('password').touched || regForm.get('password').dirty)">
-              Passwords do not match
-            </div>
-            <div class="form-text text-danger"
-              *ngIf="regForm.get('repassword').hasError('required') && (regForm.get('repassword').touched || regForm.get('repassword').dirty)">
-              Retype password is required
-            </div>
-            <hr>
-            <div class="clearfix">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" name="name" placeholder="Full Name" formControlName="name" />
-              </div>
-            </div>
-            <div class="clearfix">
-              <div class="input_field radio_option" id="gen" *ngIf="formOwner != '1'">
-                Gender:
-                <input type="radio" formControlName="gender" value="Male" id="rd4">
-                <label for="rd4" style="font-size: small;">Male</label>
-                <input type="radio" formControlName="gender" value="Female" id="rd5">
-                <label for="rd5" style="font-size: small;">Female</label>
-                <input type="radio" formControlName="gender" value="Others" id="rd6">
-                <label for="rd6" style="font-size: small;">Others</label>
-              </div>
-            </div>
-            <div class="clearfix">
-              Date of Birth:
-              <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                <input type="date" formControlName="dob" name="dob">
-              </div>
-            </div>
-            <div class="clearfix">
-                <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                  <input type="text" placeholder="Phone Number" formControlName="phone" name="phone">
-                </div>
-              </div>
-              <div class="clearfix">
-                  <div class="input_field"><span><i aria-hidden="true" class="fa fa-lock"></i></span>
-                    <input type="text" placeholder="Address" formControlName="address" name="address">
-                  </div>
-                </div>
-            <div class="clearfix">
-              <label for="pic" style="font-size: medium;">Profile Pic:</label>
-              <input id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload"
-                style="margin-left: 2em;">
+          </div>
+            
+          <div class="row mt-3">
+            <div class="col-sm-4 btn-check-label">Date of Birth:</div>
+            <div class="col-sm-8">
+              <input class="form-control" type="date" formControlName="dob" name="dob">
             </div>
           </div>
 
-          <div class="input_field checkbox_option">
-            <input type="checkbox" id="cb1" formControlName="checkbox">
-            <label for="cb1">I agree with terms and conditions</label>
+          <div class="input-group mt-3">
+            <label class="input-group-text" for="pic">Profile Pic:</label>
+            <input class="form-control" id="pic" type="file" name="pic" (change)="FileChange($event)" formControlName="upload">
           </div>
+
+          <div class="mt-4">
+            <input class="form-check-input mr-2" type="checkbox" id="cb1" formControlName="checkbox">
+            <label class="form-check-label" for="cb1">I agree with terms and conditions</label>
+          </div>
+
           <input *ngIf="this.formOwner=='1' else nocom" class="button" type="submit" value="Register"
             style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
             [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
-          <ng-template #nocom><input class="button" type="submit" value="Register"
+          <ng-template #nocom>
+            <input class="button" type="submit" value="Register"
               style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
-              [disabled]=" !(regForm.valid)" /></ng-template>
+              [disabled]=" !(regForm.valid)" />
+          </ng-template>
 
         </form>
         <hr>
