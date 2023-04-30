@@ -20,8 +20,7 @@
                 <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
                     <p class="d-inline-block border rounded text-primary fw-semi-bold py-1 px-3">Contact</p>
                     <h1 class="display-5 mb-4">If You Have Any Query, Please Contact Us</h1>
-                    <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                    <form>
+                    <form [formGroup]="contactForm" (ngSubmit)="submit()">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
@@ -43,7 +42,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
+                                    <textarea formControlName="feed" class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
                                     <label for="message">Message</label>
                                 </div>
                             </div>
