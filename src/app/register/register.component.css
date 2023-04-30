@@ -1,6 +1,5 @@
 body {
   font-family: Verdana, Geneva, sans-serif;
-  font-size: 14px;
 }
 
 .clearfix:after {
@@ -50,13 +49,13 @@ body {
   line-height: 1.5em;
   margin: 0;
 }
-.form_wrapper .nav label {
+/* .form_wrapper .nav label {
   font-size: 16px;
   font-weight: 600;
 }
 .form_wrapper label {
   font-size: 12px;
-}
+} */
 .form_wrapper .row {
   margin: 10px -15px;
 }
@@ -68,6 +67,7 @@ body {
   width: 50%;
   float: left;
 }
+/*
 .form_wrapper .input_field {
   position: relative;
   margin-bottom: 20px;
@@ -139,7 +139,7 @@ body {
   background-color: gray;
   cursor: not-allowed;
 }
-.form_wrapper input[type=checkbox], .form_wrapper input[type=radio] {
+.form_wrapper input[type=checkbox],*/ .form_wrapper input[type=radio] {
   border: 0;
   clip: rect(0 0 0 0);
   height: 1px;
@@ -148,7 +148,7 @@ body {
   padding: 0;
   position: absolute;
   width: 1px;
-}
+} 
 
 .form_container .row .col_half.last {
   border-left: 1px solid #cccccc;
@@ -185,7 +185,7 @@ body {
   width: 7px;
   display: none;
 }
-.checkbox_option input:hover + label:before {
+/* .checkbox_option input:hover + label:before {
   border-color: #000000;
 }
 .checkbox_option input:checked + label:before {
@@ -199,7 +199,7 @@ body {
   width: 7px;
   height: 20px;
   border-color: #000000;
-}
+} */
 
 .radio_option label {
   margin-right: 1em;
@@ -218,13 +218,13 @@ body {
   background-clip: content-box;
   transition: all 0.2s ease;
 }
-.radio_option input:hover + label:before {
+/* .radio_option input:hover + label:before {
   border-color: #000000;
 }
 .radio_option input:checked + label:before {
   background-color: #000000;
   border-color: #000000;
-}
+} */
 
 .select_option {
   position: relative;
@@ -286,6 +286,20 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+
+.vertical_line {
+  border-left: 3px solid rgb(65, 65, 255); 
+  border-right: 3px solid rgb(65, 65, 255); 
+  border-radius: 3px;
+  margin-left: 10px; 
+  margin-right: 10px;
+}
+
+.form-control:not(.invalid-feedback) {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
 
 @-webkit-keyframes check {
   0% {

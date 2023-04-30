@@ -13,7 +13,7 @@ import { StatusEnum } from '../enum/user-status-enum';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  readonly maxSize = 3 * 1024 * 1024;
+  readonly maxSize = 2 * 1024 * 1024;
   reguser: User;
   uploadFile: any;
   formOwner: string;
@@ -46,11 +46,11 @@ export class RegisterComponent implements OnInit {
   FileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      if ((file.type == 'image/png' || file.type == 'image/jpeg' || file.type == 'image/jpg') && file.size < this.maxSize)
+      if (file.type == 'image/jpg' && file.size <= this.maxSize)
         this.uploadFile = file;
       // this.userservice.uploadFile(file);
       else {
-        alert('Image Should be of Size Below 2KB \n of Format JPEG,JPG,PNG Format');
+        alert('Image Should be of Size Below 2MB \n of Format JPG Format');
         this.regForm.get('upload').setValue('');
         this.uploadFile = null;
       }
@@ -125,7 +125,7 @@ export class RegisterComponent implements OnInit {
         username: new FormControl(null, Validators.required),
         password: new FormControl(null, Validators.required),
         repassword: new FormControl(null, Validators.required),
-        name: new FormControl(null),
+        name: new FormControl(null, Validators.required),
         email: new FormControl(null, [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
         type: new FormControl(type, Validators.required),
         gender: new FormControl(null, Validators.required),
