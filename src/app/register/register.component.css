@@ -112,7 +112,7 @@ body {
   box-shadow: 0 0 2px 1px rgba(5, 32, 238, 0.5);
   border: 1px solid #355EFC;
   background: #fafafa;
-}
+}*/
 .form_wrapper input[type=submit] {
   background: #355EFC;
   height: 35px;
@@ -139,6 +139,7 @@ body {
   background-color: gray;
   cursor: not-allowed;
 }
+/*
 .form_wrapper input[type=checkbox],*/ .form_wrapper input[type=radio] {
   border: 0;
   clip: rect(0 0 0 0);
@@ -148,7 +149,7 @@ body {
   padding: 0;
   position: absolute;
   width: 1px;
-} 
+}
 
 .form_container .row .col_half.last {
   border-left: 1px solid #cccccc;
@@ -288,10 +289,10 @@ body {
 }
 
 .vertical_line {
-  border-left: 3px solid rgb(65, 65, 255); 
-  border-right: 3px solid rgb(65, 65, 255); 
+  border-left: 3px solid rgb(65, 65, 255);
+  border-right: 3px solid rgb(65, 65, 255);
   border-radius: 3px;
-  margin-left: 10px; 
+  margin-left: 10px;
   margin-right: 10px;
 }
 
