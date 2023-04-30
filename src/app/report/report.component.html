@@ -25,18 +25,31 @@
       <a class="nav-link" [class.active]="choice==6" (click)="ChangeChoice(6)">Feedbacks</a>
     </li>
   </ul>
-
-
-
-
-
-
 </div>
 <div class="container-fluid" *ngIf="usertype =='company'">
   <h2>Company Reports</h2>
+  <ul class="nav nav-tabs" style="padding-left: 35%;">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Policies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Agents</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==3" (click)="ChangeChoice(3)">Client Policies</a>
+    </li>
+  </ul>
 </div>
 <div class="container-fluid" *ngIf="usertype =='agent'">
   <h2>Agent Reports</h2>
+  <ul class="nav nav-tabs" style="padding-left: 40%;">
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Client Policies</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [class.active]="choice==2" (click)="ChangeChoice(2)">Payments</a>
+    </li>
+  </ul>
 </div>
 <div class="container-fluid" *ngIf="usertype =='client'">
   <h2>Client Reports</h2>

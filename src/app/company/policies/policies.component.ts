@@ -102,6 +102,7 @@ export class PoliciesComponent implements OnInit {
     let dbpolicy: Policy;
     this.companyservice.GetPolicy(policyId).subscribe(res => {
       dbpolicy = res;
+      this.terms= [];
       for (let i: number = 1; i <= dbpolicy.timePeriod; i++) {
         this.terms.push(i);
       }
