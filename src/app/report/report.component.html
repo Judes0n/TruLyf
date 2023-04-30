@@ -5,7 +5,7 @@
 </div>
 <div class="container-fluid" *ngIf="usertype =='admin'">
   <h2 style="text-align: center;">Admin Reports</h2>
-  <ul class="nav nav-tabs" style="padding-left: 25%;">
+  <ul class="nav nav-tabs" style="padding-left: 35%;">
     <li class="nav-item">
       <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Policies</a>
     </li>
@@ -27,7 +27,7 @@
   </ul>
 </div>
 <div class="container-fluid" *ngIf="usertype =='company'">
-  <h2>Company Reports</h2>
+  <h2 style="text-align: center;">Company Reports</h2>
   <ul class="nav nav-tabs" style="padding-left: 35%;">
     <li class="nav-item">
       <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Policies</a>
@@ -41,7 +41,7 @@
   </ul>
 </div>
 <div class="container-fluid" *ngIf="usertype =='agent'">
-  <h2>Agent Reports</h2>
+  <h2 style="text-align: center;">Agent Reports</h2>
   <ul class="nav nav-tabs" style="padding-left: 40%;">
     <li class="nav-item">
       <a class="nav-link" [class.active]="choice==1" (click)="ChangeChoice(1)">Client Policies</a>
@@ -52,5 +52,5 @@
   </ul>
 </div>
 <div class="container-fluid" *ngIf="usertype =='client'">
-  <h2>Client Reports</h2>
+  <h2 style="text-align: center;">Payment History</h2>
 </div>
