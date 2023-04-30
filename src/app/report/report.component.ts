@@ -11,16 +11,20 @@ import { Feedback } from '../models/feedback';
 import { Clientpolicy } from '../models/clientpolicy';
 import { Payments } from '../models/payment';
 import { UserTypeEnum } from '../enum/user-type-enum';
+import { Policytype } from '../models/policytype';
+import { ClientService } from '../services/Client/client.service';
+import { Policyterm } from '../models/policyterm';
+import { AgentService } from '../services/Agent/agent.service';
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
 
   usertype: string;
-  choice : number;
+  choice: number;
   policies: Policy[];
   users: User[];
   actors: Client[] | Agent[] | Company[];
@@ -29,11 +33,34 @@ export class ReportComponent implements OnInit {
   feedbacks: Feedback[];
   clientpolicies: Clientpolicy[];
   payments: Payments[];
+  ptypes: Policytype[];
+  isNavbarOpen: boolean;
+  clients: Client[];
+  agents: Agent[];
+  companies: Company[];
+  policyterm: Policyterm;
+  a: Policy;
+  constructor(private reportservice: ReportService, private clientservices: ClientService, private agentservice: AgentService) { }
 
-  constructor(private reportservice: ReportService) { }
   ngOnInit() {
+    this.isNavbarOpen = false
     this.usertype = this.readSession('log_role');
     this.choice = 1;
+    this.policies = [];
+    this.users = [];
+    this.actors = [];
+    this.maturities = [];
+    this.clientdeaths = [];
+    this.feedbacks = [];
+    this.clientpolicies = [];
+    this.payments = [];
+    this.ptypes = [];
+    this.policyterm = null;
+    this.a = null;
+
+    this.clientservices.GetType().subscribe(res => {
+      this.ptypes = res;
+    });
     switch (this.usertype) {
       case "admin": {
         this.reportservice.Admin_Get_Policies().subscribe(p => this.policies = p);
@@ -44,7 +71,7 @@ export class ReportComponent implements OnInit {
         break;
       }
       case "company": {
-        this.reportservice.Company_Get_Agents(+this.readSession('companyId')).subscribe(a => this.actors = a);
+        this.reportservice.Company_Get_Agents(+this.readSession('companyId')).subscribe(a => this.agents = a);
         this.reportservice.Company_Get_ClientPolicies(+this.readSession('companyId')).subscribe(c => this.clientpolicies = c);
         this.reportservice.Company_Get_Policies(+this.readSession('companyId')).subscribe(p => this.policies = p);
         break;
@@ -65,8 +92,28 @@ export class ReportComponent implements OnInit {
     return sessionStorage.getItem(key);
   }
 
-  ChangeChoice(choice : number)
-  {
+  ChangeChoice(choice: number) {
     this.choice = choice;
   }
+
+  toggleNavbar(): void {
+    this.isNavbarOpen = !this.isNavbarOpen;
+  }
+
+  ReadType(typeId: number): string {
+    return this.ptypes.find(p => p.policytypeId == typeId).policytypeName;
+  }
+
+  actorselect(type: UserTypeEnum) {
+    this.actors = [];
+    this.clients = [];
+    this.companies = [];
+    this.agents = [];
+    this.reportservice.Admin_Get_Actors(type).subscribe(res => {
+      if (typeof res === typeof this.clients) { this.actors.forEach(a => this.clients.push(a)); }
+      else if (typeof res === typeof this.agents) { this.actors.forEach(a => this.agents.push(a)); }
+      else if (typeof res === typeof this.companies) { this.actors.forEach(a => this.companies.push(a)); }
+    });
+  }
 }
+
