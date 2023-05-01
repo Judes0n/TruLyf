@@ -7,57 +7,75 @@
     routerLink="/Client/Policies" class='fas fa-arrow-left' style='font-size:24px'></i></div>
 <div class="container-fluid" style="width: fit-content;">
   <div class="card">
-    <br>
-    <div class="card-image">
-      <img src="assets/img/insurance.png" alt=""><a href="https://www.flaticon.com/free-icons/privacy-policy"
-        title="privacy policy icons">Privacy policy icons created by Pixel perfect - Flaticon</a>
-    </div>
     <div class="card-details" *ngIf="policy!=null">
       <h2>{{policy.policyName}}</h2>
       <hr>
       <div class="row">
         <div class="col">
-          <p><label>Policy Type :</label>> {{ReadTypeName(policy.policytypeId)}}</p>
-          <p><label>Provider : </label>{{ReadCompanyName(policy.companyId)}}</p>
-          <p><label>Time Period : </label>{{policy.timePeriod}} Months</p>
-          <p><label>Policy Amount : </label>₹{{policy.policyAmount}}</p>
-          <p *ngIf="showOverlay">
-            <input type="text" placeholder="Agent Referral Code" #referral>&nbsp;
-            <a *ngIf="!con" class="btn btn-primary" (click)="ValidateReferral(referral.value)">></a>
+          <div class="row mt-4">
+            <label class="form-control-label col col-md-5">Policy Type :</label>
+            <div class="col-md-7 mb-4">
+              <input type="text" class="form-control" value="{{ReadTypeName(policy.policytypeId)}}" readonly>
+            </div>
+
+            <label class="form-control-label col col-md-5">Provider : </label>
+            <div class="col-sm-7 mb-4">
+              <input type="text" class="form-control" value="{{ReadCompanyName(policy.companyId)}}" readonly>
+            </div>
+
+            <label class="form-control-label col col-md-5">Time Period :</label>
+            <div class="col-sm-7 mb-4">
+              <input type="text" class="form-control" value="{{policy.timePeriod}}  Months" readonly>
+            </div>
+
+            <label class="form-control-label col col-md-5">Policy Amount :</label>
+            <div class="col-sm-7 mb-4">
+              <input type="text" class="form-control" value="₹&nbsp;{{policy.policyAmount}}" readonly>
+            </div>
+          </div>
+          <p *ngIf="showVerify">
+            <input class="form-control" type="text" placeholder="Agent Referral Code" #referral>&nbsp;
+            <a *ngIf="!con" class="btn btn-primary" (click)="ValidateReferral(referral.value)">VERIFY</a>
           </p>
+          <button (click)="toggleVerify()" *ngIf="!showVerify" class="button btn btn-primary">Proceed</button>
         </div>
-        <div class="col">
-          <div class="card-details" *ngIf="con">
-            <form [formGroup]="cpform" (submit)="submit()">
-              <p>
-                <label>Policy Terms:</label>
-                <select formControlName="pterm" (change)="set()">
-                  <option *ngFor="let pterm of pterms" [value]="pterm.policyTermId">{{pterm.period}} Months -
-                    {{pterm.terms}} Terms</option>
+        <div class="col" *ngIf="showOverlay">
+          <div class="row mt-4" *ngIf="con">
+            <form class="forms" [formGroup]="cpform" (submit)="submit()">
+
+              <label class="form-control-label col-sm-4">Policy Terms:</label>
+              <div class="col-sm-8 mb-4">
+                <select class="form-select" formControlName="pterm" (change)="set()">
+                  <option *ngFor="let pterm of pterms" [value]="pterm.policyTermId">
+                    {{pterm.period}} Months -{{pterm.terms}} Terms
+                  </option>
                 </select>
-              </p>
-              <p>
-                <label>Nominee :</label>
-                <select formControlName="nominee">
+              </div>
+
+              <label class="form-control-label col-sm-4">Nominee :</label>
+              <div class="col-sm-8 mb-4">
+                <select class="form-select" formControlName="nominee">
                   <option *ngFor="let nominee of nominees" [value]="nominee.nomineeId">{{nominee.nomineeName}}</option>
                 </select>
-              </p>
-              <p>
-                <label for="">Start Date:</label>
-                <input type="text" formControlName="startdate" readonly>
-              </p>
-              <p>
-               <label>Expiry Date:</label>
-                <input type="text" formControlName="expdate" readonly>
-              </p>
-              <p>
-               <label>No of Terms :</label>
-                <input type="number" formControlName="counter" readonly>
-              </p>
+              </div>
+
+              <label class="form-control-label col-sm-4">Start Date:</label>
+              <div class="col-sm-8 mb-4">
+                <input class="form-control" type="text" formControlName="startdate" readonly>
+              </div>
+
+              <label class="form-control-label col-sm-4" >Expiry Date:</label>
+              <div class="col-sm-8 mb-4">
+                <input class="form-control" type="text" formControlName="expdate" readonly>
+              </div>
+
+              <label class="form-control-label col-sm-4">No of Terms :</label>
+              <div class="col-sm-8 mb-4">
+                <input class="form-control" type="number" formControlName="counter" readonly>
+              </div>
               <button type="submit" class="button btn btn-primary" [disabled]="!this.cpform.valid">Submit</button>
             </form>
           </div>
-          <button (click)="toggleOverlay()" *ngIf="!showOverlay" class="button btn btn-primary">Proceed</button>
         </div>
       </div>
     </div>

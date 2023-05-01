@@ -115,5 +115,24 @@ export class ReportComponent implements OnInit {
       else if (typeof res === typeof this.companies) { this.actors.forEach(a => this.companies.push(a)); }
     });
   }
+
+  print(): void {
+    let printContents, popupWin;
+    printContents = document.getElementById('printableContent').innerHTML;
+    popupWin = window.open('', '_blank', 'top=0,left=0,height=auto,width=auto');
+    popupWin.document.open();
+    popupWin.document.write(`
+  <html>
+    <head>
+      <title>Print tab</title>
+      <style>
+      //........Customized style.......
+      </style>
+    </head>
+<body onload="window.print();window.close()"><table>${printContents}</table></body>
+  </html>`
+    );
+    popupWin.document.close();
+}
 }
 

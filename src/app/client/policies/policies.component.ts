@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Company } from 'src/app/models/company';
 import { Policy } from 'src/app/models/policy';
 import { Policytype } from 'src/app/models/policytype';
@@ -14,9 +15,12 @@ export class CPoliciesComponent implements OnInit {
   types: Policytype[] = [];
   companies: Company[] = [];
 
-  constructor(private clientservices: ClientService) { }
+  constructor(private clientservices: ClientService,private route : Router) { }
 
   ngOnInit(): void {
+    if (this.readSession('clientId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.policies = [];
     this.types = [];
     this.companies = [];
@@ -35,7 +39,12 @@ export class CPoliciesComponent implements OnInit {
     });
   }
 
-  ReadTypeName(typeId: number): String {
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
+  }
+
+  ReadTypeName(typeId: number): string {
     let r = this.types.find(t => t.policytypeId == typeId);
     if (r != null) {
       return r.policytypeName;
@@ -43,7 +52,7 @@ export class CPoliciesComponent implements OnInit {
     else return "";
   }
 
-  ReadCompanyName(cid: number): String {
+  ReadCompanyName(cid: number): string {
     let r = this.companies.find(c => c.companyId == cid);
     if (r != null) {
       return r.companyName;

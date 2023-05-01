@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'jquery';
 import { Observable, mapTo } from 'rxjs';
 import { Agent } from 'src/app/models/agent';
@@ -23,8 +23,11 @@ export class CompanyViewComponent implements OnInit {
   agentNames: Agent[] = [];
   pterms : Policyterm[] = [];
 
-  constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient,private acroute : ActivatedRoute) { }
+  constructor(private adminservice: AdminService, private companyservice: CompanyService, private http: HttpClient,private acroute : ActivatedRoute,private route : Router) { }
   ngOnInit() {
+    if (this.readSession('companyId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.choice = +this.acroute.snapshot.paramMap.get('choice');
     let cid: number;
     this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp => {

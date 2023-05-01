@@ -11,9 +11,12 @@ import { UserTypeEnum } from 'src/app/enum/user-type-enum';
 })
 export class UserlistComponent implements OnInit {
   users: User[] = [];
-  constructor(private adminservice: AdminService, private router: Router) { }
+  constructor(private adminservice: AdminService, private route: Router) { }
 
   ngOnInit() {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.adminservice.getAllUsers().subscribe({
       next: (users) => {
         this.users = users;
@@ -42,5 +45,10 @@ export class UserlistComponent implements OnInit {
         return "User";
     }
 
+  }
+
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
   }
 }

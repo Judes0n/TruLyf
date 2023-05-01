@@ -26,6 +26,9 @@ export class PenaltyComponent implements OnInit {
   constructor(private acroute: ActivatedRoute, private clientservice: ClientService, private datePipe: DatePipe, private route: Router) { }
 
   async ngOnInit() {
+    if (this.readSession('clientId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.a = false;
     this.clientpolicyId = +this.acroute.snapshot.paramMap.get('clientpolicyId');
     this.penalties = [];
@@ -44,7 +47,10 @@ export class PenaltyComponent implements OnInit {
     });
     this.loaded = true;
   }
-
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
+  }
   expiryDateValidator(control) {
     const expiryDate = control.value;
 

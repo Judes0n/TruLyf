@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Client } from 'src/app/models/client';
 import { Nominee } from 'src/app/models/nominee';
 import { ClientService } from 'src/app/services/Client/client.service';
@@ -14,9 +15,12 @@ export class NomineeComponent implements OnInit {
   nominees : Nominee[] = [];
   client : Client;
 
-  constructor(private clientservice : ClientService){}
+  constructor(private clientservice : ClientService,private route : Router){}
 
   ngOnInit(): void {
+    if (this.readSession('clientId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.nomineeForm = new FormGroup({
       nomineename: new FormControl(null,[ Validators.required,Validators.minLength(4),Validators.maxLength(20)]),
       relation: new FormControl(null, Validators.required),

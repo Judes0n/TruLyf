@@ -3,23 +3,27 @@
     <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
-<section style="background-color: #eee;">
+<section style="background-color: #eee;" *ngIf="loaded">
   <form [formGroup]="profileForm" (ngSubmit)="subProfile()">
     <div class="container py-5">
       <div class="row">
         <div class="col-lg-4">
-          <div class="card mb-4">
+          <div class="card mb-4 py-3">
+            <div class="d-flex justify-content-center" *ngIf="usertype != 'admin' ">
+              <img class="img-thumbnail" [src]="profilePic" style="height: 200px; width: auto;">
+            </div>
             <div class="card-body text-center">
-              <h5 class="my-3">{{profileuser.userName}}</h5>
+              <h5 class="my-1">{{profileuser.userName}}</h5>
               <p class="text-muted mb-1">{{ usertype }}</p>
               <div class="d-flex justify-content-center mb-2">
                 <button *ngIf="!isEditable" (click)="Toggle()" type="button" class="btn btn-primary">Edit</button>
-                <button *ngIf="isEditable" type="submit" class="btn btn-outline-primary ms-1" [disabled]="this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value">Save</button>
+                <button *ngIf="isEditable" type="submit" class="btn btn-outline-primary ms-1"
+                  [disabled]="this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value">Save</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8" [class.p-5]="usertype !='admin'" >
           <div class="card mb-4">
             <div class="card-body">
               <div class="row">
@@ -50,7 +54,9 @@
                 </div>
               </div>
               <hr *ngIf="isEditable">
-              <div style="color: red;" *ngIf="isEditable&&(this.profileForm.get('confirmpassword').touched&&this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value)">Confirm Password is Required and Must be Matching with Password</div>
+              <div style="color: red;"
+                *ngIf="isEditable&&(this.profileForm.get('confirmpassword').touched&&this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value)">
+                Confirm Password is Required and Must be Matching with Password</div>
             </div>
           </div>
         </div>

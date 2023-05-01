@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'jquery';
 import { Observable } from 'rxjs';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
@@ -39,9 +39,12 @@ export class AdminViewComponent implements OnInit {
 
 
 
-  constructor(private adminservice: AdminService,private acroute : ActivatedRoute) { }
+  constructor(private adminservice: AdminService,private acroute : ActivatedRoute,private route : Router) { }
 
   ngOnInit() {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.choice = +this.acroute.snapshot.paramMap.get('choice');
     this.policies = [];
     this.adminservice.ViewAllPolicies().subscribe(
@@ -112,5 +115,10 @@ export class AdminViewComponent implements OnInit {
 
   selectChoice(choice: number) {
     this.choice = choice;
+  }
+
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
   }
 }

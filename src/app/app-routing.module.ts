@@ -30,6 +30,7 @@ import { NomineeComponent } from './client/nominee/nominee.component';
 import { DetailsComponent } from './client/details/details.component';
 import { PaymentComponent } from './client/payment/payment.component';
 import { PenaltyComponent } from './client/penalty/penalty.component';
+import { DenialComponent } from './pages/denial/denial.component';
 
 
 const routes: Routes = [
@@ -66,8 +67,10 @@ const routes: Routes = [
   { path: 'Profile/:userid',title : 'TruLyf | Profile', component: ProfileComponent },
   { path: 'Register',title : 'TruLyf | Register', component: RegisterComponent },
   { path: 'Login',title : 'TruLyf | Login', component: LoginComponent },
+  { path: 'Denial',title : 'TruLyf | Access Denied', component: DenialComponent },
   { path: '', title: 'TruLyf | Home', redirectTo: 'Home', pathMatch: 'full' },
   { path: '**', title: 'TruLyf | 404', component: ErrorComponent }
+
 ];
 
 @NgModule({

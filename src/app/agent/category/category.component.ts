@@ -31,6 +31,9 @@ export class CategoryComponent implements OnInit {
   constructor(private agentservices: AgentService, private datePipe: DatePipe, private route: Router,private acroute : ActivatedRoute) { }
 
   async ngOnInit() {
+    if (this.readSession('agentId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.choice = +this.acroute.snapshot.paramMap.get('choice');
     let agentId: number;
     this.cpolicies = [];

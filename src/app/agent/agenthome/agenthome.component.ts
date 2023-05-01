@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Company } from 'src/app/models/company';
-import { AdminService } from 'src/app/services/Admin/admin.service';
 import { AgentService } from 'src/app/services/Agent/agent.service';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { UserService } from 'src/app/services/User/user.service';
@@ -13,8 +13,11 @@ import { UserService } from 'src/app/services/User/user.service';
 export class AgenthomeComponent implements OnInit {
   agentName: string;
   companies: Company[] = [];
-  constructor(private userservice: UserService, private companyservice: CompanyService, private agentservice: AgentService) { }
+  constructor(private userservice: UserService, private companyservice: CompanyService, private agentservice: AgentService, private route : Router) { }
   ngOnInit(): void {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
       console.log(res);
       this.agentName = res.userName;

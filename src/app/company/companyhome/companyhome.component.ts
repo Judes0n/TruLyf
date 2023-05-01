@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/Company/company.service';
 import { UserService } from 'src/app/services/User/user.service';
 
@@ -10,10 +11,13 @@ import { UserService } from 'src/app/services/User/user.service';
 export class CompanyhomeComponent implements OnInit {
   companyName : string;
 
-  constructor(private userservice : UserService,private companyservice : CompanyService){}
+  constructor(private userservice : UserService,private companyservice : CompanyService,private route : Router){}
 
   ngOnInit()
   {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
       console.log(res);
       this.companyName = res.userName;

@@ -13,10 +13,13 @@ import { UserService } from 'src/app/services/User/user.service';
 export class AdminhomeComponent implements OnInit {
   users : User[] = [];
   adminname : string;
-  constructor(private userservice : UserService) { }
+  constructor(private userservice : UserService,private route : Router) { }
 
   ngOnInit()
   {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
       console.log(res);
       this.adminname = res.userName;

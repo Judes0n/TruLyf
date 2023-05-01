@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { StatusEnum } from 'src/app/enum/user-status-enum';
 import { Company } from 'src/app/models/company';
 import { Policy } from 'src/app/models/policy';
@@ -29,9 +30,12 @@ export class PoliciesComponent implements OnInit {
   fullperiod: number;
   terms: number[];
 
-  constructor(private adminservice: AdminService, private companyservice: CompanyService) { }
+  constructor(private adminservice: AdminService, private companyservice: CompanyService,private route : Router) { }
 
   ngOnInit(): void {
+    if (this.readSession('companyId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.policyForm = new FormGroup({
       companyId: new FormControl(null),
       policyTypeId: new FormControl(null, Validators.required),
@@ -79,8 +83,9 @@ export class PoliciesComponent implements OnInit {
       this.companyservice.AddPolicy(this.newpolicy);
       console.log(this.newpolicy);
       this.choice = 2;
+      this.ngOnInit();
     });
-    this.ngOnInit();
+
   }
 
   subTerms() {

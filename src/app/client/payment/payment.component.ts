@@ -20,8 +20,13 @@ export class PaymentComponent implements OnInit {
   a: boolean;
   amount: number;
   loaded: boolean = false;
+
   constructor(private acroute: ActivatedRoute, private clientservice: ClientService, private datePipe: DatePipe, private route: Router) { }
+
   async ngOnInit() {
+    if (this.readSession('clientId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.a = false;
     this.clientpolicyId = +this.acroute.snapshot.paramMap.get('clientpolicyId');
     this.amount = (await this.clientservice.GetTerm(this.clientpolicyId).toPromise()).premiumAmount;
@@ -33,6 +38,11 @@ export class PaymentComponent implements OnInit {
       amount: new FormControl(this.amount)
     });
     this.loaded = true;
+  }
+
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
   }
 
   expiryDateValidator(control) {

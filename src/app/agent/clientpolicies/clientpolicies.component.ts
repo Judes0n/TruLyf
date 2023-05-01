@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { error } from 'jquery';
 import { Agent } from 'src/app/models/agent';
 import { Client } from 'src/app/models/client';
@@ -22,9 +23,12 @@ export class ClientpoliciesComponent implements OnInit {
   clients: Client[];
   dataLoaded = false;
 
-  constructor(private agentservices: AgentService) { }
+  constructor(private agentservices: AgentService,private route : Router) { }
 
   async ngOnInit() {
+    if (this.readSession('agentId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     let agentId: number;
     this.dataLoaded = false;
     this.cpolicies = null;

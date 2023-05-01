@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Clientpolicy } from 'src/app/models/clientpolicy';
 import { Company } from 'src/app/models/company';
 import { Nominee } from 'src/app/models/nominee';
@@ -24,13 +24,18 @@ export class DetailsComponent implements OnInit {
   nominees: Nominee[];
   pterms: Policyterm[];
   showOverlay: boolean = false;
+  showVerify : boolean = false;
   con: boolean;
   agentId: number;
   referral: string;
   cpform: FormGroup;
-  constructor(private acroute: ActivatedRoute, private clientservice: ClientService, private datePipe: DatePipe) { }
+
+  constructor(private acroute: ActivatedRoute, private clientservice: ClientService, private datePipe: DatePipe, private route : Router) { }
 
   ngOnInit(): void {
+    if (this.readSession('clientId') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.showOverlay = false;
     this.con = false;
     this.types = this.companies = [];
@@ -78,6 +83,7 @@ export class DetailsComponent implements OnInit {
             this.referral = res.referral;
             this.agentId = res.agentId;
             this.con = true;
+            this.showOverlay = true;
           }
         }
       }
@@ -94,8 +100,8 @@ export class DetailsComponent implements OnInit {
     if (a != null) return a.companyName; else return "";
   }
 
-  toggleOverlay() {
-    this.showOverlay = !this.showOverlay;
+  toggleVerify() {
+    this.showVerify = !this.showVerify;
   }
 
   check(val: boolean): boolean {
@@ -104,12 +110,11 @@ export class DetailsComponent implements OnInit {
 
   set() {
     const expdate = new Date(this.cpform.get('startdate').value);
-    var _p = this.pterms.find(p => p.policyId == this.policyId);
+    var _p = this.pterms.find(p => p.policyTermId == this.cpform.get('pterm').value);
     var date = new Date(expdate.setMonth(expdate.getMonth() + _p.period));
     this.cpform.get('expdate').setValue(this.datePipe.transform(date, 'yyyy-MM-dd'));
     this.cpform.get('counter').setValue(_p.terms);
   }
-
   submit() {
     let cpolicy: Clientpolicy;
     cpolicy = {

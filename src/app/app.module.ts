@@ -37,6 +37,8 @@ import { PaymentComponent } from './client/payment/payment.component';
 import { DatePipe } from '@angular/common';
 import { ClientViewComponent } from './client/view/view.component';
 import { PenaltyComponent } from './client/penalty/penalty.component';
+import { NgxPrintModule } from 'ngx-print';
+import { DenialComponent } from './pages/denial/denial.component';
 
 
 @NgModule({
@@ -71,14 +73,16 @@ import { PenaltyComponent } from './client/penalty/penalty.component';
     DetailsComponent,
     PaymentComponent,
     ClientViewComponent,
-    PenaltyComponent
+    PenaltyComponent,
+    DenialComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPrintModule
 
   ],
   providers: [UserService,DatePipe],

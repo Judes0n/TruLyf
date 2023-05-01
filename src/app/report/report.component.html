@@ -3,11 +3,10 @@
     <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
-<h2 style="text-align: center;" *ngIf="usertype =='admin'">Admin Reports</h2>
-<h2 style="text-align: center;" *ngIf="usertype =='company'">Company Reports</h2>
-<h2 style="text-align: center;" *ngIf="usertype =='agent'">Agent Reports</h2>
-<h2 style="text-align: center;" *ngIf="usertype =='client'">Payment History</h2>
-
+<h2 style="text-align: center;" *ngIf="usertype =='admin'">Admin Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='company'">Company Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='agent'">Agent Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='client'">Payment History<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
 <div class="container-fluid" style=" display: flex;justify-content: center;" *ngIf="usertype =='admin'">
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -53,7 +52,7 @@
   </ul>
 </div>
 <!-- Admin -->
-<div class="container-fluid" *ngIf="choice == 1 &&(usertype =='admin' || usertype == 'company' )">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 1 &&(usertype =='admin' || usertype == 'company' )">
   <h3 class="mb-3" style="text-align: center;">Policies</h3>
   <table class="table table-secondary" *ngIf="policies&&policies.length">
     <thead>
@@ -83,7 +82,7 @@
     </tbody>
   </table>
 </div>
-<div class="container-fluid" *ngIf="choice == 2 && usertype == 'admin'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 2 && usertype == 'admin'">
   <h3 class="mb-3" style="text-align: center;">Users</h3>
   <table class="table table-secondary" *ngIf="users&&users.length">
     <thead>
@@ -108,7 +107,7 @@
     </tbody>
   </table>
 </div>
-<div class="container-fluid" *ngIf="choice == 3 && usertype =='admin'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 3 && usertype =='admin'">
   <h3 class="mb-3" style="text-align: center;">Maturities</h3>
   <table class="table table-secondary" *ngIf="maturities&&maturities.length">
     <thead>
@@ -129,7 +128,7 @@
     </tbody>
   </table>
 </div>
-<div class="container-fluid" *ngIf="choice == 4 && usertype == 'admin'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 4 && usertype == 'admin'">
   <h3 class="mb-3" style="text-align: center;">Client Deaths</h3>
   <table class="table table-secondary" *ngIf="clientdeaths && clientdeaths.length">
     <thead>
@@ -152,7 +151,7 @@
     </tbody>
   </table>
 </div>
-<div class="container-fluid" *ngIf="choice == 5 && usertype =='admin'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 5 && usertype =='admin'">
   <h3 class="mb-3" style="text-align: center;">Feedbacks</h3>
   <table class="table table-secondary" *ngIf="feedbacks&&feedbacks.length">
     <thead>
@@ -170,7 +169,7 @@
   </table>
 </div>
 <!-- Company -->
-<div class="container-fluid" *ngIf="choice == 2 && usertype =='company'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 2 && usertype =='company'">
   <h3 class="mb-3" style="text-align: center;">Agents</h3>
   <table class="table table-secondary" *ngIf="agents&&agents.length">
     <thead>
@@ -200,7 +199,7 @@
   </table>
 </div>
 
-<div class="container-fluid" *ngIf="choice == 3 && usertype =='company'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 3 && usertype =='company'">
   <h3 class="mb-3" style="text-align: center;">Client Policies</h3>
   <table class="table table-secondary" *ngIf="clientpolicies&&clientpolicies.length">
     <thead>
@@ -232,7 +231,7 @@
 
 <!-- Agents -->
 
-<div class="container-fluid" *ngIf="choice == 1 && usertype =='agent'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 1 && usertype =='agent'">
   <h3 class="mb-3" style="text-align: center;">Client Policies</h3>
   <table class="table table-secondary" *ngIf="clientpolicies&&clientpolicies.length">
     <thead>
@@ -261,7 +260,7 @@
     </tbody>
   </table>
 </div>
-<div class="container-fluid" *ngIf="choice == 2 && usertype =='agent'">
+<div id="printableContent" class="container-fluid" *ngIf="choice == 2 && usertype =='agent'">
   <h3 class="mb-3" style="text-align: center;">Payments</h3>
   <table class="table table-secondary" *ngIf="payments&&payments.length">
     <thead>
@@ -280,10 +279,10 @@
         <td>{{ payment.clientPolicyId }}</td>
         <td>{{ payment.transactionId }}</td>
         <td>{{ payment.time }}</td>
-        <td>{{ payment.amount }}</td>
+        <td>₹&nbsp;{{ payment.amount }}</td>
         <td *ngIf="payment.status == 0">Processing</td>
-        <td *ngIf="payment.status == 1">Successful</td>
-        <td *ngIf="payment.status == 2">Unsuccessful</td>
+        <td *ngIf="payment.status == 2">Successful</td>
+        <td *ngIf="payment.status == 1">Penalty</td>
       </tr>
     </tbody>
   </table>
@@ -291,7 +290,7 @@
 
 <!-- Client -->
 
-<div class="container-fluid" *ngIf="usertype =='client'">
+<div id="printableContent" class="container-fluid" *ngIf="usertype =='client'">
   <h3 class="mb-3" style="text-align: center;">Payments</h3>
   <table class="table table-secondary" *ngIf="payments&&payments.length">
     <thead>
@@ -310,10 +309,10 @@
         <td>{{ payment.clientPolicyId }}</td>
         <td>{{ payment.transactionId }}</td>
         <td>{{ payment.time }}</td>
-        <td>{{ payment.amount }}</td>
+        <td>₹&nbsp;{{ payment.amount }}</td>
         <td *ngIf="payment.status == 0">Processing</td>
-        <td *ngIf="payment.status == 1">Successful</td>
-        <td *ngIf="payment.status == 2">Unsuccessful</td>
+        <td *ngIf="payment.status == 1">Unsuccessful</td>
+        <td *ngIf="payment.status == 2">Successful</td>
       </tr>
     </tbody>
   </table>

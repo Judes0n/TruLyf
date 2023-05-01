@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Policytype } from 'src/app/models/policytype';
 import { AdminService } from 'src/app/services/Admin/admin.service';
 
@@ -11,9 +12,12 @@ import { AdminService } from 'src/app/services/Admin/admin.service';
 export class PolicytypesComponent implements OnInit {
   ptypes : Policytype[] = [];
   typeForm : FormGroup;
-  constructor(private adminservice : AdminService){ }
+  constructor(private adminservice : AdminService, private route : Router){ }
 
   ngOnInit(): void {
+    if (this.readSession('userID') == null) {
+      this.route.navigate(['/Denial']);
+    }
     this.typeForm = new FormGroup({
       typename : new FormControl(null,Validators.required)
     });
@@ -33,4 +37,8 @@ export class PolicytypesComponent implements OnInit {
     this.ngOnInit();
   }
 
+  readSession(key : string) : string
+  {
+    return sessionStorage.getItem(key);
+  }
 }
