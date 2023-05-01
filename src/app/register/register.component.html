@@ -83,7 +83,7 @@
 
           <div class="input-group mt-3">
             <span class="input-group-text"><i aria-hidden="true" class="fa fa-phone"></i></span>
-            <input class="form-control" type="text" placeholder="Phone Number" formControlName="phone" name="phone"
+            <input class="form-control" type="text" placeholder="Phone Number" formControlName="phone" name="phone" required
               [class.is-invalid]="regForm.get('phone').hasError('required') && (regForm.get('phone').touched || regForm.get('phone').dirty)">
           </div>
           <div class="form-text text-danger"
@@ -93,7 +93,7 @@
 
           <div class="input-group mt-3">
             <span class="input-group-text"><i aria-hidden="true" class="fa fa-address-card"></i></span>
-            <input class="form-control" type="text" placeholder="Address" formControlName="address" name="address"
+            <input class="form-control" type="text" placeholder="Address" formControlName="address" name="address" maxlength="50"
               [class.is-invalid]="regForm.get('address').hasError('required') && (regForm.get('address').touched || regForm.get('address').dirty)">
           </div>
           <div class="form-text text-danger"
@@ -116,7 +116,7 @@
           <div class="row mt-3" *ngIf="formOwner != '1'">
             <div class="col-sm-4 btn-check-label">Date of Birth:</div>
             <div class="col-sm-8">
-              <input class="form-control" type="date" formControlName="dob" name="dob" [class.is-invalid]="regForm.get('dob').hasError('required') && (regForm.get('dob').touched || regForm.get('dob').dirty)" >
+              <input class="form-control" type="date" formControlName="dob" name="dob" [max]="eligibleDate" [class.is-invalid]="(regForm.get('dob').hasError('required') )&& (regForm.get('dob').touched || regForm.get('dob').dirty)" >
             </div>
           </div>
           <div class="form-text text-danger"
@@ -130,18 +130,16 @@
               formControlName="upload">
           </div>
 
-          <div class="mt-4">
+          <div class="mt-4 mb-4">
             <input class="form-check-input mr-2" type="checkbox" id="cb1" formControlName="checkbox">
             <label class="form-check-label" for="cb1">I agree with terms and conditions</label>
           </div>
-
-          <input *ngIf=" this.formOwner=='1' else nocom" class="button" type="submit" value="Register"
+          <input *ngIf=" this.formOwner=='1'" class="button" type="submit" value="Register"
             style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
             [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
-          <ng-template #nocom>
-            <input class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
+            <input *ngIf="this.formOwner!='1'" class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
               [disabled]=" !(regForm.valid)" />
-          </ng-template>
+
 
         </form>
         <hr>

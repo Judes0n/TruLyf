@@ -6,6 +6,7 @@ import { Client } from '../models/client';
 import { Agent } from '../models/agent';
 import { Company } from '../models/company';
 import { StatusEnum } from '../enum/user-status-enum';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +18,9 @@ export class RegisterComponent implements OnInit {
   reguser: User;
   uploadFile: any;
   formOwner: string;
-  regForm: FormGroup =  new FormGroup({
+  eligibleDate : string;
+
+  regForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
     repassword: new FormControl(null, Validators.required),
@@ -26,16 +29,19 @@ export class RegisterComponent implements OnInit {
     type: new FormControl(null, Validators.required),
     gender: new FormControl(null, Validators.required),
     dob: new FormControl(null, Validators.required),
-    phone: new FormControl(null, Validators.required),
+    phone: new FormControl(null, [Validators.required]),
     address: new FormControl(null, Validators.required),
     checkbox: new FormControl(null, Validators.required),
     upload: new FormControl(null, Validators.required)
-  });;
-  constructor(private userservice: UserService, private renderer: Renderer2) { }
+  });
+  constructor(private userservice: UserService, private renderer: Renderer2, private datePipe : DatePipe) { }
 
   ngOnInit() {
     this.formOwner = '3';
     this.regForm.get('type').setValue(this.formOwner);
+    var currentDate = new Date();
+    currentDate.setFullYear(currentDate.getFullYear() - 18);
+    this.eligibleDate = this.datePipe.transform(currentDate,'yyyy-MM-dd');
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -43,16 +49,23 @@ export class RegisterComponent implements OnInit {
     const retypePassword = form.get('repassword');
     return password && retypePassword && password.value === retypePassword.value ? null : { passwordMismatch: true };
   }
+
   FileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      if (file.type == 'image/jpg' && file.size <= this.maxSize)
-        this.uploadFile = file;
-      // this.userservice.uploadFile(file);
-      else {
-        alert('Image Should be of Size Below 2MB \n of Format JPG Format');
+      const type: string = file.type;
+      if (!['image/jpg', 'image/jpeg', 'image/png'].includes(type)) {
+        alert('Image Should be of JPG or JPEG or PNG Format');
         this.regForm.get('upload').setValue('');
         this.uploadFile = null;
+      }
+      else if (file.size > this.maxSize) {
+        alert('Image Should be of Size Below 2MB ');
+        this.regForm.get('upload').setValue('');
+        this.uploadFile = null;
+      }
+      else {
+        this.uploadFile = file;
       }
     }
   }
@@ -82,7 +95,7 @@ export class RegisterComponent implements OnInit {
           email: this.regForm.get('email').value,
           status: StatusEnum.Inactive
         };
-        this.userservice.register(this.reguser, this.uploadFile,clientreq);
+        this.userservice.register(this.reguser, this.uploadFile, clientreq);
         break;
       }
       case "2": {
@@ -99,7 +112,7 @@ export class RegisterComponent implements OnInit {
           profilePic: "",
           status: StatusEnum.Inactive
         };
-        this.userservice.register(this.reguser, this.uploadFile,agentreq);
+        this.userservice.register(this.reguser, this.uploadFile, agentreq);
         break;
       }
       case "1": {
@@ -113,7 +126,7 @@ export class RegisterComponent implements OnInit {
           profilePic: "",
           status: StatusEnum.Inactive
         };
-        this.userservice.register(this.reguser, this.uploadFile,companyreq);
+        this.userservice.register(this.reguser, this.uploadFile, companyreq);
         break;
       }
     }
@@ -121,20 +134,21 @@ export class RegisterComponent implements OnInit {
 
   resetFormWhenTypeChanged(type: string) {
     if (type != this.regForm.get('type').value) {
-      this.regForm = new FormGroup({
-        username: new FormControl(null, Validators.required),
-        password: new FormControl(null, Validators.required),
-        repassword: new FormControl(null, Validators.required),
-        name: new FormControl(null, Validators.required),
-        email: new FormControl(null, [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]),
-        type: new FormControl(type, Validators.required),
-        gender: new FormControl(null, Validators.required),
-        checkbox: new FormControl(null, Validators.required),
-        upload: new FormControl(null, Validators.required)
-      });
+      this.regForm.get('username').setValue('');
+      this.regForm.get('password').setValue('');
+      this.regForm.get('repassword').setValue('');
+      this.regForm.get('name').setValue('');
+      this.regForm.get('email').setValue('');
+      this.regForm.get('gender').setValue('');
+      this.regForm.get('dob').setValue('');
+      this.regForm.get('phone').setValue('');
+      this.regForm.get('address').setValue('');
+      this.regForm.get('checkbox').setValue('');
+      this.regForm.get('upload').setValue('');
       this.formOwner = type;
       if (type == '1')
         this.regForm.get('gender').setValue('none');
     }
   }
+
 }
