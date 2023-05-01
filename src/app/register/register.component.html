@@ -83,7 +83,8 @@
 
           <div class="input-group mt-3">
             <span class="input-group-text"><i aria-hidden="true" class="fa fa-phone"></i></span>
-            <input class="form-control" type="text" placeholder="Phone Number" formControlName="phone" name="phone" required
+            <input class="form-control" type="text" placeholder="Phone Number" formControlName="phone" name="phone"
+              required
               [class.is-invalid]="regForm.get('phone').hasError('required') && (regForm.get('phone').touched || regForm.get('phone').dirty)">
           </div>
           <div class="form-text text-danger"
@@ -93,7 +94,8 @@
 
           <div class="input-group mt-3">
             <span class="input-group-text"><i aria-hidden="true" class="fa fa-address-card"></i></span>
-            <input class="form-control" type="text" placeholder="Address" formControlName="address" name="address" maxlength="50"
+            <input class="form-control" type="text" placeholder="Address" formControlName="address" name="address"
+              maxlength="50"
               [class.is-invalid]="regForm.get('address').hasError('required') && (regForm.get('address').touched || regForm.get('address').dirty)">
           </div>
           <div class="form-text text-danger"
@@ -103,8 +105,8 @@
 
           <div class="row mt-3" id="gen" *ngIf="formOwner != '1'">
             <div class="col-sm-4 btn-check-label">Gender:</div>
-            <div class="col-sm-8 btn-group "  >
-              <input class="btn-check" type="radio" formControlName="gender" value="Male" id="rd4" >
+            <div class="col-sm-8 btn-group ">
+              <input class="btn-check" type="radio" formControlName="gender" value="Male" id="rd4">
               <label for="rd4" class="btn btn-outline-primary">Male</label>
               <input class="btn-check" type="radio" formControlName="gender" value="Female" id="rd5">
               <label for="rd5" class="btn btn-outline-primary">Female</label>
@@ -116,18 +118,30 @@
           <div class="row mt-3" *ngIf="formOwner != '1'">
             <div class="col-sm-4 btn-check-label">Date of Birth:</div>
             <div class="col-sm-8">
-              <input class="form-control" type="date" formControlName="dob" name="dob" [max]="eligibleDate" [class.is-invalid]="(regForm.get('dob').hasError('required') )&& (regForm.get('dob').touched || regForm.get('dob').dirty)" >
+              <input class="form-control" type="date" formControlName="dob" name="dob" [max]="eligibleDate"
+                [class.is-invalid]="(regForm.get('dob').hasError('required') )&& (regForm.get('dob').touched || regForm.get('dob').dirty)">
             </div>
           </div>
           <div class="form-text text-danger"
-            *ngIf="(regForm.get('dob').hasError('required') && (regForm.get('dob').touched || regForm.get('dob').dirty))">
+            [class.hidden]="!(regForm.get('dob').hasError('required') && (regForm.get('dob').touched || regForm.get('dob').dirty))">
             Date of Birth Required!
           </div>
 
-          <div class="input-group mt-3">
-            <label class="input-group-text" for="pic">Profile Pic:</label>
-            <input class="form-control" id="pic" type="file" name="pic" (change)="FileChange($event)"
-              formControlName="upload">
+          <div class="row mt-3">
+            <label class="col-sm-4 btn-check-label" for="pic">Profile Pic:</label>
+            <div class="col-sm-8">
+              <input class="form-control"  id="pic" type="file" name="pic" (change)="FileChange($event)"
+                [class.is-invalid]="(uploadSizeError || uploadTypeError) || (regForm.get('upload').touched && regForm.get('upload').hasError('required')) "
+                formControlName="upload">
+            </div>
+          </div>
+          <div class="form-text text-danger"
+            [class.hidden]="!uploadTypeError">
+            Image should be of (JPG or JPEG or PNG Format)
+          </div>
+          <div class="form-text text-danger"
+            [class.hidden]="!uploadSizeError">
+            Image should be of size below 2MB
           </div>
 
           <div class="mt-4 mb-4">
@@ -137,8 +151,8 @@
           <input *ngIf=" this.formOwner=='1'" class="button" type="submit" value="Register"
             style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
             [disabled]="!regForm.valid && !regForm.get('gender').hasError('required')" />
-            <input *ngIf="this.formOwner!='1'" class="button" type="submit" value="Register" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"
-              [disabled]=" !(regForm.valid)" />
+          <input *ngIf="this.formOwner!='1'" class="button" type="submit" value="Register"
+            style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" [disabled]=" !(regForm.valid)" />
 
 
         </form>

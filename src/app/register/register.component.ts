@@ -18,8 +18,9 @@ export class RegisterComponent implements OnInit {
   reguser: User;
   uploadFile: any;
   formOwner: string;
-  eligibleDate : string;
-
+  eligibleDate: string;
+  uploadSizeError : boolean = false;
+  uploadTypeError : boolean = false;
   regForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
     password: new FormControl(null, Validators.required),
@@ -34,14 +35,14 @@ export class RegisterComponent implements OnInit {
     checkbox: new FormControl(null, Validators.required),
     upload: new FormControl(null, Validators.required)
   });
-  constructor(private userservice: UserService, private renderer: Renderer2, private datePipe : DatePipe) { }
+  constructor(private userservice: UserService, private renderer: Renderer2, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.formOwner = '3';
     this.regForm.get('type').setValue(this.formOwner);
     var currentDate = new Date();
     currentDate.setFullYear(currentDate.getFullYear() - 18);
-    this.eligibleDate = this.datePipe.transform(currentDate,'yyyy-MM-dd');
+    this.eligibleDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
   }
 
   passwordMatchValidator(form: FormGroup) {
@@ -55,16 +56,15 @@ export class RegisterComponent implements OnInit {
       const file = event.target.files[0];
       const type: string = file.type;
       if (!['image/jpg', 'image/jpeg', 'image/png'].includes(type)) {
-        alert('Image Should be of JPG or JPEG or PNG Format');
-        this.regForm.get('upload').setValue('');
-        this.uploadFile = null;
+       // alert('Image Should be of JPG or JPEG or PNG Format');
+       this.uploadTypeError = true;
       }
-      else if (file.size > this.maxSize) {
-        alert('Image Should be of Size Below 2MB ');
-        this.regForm.get('upload').setValue('');
-        this.uploadFile = null;
+      if (file.size > this.maxSize) {
+        //alert('Image Should be of Size Below 2MB ');
+        this.uploadSizeError = true;
       }
-      else {
+      if(['image/jpg', 'image/jpeg', 'image/png'].includes(type) && file.size < this.maxSize) {
+        this.uploadSizeError = this.uploadTypeError = false;
         this.uploadFile = file;
       }
     }
@@ -134,20 +134,23 @@ export class RegisterComponent implements OnInit {
 
   resetFormWhenTypeChanged(type: string) {
     if (type != this.regForm.get('type').value) {
-      this.regForm.get('username').setValue('');
-      this.regForm.get('password').setValue('');
-      this.regForm.get('repassword').setValue('');
-      this.regForm.get('name').setValue('');
-      this.regForm.get('email').setValue('');
-      this.regForm.get('gender').setValue('');
-      this.regForm.get('dob').setValue('');
-      this.regForm.get('phone').setValue('');
-      this.regForm.get('address').setValue('');
-      this.regForm.get('checkbox').setValue('');
-      this.regForm.get('upload').setValue('');
+      // this.regForm.get('username').setValue('');
+      // this.regForm.get('password').setValue('');
+      // this.regForm.get('repassword').setValue('');
+      // this.regForm.get('name').setValue('');
+      // this.regForm.get('email').setValue('');
+      // this.regForm.get('gender').setValue('');
+      // this.regForm.get('dob').setValue('');
+      // this.regForm.get('phone').setValue('');
+      // this.regForm.get('address').setValue('');
+      // this.regForm.get('checkbox').setValue('');
+      // this.regForm.get('upload').setValue('');
+      this.regForm.reset();
       this.formOwner = type;
-      if (type == '1')
+      if (type == '1') {
         this.regForm.get('gender').setValue('none');
+        this.regForm.get('dob').setValue('2023-1-1');
+      }
     }
   }
 

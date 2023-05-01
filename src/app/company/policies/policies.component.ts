@@ -49,7 +49,7 @@ export class PoliciesComponent implements OnInit {
     this.adminservice.ViewAllTypes().subscribe(res => {
       this.ptypes = res;
     });
-
+    this.policies = [];
     this.adminservice.ViewAllPolicies().subscribe(res => {
       res.forEach(p=>{
         if(p.status != 2)
