@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root',
 })
 export class UserService {
+
   constructor(private http: HttpClient, private router: Router) { }
 
   //Register
@@ -23,12 +24,12 @@ export class UserService {
     formData.append('pic', file);
     for (const key in userreq) {
       if (userreq.hasOwnProperty(key)) {
-        formData.append(key, userreq[key]);
+        formData.set(key, userreq[key]);
       }
     }
     for (const key in actor) {
       if (actor.hasOwnProperty(key)) {
-        formData.append(key, actor[key]);
+        formData.set(key, actor[key]);
       }
     }
 

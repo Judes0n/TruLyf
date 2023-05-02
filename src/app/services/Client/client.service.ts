@@ -132,6 +132,8 @@ export class ClientService {
     }
     if(penalty == 1)
       formData.append('penalty',penalty.toString());
+    else
+    formData.append('penalty',"0");
     return this.http.post<Payments>(environment.baseApiUrl + '/api/Client/makePayment', formData);
   }
   //POST END

@@ -16,14 +16,14 @@
               <h5 class="my-1">{{profileuser.userName}}</h5>
               <p class="text-muted mb-1">{{ usertype }}</p>
               <div class="d-flex justify-content-center mb-2">
-                <button *ngIf="!isEditable" (click)="Toggle()" type="button" class="btn btn-primary">Edit</button>
+                <button *ngIf="!isEditable" (click)="Toggle()" type="button" class="btn btn-primary">Change Credentials</button>
                 <button *ngIf="isEditable" type="submit" class="btn btn-outline-primary ms-1"
-                  [disabled]="this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value">Save</button>
+                  [disabled]="this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value">Save Changes</button>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-8" [class.p-5]="usertype !='admin'" >
+        <div class="col-lg-8" >
           <div class="card mb-4">
             <div class="card-body">
               <div class="row">
@@ -35,8 +35,8 @@
                   <input class="form-control" type="text" formControlName="username" [readOnly]="!isEditable">
                 </div>
               </div>
-              <hr>
-              <div class="row">
+              <hr *ngIf="isEditable">
+              <div class="row" *ngIf="isEditable">
                 <div class="col-sm-3">
                   <p class="mb-0">Password</p>
                 </div>
@@ -56,7 +56,188 @@
               <hr *ngIf="isEditable">
               <div style="color: red;"
                 *ngIf="isEditable&&(this.profileForm.get('confirmpassword').touched&&this.profileForm.get('confirmpassword').value != this.profileForm.get('password').value)">
-                Confirm Password is Required and Must be Matching with Password</div>
+                Confirm Password is Required and Must be Matching with Password
+              </div>
+              <!-- Client -->
+              <div id="Client" *ngIf="usertype == 'client'">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="client.clientName"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="client.email"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Gender</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="client.gender"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Date of Birth</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="client.dob"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" cols="20" rows="5" [value]="client.address"
+                      readOnly></textarea>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Phone Num</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="client.phoneNum"
+                      readOnly>
+                  </div>
+                </div>
+              </div>
+              <!-- Agent -->
+              <div id="Client" *ngIf="usertype == 'agent'">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="agent.agentName"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="agent.email"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Gender</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="agent.gender"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Date of Birth</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="agent.dob"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" cols="20" rows="5" [value]="agent.address"
+                      readOnly></textarea>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Phone Num</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="agent.phoneNum"
+                      readOnly>
+                  </div>
+                </div>
+              </div>
+              <!-- Company -->
+              <div id="Client" *ngIf="usertype == 'company'">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Name</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="company.companyName"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Email</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="company.email"
+                      readOnly>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Address</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" cols="20" rows="5" [value]="company.address"
+                      readOnly></textarea>
+                  </div>
+                </div>
+
+                <hr>
+                <div class="row">
+                  <div class="col-sm-3">
+                    <p class="mb-0">Phone Num</p>
+                  </div>
+                  <div class="col-sm-9">
+                    <input class="form-control" type="text" [value]="company.phoneNum"
+                      readOnly>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

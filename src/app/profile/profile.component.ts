@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   isEditable: boolean;
   profileuser: User;
   profilePic: SafeUrl;
-  loaded : boolean = false;
+  loaded: boolean = false;
 
   profileForm: FormGroup = new FormGroup({
     username: new FormControl(null, Validators.required),
@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
       this.setForm(u);
     });
     if (this.usertype == 'client') {
-      this.client =await this.clientservice.GetClientById(this.userid).toPromise();
+      this.client = await this.clientservice.GetClientById(this.userid).toPromise();
       this.profilePic = await this.Getimage(this.client.profilePic);
     }
     else if (this.usertype == 'agent') {
@@ -64,7 +64,6 @@ export class ProfileComponent implements OnInit {
   async setForm(user: User) {
     this.profileForm.get('username').setValue(user.userName);
     this.profileForm.get('password').setValue(user.password);
-
   }
 
   readSession(key: string): string {
@@ -85,12 +84,15 @@ export class ProfileComponent implements OnInit {
     };
     if (this.profileForm.get('confirmpassword').value == this.profileForm.get('password').value)
       this.userservice.UpdateUser(user).subscribe(res => {
-        if (res.userId > 0) {
+        if (res.userName == user.userName && res.password == user.password) {
+          alert("No Changes");
+        }
+        else if (res.userId > 0) {
           alert("Profile Updated!!");
           this.ngOnInit();
         }
-        else if(res.userId == 0) alert("Profile Updation Failed!!");
-        else if(res.userId == -1) alert("Username not avaialble!!");
+        else if (res.userId == 0) alert("Profile Updation Failed!!");
+        else if (res.userId == -1) alert("Username not avaialble!!");
       });
   }
 

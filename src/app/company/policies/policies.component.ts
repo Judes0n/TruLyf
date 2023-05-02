@@ -83,7 +83,7 @@ export class PoliciesComponent implements OnInit {
       this.companyservice.AddPolicy(this.newpolicy);
       console.log(this.newpolicy);
       this.choice = 2;
-      this.ngOnInit();
+      this.route.navigate(['/Home/Company']);
     });
 
   }

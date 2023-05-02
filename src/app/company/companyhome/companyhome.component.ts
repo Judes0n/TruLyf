@@ -9,24 +9,20 @@ import { UserService } from 'src/app/services/User/user.service';
   styleUrls: ['./companyhome.component.scss']
 })
 export class CompanyhomeComponent implements OnInit {
-  companyName : string;
+  companyName: string;
 
-  constructor(private userservice : UserService,private companyservice : CompanyService,private route : Router){}
+  constructor(private userservice: UserService, private companyservice: CompanyService, private route: Router) { }
 
-  ngOnInit()
-  {
+  ngOnInit() {
     if (this.readSession('userID') == null) {
       this.route.navigate(['/Denial']);
     }
-    this.userservice.GetUser(+this.readSession('userID')).subscribe(res=>{
-      console.log(res);
-      this.companyName = res.userName;
+    this.userservice.GetUser(+this.readSession('userID')).subscribe(res => {
     });
-    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp=>sessionStorage.setItem("companyId",resp.companyId.toString()));
+    this.companyservice.GetCompany(+this.readSession('userID')).subscribe(resp => { sessionStorage.setItem("companyId", resp.companyId.toString()); this.companyName = resp.companyName; });
   }
 
-  readSession(key : string) : string
-  {
+  readSession(key: string): string {
     return sessionStorage.getItem(key);
   }
 

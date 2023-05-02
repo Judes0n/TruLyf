@@ -21,19 +21,20 @@
         <div class="row clearfix">
           <div class="">
             <form [formGroup]="policyForm" (ngSubmit)="sub()">
-              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                <input type="text" name="name" placeholder="Policy Name" formControlName="policyName" />
-              </div>
-              <div class="form-text text-danger"
-                *ngIf="policyForm.get('policyName').hasError('required')&& (policyForm.get('policyName').touched ||policyForm.get('policyName').dirty )"
-                style="color: red">
-                Policy Name is Required
-              </div>
               Policy Type:
+              <div class="input_field">
               <select formControlName="policyTypeId">
                 <option selected="true" disabled="disabled">SELECT Policy Type</option>
                 <option *ngFor="let ptype of ptypes" [value]="ptype.policytypeId">{{ ptype.policytypeName }}</option>
               </select>
+              </div>
+              <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
+                <input type="text" name="name" placeholder="Policy Name" formControlName="policyName" />
+              </div>
+              <div class="text-danger"
+                *ngIf="policyForm.get('policyName').hasError('required')&& (policyForm.get('policyName').touched ||policyForm.get('policyName').dirty )">
+                Policy Name is Required
+              </div>
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field">

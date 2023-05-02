@@ -56,7 +56,6 @@
         <ng-template #company>
           <ng-container *ngIf="CheckUser()=='company' else agent">
             <a routerLink="/Company/Policies" routerLinkActive="active current" class="nav-item nav-link">Policies</a>
-            <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
             <div class="nav-item dropdown">
               <a routerLink="/Company/View/1" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Views</a>
               <div class="dropdown-menu border-light m-0">
@@ -64,6 +63,7 @@
                 <a routerLink="/Company/View/2" class="dropdown-item">Agents</a>
               </div>
             </div>
+            <a routerLink="/Reports" routerLinkActive="active current" class="nav-item nav-link">Reports</a>
           </ng-container>
         </ng-template>
         <!-- Agent Panel -->

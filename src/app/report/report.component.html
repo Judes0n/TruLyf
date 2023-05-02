@@ -3,10 +3,10 @@
     <!-- <h1 class="display-3 mb-4 animated slideInDown">Login</h1> -->
   </div>
 </div>
-<h2 style="text-align: center;" *ngIf="usertype =='admin'">Admin Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
-<h2 style="text-align: center;" *ngIf="usertype =='company'">Company Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
-<h2 style="text-align: center;" *ngIf="usertype =='agent'">Agent Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
-<h2 style="text-align: center;" *ngIf="usertype =='client'">Payment History<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh; "><i class="fa fa-print fa-2x" aria-hidden="true"></i></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='admin'">Admin Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh;"><i class="fa fa-print fa-2x" aria-hidden="true"></i><span style="font-size: 20px; margin-left: 5px;">Print Now</span></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='company'">Company Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh;"><i class="fa fa-print fa-2x" aria-hidden="true"></i><span style="font-size: 20px; margin-left: 5px;">Print Now</span></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='agent'">Agent Reports<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh;"><i class="fa fa-print fa-2x" aria-hidden="true"></i><span style="font-size: 20px; margin-left: 5px;">Print Now</span></a></h2>
+<h2 style="text-align: center;" *ngIf="usertype =='client'">Payment History<a class="btn btn-warning" title="Print" (click)="print()" style="margin-left: 2vh;"><i class="fa fa-print fa-2x" aria-hidden="true"></i><span style="font-size: 20px; margin-left: 5px;">Print Now</span></a></h2>
 <div class="container-fluid" style=" display: flex;justify-content: center;" *ngIf="usertype =='admin'">
   <ul class="nav nav-tabs">
     <li class="nav-item">
