@@ -12,6 +12,9 @@
             <div class="d-flex justify-content-center" *ngIf="usertype != 'admin' ">
               <img class="img-thumbnail" [src]="profilePic" style="height: 200px; width: auto;">
             </div>
+            <div class="d-flex justify-content-center m-1 p-1" *ngIf="usertype == 'admin' ">
+              <i style="font-size: 80px;" class="fa-solid fa-user-tie"></i>
+            </div>
             <div class="card-body text-center">
               <h5 class="my-1">{{profileuser.userName}}</h5>
               <p class="text-muted mb-1">{{ usertype }}</p>

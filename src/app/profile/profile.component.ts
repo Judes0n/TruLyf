@@ -86,6 +86,7 @@ export class ProfileComponent implements OnInit {
       this.userservice.UpdateUser(user).subscribe(res => {
         if (res.userName == user.userName && res.password == user.password) {
           alert("No Changes");
+          this.ngOnInit();
         }
         else if (res.userId > 0) {
           alert("Profile Updated!!");
